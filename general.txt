@@ -1,0 +1,65 @@
+mile stone
+    1. personal branding and stuff
+    2. boooking system adn stuff and selling prodducts and stuff
+    3. packages
+    4. toturial selling and stuff
+
+gotta figure out:
+    if its proffesional to have biography
+    showing videos and images without shouting for attention. 
+
+general explanation and considerations:
+    personal branding, booking cusotmers, proffesionality, selling products.
+    instagram link not in footer, mostly in a better place and more obvious
+
+theme:
+    luxury, deep, silent
+    orange, blue, black, white, gray
+    dark theme, light theme
+
+pages:
+    home
+        header video
+        side nav
+        top nav
+        footer
+        images and videos as background
+        (not yet)services
+        (not yet) wedding page demo
+        (now yet) product demo
+        (not yet) login / sign up
+        gallery(not definite)
+    login
+    sign up
+    wedding
+    booking
+    product
+
+functinalities:
+    q qr code to go straight to booking system. 
+    booking system
+        paying 500 if unknown customers
+        enter code and no need to pay
+        date and time and service all defined
+    sign up / login / logout:
+        full name
+        birth date
+        number
+        email(optional)
+    SMS services
+        sending code to approve number
+        sending booking updates and reminders
+    selling products
+
+later:
+    package selling
+    toturial videos
+
+what i want from customers
+     a video for background of website(high quality, proffesional filming)
+     pictures for work samples
+     picture of Omid Nik Mohammadi
+     pictures for backgrounds of website
+     services and their prices
+
+
