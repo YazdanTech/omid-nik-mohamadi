@@ -1,0 +1,60 @@
+.opacity {
+  opacity: 0;
+  transition: ease 1.2s;
+}
+
+.opacity.show {
+  opacity: 1;
+}
+
+.scale {
+  transform: scale(0.6);
+  transition: ease 1.2s;
+}
+.scale.show {
+  transform: scale(1);
+}
+
+.scale-reversed {
+  transform: scale(1.4);
+  transition: ease 1.2s;
+}
+.scale-reversed.show {
+  transform: scale(1);
+}
+
+.blur {
+  filter: blur(50px);
+  transition: ease 1.2s;
+}
+
+.blur.show {
+  filter: blur(0px);
+}
+
+.ltr {
+  transform: translate(-10rem);;
+  transition: ease 1.2s;
+}
+
+.ltr.show {
+  transform: none;
+}
+
+.h-line-scale {
+  transform: scale(0, 1);
+  transition: ease 1.2s;
+}
+
+.h-line-scale.show {
+  transform: scale(1);
+}
+
+.perspective {
+  transform: perspective(700px) rotateY(-90deg);
+  transition: ease 2s;
+}
+
+.perspective.show {
+  transform: none;
+}

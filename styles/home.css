@@ -1,0 +1,386 @@
+/* 
+   Base Reset
+ */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* 
+   Root Variables
+ */
+
+:root {
+    --overlay: rgba(0, 0, 0, 0.411);
+    --container-width: 1400px;
+    --transition-default: 0.6s ease;
+    --orange: #fc4103;
+    --orange-transparent: #fc410359;
+    --orange-light: #ff845c;
+    --dark-blue: #0F172A;
+    --dark-blue-transparent: #0F172A59;
+    --black: #0A0A0A;
+    --white: #cfcfcf;
+    --gray: #BFC1C2;
+    --gold: #C69B3C;
+}
+
+
+/* 
+   Global Styles
+ */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--black);
+    color: var(--white);
+    font-family: var(--font-primary);
+    font-weight: 100;
+    font-family: "League Spartan", sans-serif;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+}
+
+b {
+    font-weight: 500;
+}
+
+
+/* 
+   Header
+ */
+
+.site-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+
+/* 
+   Navigation
+ */
+
+.navbar {
+    position: fixed;
+    display: flex;
+    top: 0px;
+    right: 1rem;
+    left: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+}
+
+
+/* 
+   Brand Logo
+ */
+
+.brand-logo {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    border-radius: 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+/* 
+   Navigation Links
+ */
+
+.nav-links {
+    display: none;
+    list-style: none;
+    height: 3.8rem;
+    backdrop-filter: blur(6px);
+    z-index: 100000;
+    border-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(to right, var(--dark-blue), var(--orange)) 1;
+    padding: 0px 3rem;
+    transition: 1s all ease;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.678);
+    gap: 2rem;
+}
+
+.nav-links:hover {
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.678);
+}
+
+.nav-links a {
+    position: relative;
+    font-size: 0.9rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: var(--transition-default);
+}
+
+.nav-links a:hover {
+    color: var(--gray);
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 1px;
+    background-color: var(--orange);
+    transition: var(--transition-default);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+
+/* 
+   Hamburger Menu
+ */
+
+.menu-toggle {
+    width: 30px;
+    height: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu-toggle span {
+    width: 100%;
+    height: 1px;
+    background-color: var(--white);
+}
+
+
+/* 
+   Hero Section
+ */
+
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7rem 1.5rem 4rem;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.mobile-video {
+    display: block;
+}
+
+.desktop-video {
+    display: none;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: var(--overlay);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 750px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+@media screen and (min-width: 1024px) {
+    .mobile-video {
+        display: none;
+    }
+    .desktop-video {
+        display: block;
+    }
+}
+
+.header-logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* 
+   Hero Logo
+ */
+
+.hero-logo {
+    height: 78px;
+    transform: translate(3px, -4px)
+}
+
+
+/* 
+   Hero Heading
+ */
+
+.hero-content h1 {
+    font-size: 2.3rem;
+    font-weight: 300;
+    letter-spacing: 0rem;
+    text-transform: capitalize;
+    text-align: left;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+
+/* 
+   Hero Button
+ */
+
+.hero-button {
+    border: 1px solid var(--white);
+    padding: 0.9rem 2.2rem;
+    font-weight: 400;
+    margin: 2rem 0;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: var(--transition-default);
+    backdrop-filter: blur(5px);
+    animation: bookNow 2.5s alternate-reverse infinite;
+}
+
+.hero-button:hover {
+    background-color: rgba(255, 255, 255, 0.521);
+    color: var(--black);
+}
+
+@keyframes bookNow {
+    0% {
+        box-shadow: 0px 0px 20px var(--black);
+        border-color: var(--black);
+    }
+    100% {
+        box-shadow: 0px 0px 20px var(--black);
+        border-color: var(--white);
+    }
+}
+
+
+/* 
+   Hero Divider
+ */
+
+.hero-divider {
+    width: 120px;
+    height: 1px;
+    margin: 2rem 0;
+    background: linear-gradient(to right, transparent 0%, white 50%, transparent 100%)
+}
+
+
+/* 
+   Hero Description
+ */
+
+.hero-description {
+    max-width: 620px;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+
+/* 
+   Tablet
+ */
+
+@media screen and (min-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+    .nav-links {
+        display: flex;
+        justify-content: center;
+        background: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.6) 25%, rgba(0, 0, 0, 0.8) 50%, rgba(0, 0, 0, 0.6) 75%, transparent 100%);
+        align-items: center;
+    }
+    .hero-content h1 {
+        font-size: 4.6rem;
+        width: 60%;
+    }
+    .hero-description {
+        font-size: 0.95rem;
+    }
+    .hero-logo {
+        height: 170px;
+        transform: translate(11px, -5px)
+    }
+}
+
+
+/* 
+   Desktop
+ */
+
+@media screen and (min-width: 1200px) {
+    .hero-content h1 {
+        font-size: 4.8rem;
+    }
+    .hero-description {
+        font-size: 1rem;
+    }
+    .hero-logo {
+        height: 175px;
+        transform: translate(11px, -5px)
+    }
+}

@@ -1,0 +1,537 @@
+/* 
+   Services Section
+ */
+
+.services-section {
+    color: var(--color-white);
+    padding-top: 5rem;
+    padding-bottom: 10rem;
+    overflow: visible;
+
+
+        position: relative;
+
+    min-height: 100vh;
+}
+
+
+
+/* 
+   Hero Overlay
+ */
+
+.services-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background-color: var(--color-overlay);
+}
+
+@keyframes servicesScroll {
+
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+
+}
+
+
+/* 
+   Services Section
+ */
+
+.services-section {
+    position: relative;
+    overflow: visible;
+    background-color: var(--color-black);                   
+    
+    min-height: 100vh;
+
+    background-image: url("/assets/images/1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;;
+}
+
+
+/* 
+   Overlay
+ */
+
+.services-overlay {
+    position: absolute;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, 0.678);
+    backdrop-filter: blur(4px) grayscale(100%);
+
+    z-index: 1;
+}
+
+
+/* 
+   Content Above Video
+ */
+
+.section-heading,
+.services-grid-container {
+    position: relative;
+    overflow: visible;
+    z-index: 4;
+}
+
+
+
+/* 
+   Section Heading
+ */
+
+.section-heading {
+    width: 100%;
+
+    display: flex;
+    justify-content: left;
+
+    margin-bottom: 3rem;
+}
+
+
+/* 
+   Section Title
+ */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    z-index: 10;
+    padding-left: 1rem;
+
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.light-text {
+    font-size: 2rem;
+    font-weight: 100;
+}
+
+.bold-text {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+
+/* 
+   Services Grid
+ */
+
+.services-section {
+    overflow: visible;
+}
+
+.services-grid-container {
+    overflow-x: scroll;
+    overflow-y: visible;
+    scrollbar-width: none;    
+    -ms-overflow-style: none;
+}
+
+.services-grid-container::-webkit-scrollbar {
+    display: none;                /* Chrome, Safari */
+}
+
+.services-grid {
+    position: relative;
+    height: 200px;
+    display: flex;
+    gap: 0;
+    z-index: 29;
+    margin-bottom: 1rem;
+    flex-direction: row;
+    padding: 0.5rem;
+    flex-wrap: nowrap;
+
+    overflow: visible;
+    animation: servicesDesktopScroll alternate 15s infinite;
+
+}
+
+.services-grid-2 {
+    position: relative;
+    z-index: 29;
+    height: 200px;
+    display: flex;
+    gap: 0;
+    margin-bottom: 1rem;
+    flex-direction: row;
+    padding: 0.5rem;
+    flex-wrap: nowrap;
+
+    overflow: visible;
+    animation-delay: .4s;
+    animation: servicesDesktopScrollReverse alternate 15s infinite;
+    
+}
+
+.services-grid,
+.services-grid-2 {
+    width: max-content;
+}
+
+.all-services-container {
+    position: relative;
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 180px;
+    width: 180px;
+    align-items: center;
+    margin: 2rem auto;
+    animation: alternate infinite squareRotate 15s;
+}
+
+.all-services-container {
+    border: 1px solid transparent;
+}
+
+.all-services-container .box,
+.all-services-container,
+.all-servicess-container a, 
+.all-services-container .all-services {
+    transition: ease 2s all;
+}
+
+.all-services-container:hover {
+    background-color: var(--color-black);
+    border: 1px solid var(--color-white);
+    transition: ease 2s all;
+}
+
+.all-services-container:hover .box,
+.all-services-container:hover,
+.all-services-container:hover .all-services {
+    transform: scale(1.2) rotate(45deg);
+}
+
+@keyframes squareRotate {
+    from {
+        transform: rotate(45deg);
+    }
+    
+    to {
+        transform: rotate(405deg);
+    }
+}
+
+@keyframes squareRotateReverse {
+    from {
+        transform: rotate(405deg);
+    }
+    
+    to {
+        transform: rotate(45deg);
+    }
+}
+
+
+.all-services-container a {
+    z-index: 200;
+}
+
+.all-services-container .box {
+    background-color: var(--color-black);
+    width: 150px;
+    height: 150px;
+    border: 1px solid var(--color-white);
+    box-shadow: 0px 0px 25px var(--color-black);
+    transform: rotate(45deg);
+    z-index: 200;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.box .all-services {
+    animation: alternate infinite squareRotateReverse 15s;
+    z-index: 200;
+    font-size: 1.2rem;
+}
+
+.box .all-services h3 {
+    font-weight: 200;
+    z-index: 200;
+    transform: rotate(225deg);
+}
+
+
+/* 
+   Service Card
+ */
+
+.service-card {
+    position: relative;
+    border: 1px solid var(--color-white);
+    margin: 0 0.5rem ;
+    width: 200px;
+    height: 200px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    
+    background-color: #111111;
+    border: 1px solid var(--color-white);
+
+
+    transform: scale(1);
+    transition:
+        transform 0.6s ease,
+        box-shadow 0.6s ease;
+
+    z-index: 1;
+}
+
+
+@keyframes servicesPhoneScroll {
+
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(10%);
+    }
+
+}
+
+@keyframes servicesPhoneScroll2 {
+
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(10%);
+    }
+
+}
+
+/* Hover State */
+
+.service-card:hover {
+    transform: scale(1.08);
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.8);
+    z-index: 20;
+}
+
+.service-card:hover .service-image {
+    opacity: 90%;
+}
+
+/* Service Image */
+
+.service-image {
+    width: 100%;
+    height: 100%;
+    transform: scale(1.12);
+    object-fit: cover;
+    opacity: 70%;
+
+    transition: all 0.6s ease;
+}
+
+.service-card:hover .service-image {
+    transform: scale(1.0);
+}
+
+/* Service Overlay */
+
+.service-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: alternate-gradient(
+        to top,
+        rgba(0, 0, 0, 0.82),
+        rgba(0, 0, 0, 0.2)
+    );
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Service Name */
+
+.service-name {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: var(--color-white);
+    border: 1px solid transparent;
+    transition: ease 0.6s all;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    padding: 16px;
+}
+
+.service-card:hover .service-name {
+    box-shadow: 0px 5px 20px var(--color-black);
+    background-color: var(--color-black);
+    transform: scale(0.9) translate(0px, -3px);
+}
+
+.service-name h3 {
+    transition: ease 1s all;
+    z-index: 10;
+    font-size: 1.2rem;
+    letter-spacing: 0px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.service-card:hover h3 {
+    transform: scale(1);
+    transition: ease 0.6s all;
+  }
+
+
+/* Animations */
+
+@keyframes floatingText {
+
+    0% {
+        transform: translateX(-6px);
+    }
+
+    50% {
+        transform: translateX(6px);
+    }
+
+    100% {
+        transform: translateX(-6px);
+    }
+
+}
+
+@keyframes flashingHint {
+
+    0% {
+        opacity: 0.25;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.25;
+    }
+
+}
+
+
+/* Tablet */
+
+@media screen and (min-width: 768px) {
+
+    .services-section {
+        padding: 7rem 2rem;
+    }
+
+    .light-text,
+    .bold-text {
+        font-size: 3rem;
+    }
+
+    .services-grid {
+        gap: 1.5rem;
+    }
+
+    .service-card {
+        width: calc(50% - 0.75rem);
+    }
+
+    .service-name {
+        font-size: 1.5rem;
+    }
+
+}
+
+@keyframes servicesDesktopScroll {
+    
+    0% {
+        transform: translateX(-30%);
+    }
+    
+    100% {
+        transform: translateX(10%);
+    }   
+}
+
+@keyframes servicesDesktopScrollReverse {
+    
+    0% {
+        transform: translateX(10%);
+    }
+    
+    100% {
+        transform: translateX(-30%);
+    }   
+}
+        
+/* Desktop */
+
+@media screen and (min-width: 1200px) {
+
+    .services-grid {
+        gap: 1rem;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        animation: servicesDesktopScroll alternate 15s infinite;
+    }
+
+    .services-grid-2 {
+        animation: servicesDesktopScrollReverse alternate 15s infinite;
+
+    }
+
+    .service-card {
+        height: auto;
+        width: 500px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        flex: 0 0 auto;
+        
+    }
+/* 
+   Infinite Horizontal Scroll
+ */
+
+
+
+    .light-text,
+    .bold-text {
+        font-size: 4rem;
+    }
+
+    .service-name {
+        font-size: 1.3rem;
+    }
+
+    .service-hint {
+        font-size: 0.7rem;
+    }
+
+}
