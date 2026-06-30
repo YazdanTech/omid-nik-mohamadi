@@ -131,8 +131,8 @@ button {
     right: 0;
     z-index: 500;
     padding: 1.75rem 0;
-    transition: background var(--transition-default), padding var(--transition-default), border-color var(--transition-default);
-    border-bottom: 1px solid transparent;
+    transition: all var(--transition-default);
+    border: 1px solid transparent;
 }
 
 .site-header.is-scrolled {
@@ -140,7 +140,19 @@ button {
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     padding: 1.1rem 0;
-    border-bottom: 1px solid var(--border-color);
+    margin: 2.1rem 1.75rem;
+    border: 1px solid var(--border-color);
+
+    backdrop-filter: blur(6px);
+    border-image: linear-gradient(to right, var(--orange-transparent) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange-transparent) 100%) 1;
+    transition: 1s all ease;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.678);
+}
+
+.site-header.is-scrolled:hover {
+    border-image: linear-gradient(to right, var(--orange) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange) 100%) 1;
+    transition: 0.4s all ease;
+
 }
 
 .header-inner {
@@ -263,7 +275,7 @@ button {
 .side-nav.active .side-nav-panel {
     transform: translateX(0%);
     box-shadow: 0px 0px 40px black;
-    border-left: 1px solid var(--gold);
+    border-left: 1px solid var(--orange-transparent);
 }
 
 .side-nav-top {
@@ -286,7 +298,7 @@ button {
 
 .side-nav-brand-sub {
     font-family: var(--font-mono);
-    color: var(--gold);
+    color: var(--orange);
     font-size: 0.75rem;
 }
 
@@ -317,14 +329,14 @@ button {
 }
 
 .side-nav-link:hover {
-    color: var(--orange);
+    color: var(--gray);
     gap: 1.4rem;
 }
 
 .side-nav-link-index {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: var(--gold);
+    color: var(--orange);
 }
 
 .side-nav-bottom {
@@ -343,11 +355,12 @@ button {
     border-radius: var(--radius-sm);
     padding: 0.9rem 1.1rem;
     color: #fff;
-    transition: background var(--transition-default);
+    transition: all var(--transition-default);
 }
 
 .side-nav-book:hover {
-    background: var(--orange-transparent);
+    background: var(--dark-blue);
+    border: solid 1px var(--dark-blue-transparent)
 }
 
 .side-nav-book-en {
@@ -445,6 +458,13 @@ button {
     position: relative;
 }
 
+.portrait-panel-desktop {
+    display: none;
+}
+.portrait-panel-phone {
+    display: block;
+}
+
 .portrait-frame {
     width: 100%;
     overflow: hidden;
@@ -482,23 +502,33 @@ button {
 .craft-card {
     position: relative;
     aspect-ratio: 9 / 16;
-    border-radius: var(--radius-md);
     overflow: hidden;
-    background: #050505;
     cursor: pointer;
-    transition: transform var(--transition-default), border-radius var(--transition-default), box-shadow var(--transition-default), width var(--transition-default), height var(--transition-default);
+    transition: all var(--transition-default);
     will-change: transform;
+    border: 1px solid transparent;
+    border-image: linear-gradient(to bottom right, var(--orange-transparent) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange-transparent) 100%) 1;
+    box-shadow: 0px 15px 10px var(--orange-transparent);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.678);
+    
 }
 
 .craft-card:hover {
     transform: translateY(-0.3rem);
+    border-image: linear-gradient(to bottom right, var(--orange) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange) 100%) 1;
+
+    box-shadow: 0px 15px 15px black;
 }
 
 .craft-video {
     width: 100%;
+    filter: grayscale(0.7) brightness(40%);
     height: 100%;
     object-fit: cover;
     display: block;
+
+    
+
 }
 
 .craft-play {
@@ -758,11 +788,92 @@ button {
     letter-spacing: 0.05em;
 }
 
-@media (max-width: 900px) {
+@media screen and (min-width: 1100px) {
 
     
+    .hero-scroll-sequence {
+        position: relative;
+        height: 300vh;
+    }
+
+    .sticky-text-layer {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 0 1.5rem;
+        text-align: center;
+    }
+
+    .hero-text {
+        font-family: var(--font-display);
+        font-weight: 300;
+        font-size: clamp(1.9rem, 6vw, 4.6rem);
+        line-height: 1.15;
+        width: 100vh;
+        margin: 0;
+        color: var(--text-main);
+    }
+
+    .hero-text-inner {
+        display: inline-block;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .hero-text-inner.is-swapping {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+
+    .hero-scroll-cue {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.6rem;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        transition: opacity var(--transition-default);
+    }
+
+    .hero-scroll-cue-line {
+        width: 1px;
+        height: 2.5rem;
+        background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .scroll-content-layer {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-spacer {
+        height: 100vh;
+    }
+
+    .portrait-panel-desktop {
+        display: block;
+    }
+    .portrait-panel-phone {
+        display: none;
+    }
+
     .portrait-frame {
-        width: 50%;
+        width: 100%;
+        margin: 0 auto;
         overflow: hidden;
         position: relative;    
         box-shadow: 0 0 80px var(--bg-main);
@@ -772,18 +883,22 @@ button {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(to bottom, var(--bg-main) 0%, transparent 22%, transparent 78%, var(--bg-main) 100%);
         z-index: 2;
         pointer-events: none;
     }
 
     .portrait-frame img {
-        width: 50%;
-        height: 50%;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         object-position: center 20%;
         filter: grayscale(0.2) contrast(1.05);
     }
+
+}
+
+@media (max-width: 900px) {
+
 
     .the-craft {
         padding: 6.5rem 0 5rem;
@@ -851,3 +966,4 @@ button:focus-visible {
     outline: 1px solid var(--accent);
     outline-offset: 3px;
 }
+
