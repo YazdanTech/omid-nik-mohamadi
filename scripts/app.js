@@ -89,21 +89,43 @@
             heroTextInner.textContent = newText;
             heroTextInner.dataset.current = newText;
             heroTextInner.classList.remove('is-swapping');
-        }, 10);
+        }, 400);
     }
 
-    if ('IntersectionObserver' in window && portraitPanels.length) {
+if ('IntersectionObserver' in window && portraitPanels.length) {
+        var mobileMargin = '-130% 0px 20% 0px'; 
+        var desktopMargin = '-20% 0px -80% 0px'; 
+
+        // Store the original baseline text on load so we can revert back to it
+        var defaultHeroText = heroTextInner ? (heroTextInner.dataset.initial || heroTextInner.textContent.trim()) : '';
+        if (heroTextInner && !heroTextInner.dataset.initial) {
+            heroTextInner.dataset.initial = defaultHeroText;
+        }
+
+        var chosenMargin = (window.innerWidth >= 1100) ? desktopMargin : mobileMargin;
+
         var heroObserver = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
                     setHeroText(entry.target.dataset.portraitText);
+                } else {
+                    // Handle the exit event when scrolling back up on desktop
+                    if (window.innerWidth >= 1100) {
+                        var triggerLine = window.innerHeight * 0.2; // Matches your -20% top margin boundary
+                        
+                        // If the top of the image falls below the trigger line, we are scrolling UP
+                        if (entry.boundingClientRect.top > triggerLine) {
+                            setHeroText(defaultHeroText);
+                        }
+                    }
                 }
             });
         }, {
             root: null,
-            rootMargin: '-130% 0px 20% 0px',
+            rootMargin: chosenMargin,
             threshold: 0
         });
+
         portraitPanels.forEach(function (panel) {
             heroObserver.observe(panel);
         });

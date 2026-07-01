@@ -418,6 +418,7 @@ button {
 
 .hero-text-inner.is-swapping {
     opacity: 0;
+    color: var(--dark-blue);
     transform: scale(0.94);
 }
 
@@ -793,7 +794,7 @@ button {
     
     .hero-scroll-sequence {
         position: relative;
-        height: 300vh;
+        height: 500vh;
     }
 
     .sticky-text-layer {
