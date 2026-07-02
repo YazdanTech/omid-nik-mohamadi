@@ -58,17 +58,8 @@ body {
 
 body.no-scroll {
     overflow: hidden !important;
-    height: 100vh !important;
-    position: fixed !important;
-    width: 100% !important;
 }
 
-* {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000;
-    perspective: 1000;
-}
 
 img {
     max-width: 100%;
@@ -146,11 +137,12 @@ button {
 }
 
 .site-header.is-scrolled {
+
     background: var(--nav-bg);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     padding: 1.1rem 0;
-    margin: 2.1rem 1.75rem;
+    margin: 1.1rem 1.75rem;
     border: 1px solid var(--border-color);
 
     backdrop-filter: blur(6px);
@@ -497,7 +489,7 @@ button {
     height: 100%;
     object-fit: cover;
     object-position: center 20%;
-    filter: grayscale(0.2) contrast(1.05);
+    filter: grayscale(1) contrast(1.05);
 }
 
 .the-craft {
@@ -533,13 +525,10 @@ button {
 
 .craft-video {
     width: 100%;
-    filter: grayscale(0.7) brightness(40%);
+    filter: grayscale(1) brightness(40%);
     height: 100%;
-    object-fit: cover;
+    transition: all var(--transition-default);
     display: block;
-
-    
-
 }
 
 .craft-play {
@@ -564,6 +553,10 @@ button {
 .craft-card:hover .craft-play {
     transform: translate(-50%, -50%) scale(1.08);
     background: var(--orange-transparent);
+}
+
+.craft-card:hover .craft-video {
+    filter: grayscale(0) brightness(100%);
 }
 
 .craft-card-label {
@@ -597,6 +590,10 @@ button {
 .craft-card.is-expanded .craft-card-label {
     opacity: 0;
     pointer-events: none;
+}
+
+.craft-card.is-expanded .craft-video {
+    filter: grayscale(0) brightness(100%);
 }
 
 .craft-card-close {
