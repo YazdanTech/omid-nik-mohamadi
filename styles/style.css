@@ -57,7 +57,17 @@ body {
 }
 
 body.no-scroll {
-    overflow: hidden;
+    overflow: hidden !important;
+    height: 100vh !important;
+    position: fixed !important;
+    width: 100% !important;
+}
+
+* {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
 }
 
 img {
