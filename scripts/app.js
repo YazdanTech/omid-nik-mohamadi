@@ -91,30 +91,35 @@
             heroTextInner.classList.remove('is-swapping');
         }, 400);
     }
-
 if ('IntersectionObserver' in window && portraitPanels.length) {
         var mobileMargin = '-130% 0px 20% 0px'; 
         var desktopMargin = '-20% 0px -80% 0px'; 
 
-        // Store the original baseline text on load so we can revert back to it
         var defaultHeroText = heroTextInner ? (heroTextInner.dataset.initial || heroTextInner.textContent.trim()) : '';
         if (heroTextInner && !heroTextInner.dataset.initial) {
             heroTextInner.dataset.initial = defaultHeroText;
         }
 
-        var chosenMargin = (window.innerWidth >= 1100) ? desktopMargin : mobileMargin;
+        var isDesktop = window.innerWidth >= 1100;
+        var chosenMargin = isDesktop ? desktopMargin : mobileMargin;
 
         var heroObserver = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
+                // 1. Skip panels hidden via display:none on the current device
+                if (entry.target.offsetWidth === 0) return;
+
                 if (entry.isIntersecting) {
                     setHeroText(entry.target.dataset.portraitText);
                 } else {
-                    // Handle the exit event when scrolling back up on desktop
-                    if (window.innerWidth >= 1100) {
-                        var triggerLine = window.innerHeight * 0.2; // Matches your -20% top margin boundary
-                        
-                        // If the top of the image falls below the trigger line, we are scrolling UP
-                        if (entry.boundingClientRect.top > triggerLine) {
+                    // 2. Handle scroll-up text reversion for both devices cleanly
+                    if (isDesktop) {
+                        var desktopTriggerLine = window.innerHeight * 0.2; // Matches -20%
+                        if (entry.boundingClientRect.top > desktopTriggerLine) {
+                            setHeroText(defaultHeroText);
+                        }
+                    } else {
+                        var mobileTriggerLine = window.innerHeight * 1.3; // Matches -130%
+                        if (entry.boundingClientRect.top > mobileTriggerLine) {
                             setHeroText(defaultHeroText);
                         }
                     }
@@ -130,7 +135,7 @@ if ('IntersectionObserver' in window && portraitPanels.length) {
             heroObserver.observe(panel);
         });
     }
-
+    
     var videoOverlay = document.getElementById('videoOverlay');
     var craftCards = document.querySelectorAll('.craft-card');
     var activeCollapse = null;
