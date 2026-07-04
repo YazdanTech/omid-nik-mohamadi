@@ -4,10 +4,6 @@ mile stone
     3. packages
     4. toturial selling and stuff
 
-gotta figure out:
-    if its proffesional to have biography
-    showing videos and images without shouting for attention. 
-
 general explanation and considerations:
     personal branding, booking cusotmers, proffesionality, selling products.
     instagram link not in footer, mostly in a better place and more obvious
@@ -24,7 +20,7 @@ pages:
         top nav
         footer
         images and videos as background
-        (not yet)services
+        (not yet) services
         (not yet) wedding page demo
         (now yet) product demo
         (not yet) login / sign up
