@@ -202,3 +202,108 @@ if ('IntersectionObserver' in window && portraitPanels.length) {
         }
     });
 })();
+
+
+(function() {
+    'use strict';
+
+    const heroTextFirst = document.getElementById('heroTextFirst');
+    const heroTextSecond = document.getElementById('heroTextSecond');
+    const heroTextMeta = document.getElementById('heroTextMeta');
+    const heroTextMetaInner = document.querySelector('.hero-text-meta-inner');
+    const heroScrollCue = document.getElementById('heroScrollCue');
+    const portraitPanels = document.querySelectorAll('.portrait-panel');
+    const heroScrollSequence = document.querySelector('.hero-scroll-sequence');
+
+    let currentPortraitIndex = -1;
+
+    function updateHeroText(portraitIndex) {
+        if (currentPortraitIndex === portraitIndex) return;
+
+        currentPortraitIndex = portraitIndex;
+        const panel = portraitPanels[portraitIndex];
+        const metaText = panel?.dataset.portraitText || '';
+
+        // Fade out current text
+        heroTextFirst.classList.add('is-hidden');
+        heroTextSecond.classList.remove('is-visible');
+        heroScrollCue.classList.add('is-hidden');
+        heroTextMetaInner.classList.remove('is-visible');
+
+        // Transition after fade out
+        setTimeout(() => {
+            if (portraitIndex === 0) {
+                // First panel: show only "Omid"
+                heroTextFirst.classList.remove('is-hidden');
+                heroTextSecond.classList.remove('is-visible');
+            } else {
+                // Other panels: show "Mohammadi"
+                heroTextFirst.classList.add('is-hidden');
+                heroTextSecond.classList.add('is-visible');
+            }
+
+            // Update meta text
+            if (metaText) {
+                heroTextMetaInner.textContent = metaText;
+                heroTextMetaInner.classList.add('is-visible');
+            } else {
+                heroTextMetaInner.classList.remove('is-visible');
+            }
+        }, 600);
+    }
+
+    function handleScroll() {
+        const scrollProgress = window.scrollY;
+        const heroHeight = heroScrollSequence.offsetHeight;
+        const viewportHeight = window.innerHeight;
+
+        // Hide scroll cue after some scrolling
+        if (scrollProgress > viewportHeight * 0.3) {
+            heroScrollCue.classList.add('is-hidden');
+        } else {
+            heroScrollCue.classList.remove('is-hidden');
+        }
+
+        // Check which portrait panel is in view
+        portraitPanels.forEach((panel, index) => {
+            const panelRect = panel.getBoundingClientRect();
+            const panelCenter = panelRect.top + panelRect.height / 2;
+            const viewportCenter = viewportHeight / 2;
+
+            // If panel center is close to viewport center, update text
+            if (Math.abs(panelCenter - viewportCenter) < viewportHeight * 0.2) {
+                updateHeroText(index);
+            }
+        });
+    }
+
+    // Use IntersectionObserver for better performance
+    if ('IntersectionObserver' in window) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(portraitPanels).indexOf(entry.target);
+                    if (index !== -1) {
+                        updateHeroText(index);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        portraitPanels.forEach(panel => observer.observe(panel));
+    }
+
+    // Fallback scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Initial state
+    if (portraitPanels.length > 0) {
+        updateHeroText(0);
+    }
+})();

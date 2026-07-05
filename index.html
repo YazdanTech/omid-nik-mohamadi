@@ -55,40 +55,51 @@
 </div>
 
 <main id="top">
+<section class="hero-scroll-sequence" aria-label="Introduction">
+    <video class="hero-background-video" autoplay muted loop playsinline>
+        <source src="./assets/videos/main bg.mp4" type="video/mp4">
+    </video>
+    
+    <div class="hero-background-overlay"></div>
 
-  <section class="hero-scroll-sequence" aria-label="Introduction">
-    <div class="sticky-text-layer">
-      <h1 class="hero-text" id="heroText">
-        <span class="hero-text-inner">Omid Nik Mohamadi</span>
-      </h1>
-      <div class="hero-scroll-cue">
+    <div class="hero-text-container">
+        <h1 class="hero-text" id="heroText">
+            <span class="hero-text-first" id="heroTextFirst">Omid</span>
+            <span class="hero-text-divider"></span>
+            <span class="hero-text-second" id="heroTextSecond">Mohammadi</span>
+        </h1>
+        <div class="hero-text-meta" id="heroTextMeta">
+            <span class="hero-text-meta-inner"></span>
+        </div>
+    </div>
+
+    <div class="hero-scroll-cue" id="heroScrollCue">
         <span>Scroll</span>
         <span class="hero-scroll-cue-line"></span>
-      </div>
     </div>
+
     <div class="scroll-content-layer">
-      <div class="hero-spacer"></div>
-      <section class="portrait-panel portrait-panel-phone" data-portrait-text="Omid Nik Mohamadi">
-        <div class="portrait-frame">
-          <img src="./assets/images/omid-1.jpg" alt="Omid Nik Mohamadi, portrait one" loading="eager">
-        </div>
-      </section>
-      <section class="portrait-panel portrait-panel-phone" data-portrait-text="
-میکاپ آرتیست و هیر استایلیست با بیش از ۷ سال تجربه حرفه‌ای در صنعت زیبایی، مد و تبلیغات. دارای سابقه همکاری در پروژه‌های فشن، کمپین‌های تبلیغاتی و تولیدات تصویری در کنار مدل‌ها، بازیگران و خوانندگان.">
-        <div class="portrait-frame">
-          <img src="./assets/images/omid-2.jpg" alt="Omid Nik Mohamadi at work, portrait two" loading="lazy">
-        </div>
-      </section>
+        <div class="hero-spacer"></div>
+        
+        <section class="portrait-panel portrait-panel-phone" data-portrait-index="0" data-portrait-text="Creative Direction & Styling">
+            <div class="portrait-frame">
+                <img src="./assets/images/omid-1.jpg" alt="Omid Nik Mohammadi, portrait one" loading="eager">
+            </div>
+        </section>
 
-      <section class="portrait-panel portrait-panel-desktop" data-portrait-text="
-میکاپ آرتیست و هیر استایلیست با بیش از ۷ سال تجربه حرفه‌ای در صنعت زیبایی، مد و تبلیغات. دارای سابقه همکاری در پروژه‌های فشن، کمپین‌های تبلیغاتی و تولیدات تصویری در کنار مدل‌ها، بازیگران و خوانندگان.">
-        <div class="portrait-frame">
-          <img src="./assets/images/omid-2-desktop.png" alt="Omid Nik Mohamadi at work, portrait two" loading="lazy">
-        </div>
-      </section>
+        <section class="portrait-panel portrait-panel-phone" data-portrait-index="1" data-portrait-text="میکاپ آرتیست و هیر استایلیست با بیش از ۷ سال تجربه حرفه‌ای در صنعت زیبایی، مد و تبلیغات. دارای سابقه همکاری در پروژه‌های فشن، کمپین‌های تبلیغاتی و تولیدات تصویری در کنار مدل‌ها، بازیگران و خوانندگان.">
+            <div class="portrait-frame">
+                <img src="./assets/images/omid-2.jpg" alt="Omid Nik Mohammadi at work, portrait two" loading="lazy">
+            </div>
+        </section>
 
+        <section class="portrait-panel portrait-panel-desktop" data-portrait-index="2" data-portrait-text="میکاپ آرتیست و هیر استایلیست با بیش از ۷ سال تجربه حرفه‌ای در صنعت زیبایی، مد و تبلیغات. دارای سابقه همکاری در پروژه‌های فشن، کمپین‌های تبلیغاتی و تولیدات تصویری در کنار مدل‌ها، بازیگران و خوانندگان.">
+            <div class="portrait-frame">
+                <img src="./assets/images/omid-2-desktop.png" alt="Omid Nik Mohammadi at work, desktop" loading="lazy">
+            </div>
+        </section>
     </div>
-  </section>
+</section>
 
   <section class="the-craft" id="craft" aria-label="The Craft">
     <div class="container">
@@ -101,7 +112,7 @@
 
         <article class="craft-card" data-video-index="0">
           <video class="craft-video" playsinline muted loop preload="metadata" poster="" type="video/mp4">
-            <source src="./assets/videos/cool-4.mp4" type="video/mp4">
+            <source src="./assets/videos/cool 4.mp4"type="video/mp4">
           </video>
           <button class="craft-play" aria-label="Play video">
             <svg viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
@@ -111,7 +122,7 @@
 
         <article class="craft-card" data-video-index="1">
           <video class="craft-video" playsinline muted loop preload="metadata" poster="">
-            <source src="./assets/videos/cool-5.mp4" type="video/mp4">
+            <source src="./assets/videos/cool 5.mp4" type="video/mp4">
           </video>
           <button class="craft-play" aria-label="Play video">
             <svg viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
@@ -121,7 +132,7 @@
 
         <article class="craft-card" data-video-index="2">
           <video class="craft-video" playsinline muted loop preload="metadata" poster="">
-            <source src="./assets/videos/cool-6.mp4" type="video/mp4">
+            <source src="./assets/videos/cool 6.mp4" type="video/mp4">
           </video>
           <button class="craft-play" aria-label="Play video">
             <svg viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
