@@ -41,7 +41,6 @@ html {
 [data-theme="light"] {
     --bg-main: #F8F9FA;
     --text-main: #111111;
-    --bg-main: #cfcfcfab;
     --text-muted: #666666;
     --accent: var(--dark-blue);
     --nav-bg: rgba(248, 249, 250, 0.95);
@@ -423,12 +422,11 @@ button {
 .hero-text {
     font-family: var(--font-display);
     font-weight: 300;
-    font-size: clamp(1.9rem, 6vw, 4.6rem);
+    font-size: 4rem;
     line-height: 1.15;
-    max-width: 46rem;
-    z-index: -3;
+    max-width: 90%;
     margin: 0;
-    color: var(--text-main);
+    color: var(--white);
     letter-spacing: -0.01em;
 }
 
@@ -461,9 +459,9 @@ button {
 }
 
 .hero-text-meta {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     min-height: 1.5rem;
-    font-size: 0.95rem;
+    font-size: 1.5rem;
     color: var(--text-muted);
 }
 
@@ -558,7 +556,9 @@ button {
 
 .the-craft {
     padding: 9rem 0 7rem;
-
+    border-top: 1px solid var(--orange);
+    box-shadow: 0px 0px 70px var(--black);
+    position: relative;
     background-color: var(--bg-main);
 }
 
@@ -704,6 +704,7 @@ button {
 
 .signature-services {
     padding: 4rem 0 9rem;
+    position: relative;
     background-color: var(--bg-main);
 }
 
@@ -756,8 +757,8 @@ button {
 .site-footer {
     border-top: 1px solid var(--border-color);
     padding: 6rem 0 2rem;
-    
-    background-color: black;
+    position: relative;
+    background-color: var(--bg-main);
 }
 
 .footer-inner {
