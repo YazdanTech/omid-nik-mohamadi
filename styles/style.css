@@ -30,7 +30,7 @@ html {
     --text-main: var(--white);
     --text-muted: var(--gray);
     --accent: var(--orange);
-    --nav-bg: rgba(10, 10, 10, 0.95);
+    --nav-bg: rgba(10, 10, 10, 0.699);
     --border-color: rgba(255, 255, 255, 0.05);
 
     --font-display: 'Fraunces', Georgia, serif;
@@ -43,7 +43,7 @@ html {
     --text-main: #111111;
     --text-muted: #666666;
     --accent: var(--dark-blue);
-    --nav-bg: rgba(248, 249, 250, 0.95);
+    --nav-bg: rgba(248, 249, 250, 0.699);
     --border-color: rgba(0, 0, 0, 0.08);
 }
 
@@ -379,6 +379,84 @@ button {
 
 .side-nav-social:hover {
     color: #fff;
+}
+
+/* side social */
+
+.side-social {
+    position: fixed;
+    left: 1.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem 0.75rem;
+    background: var(--nav-bg);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid transparent;
+    border-image: linear-gradient(to bottom, var(--orange-transparent) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange-transparent) 100%) 1;
+    box-shadow: 0px 0px 15px var(--dark-blue);
+    transition: 1s border-image ease, 0.8s transform cubic-bezier(0.16, 1, 0.3, 1), 0.8s opacity ease;
+}
+
+.side-social.is-idle {
+    transform: translateY(-50%) translateX(-80%); 
+    opacity: 0.3; 
+}
+
+.side-social.is-idle:hover {
+    transform: translateY(-50%) translateX(0);
+    opacity: 1;
+}
+
+.side-social:hover {
+    border-image: linear-gradient(to bottom, var(--orange) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange) 100%) 1;
+    transition: 0.4s all ease;
+}
+
+.social-item {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    transition: border-color var(--transition-default), color var(--transition-default), transform var(--transition-default);
+}
+
+.social-item svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    transition: transform var(--transition-default);
+}
+
+.social-item:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: scale(1.05);
+}
+
+.social-item:hover svg {
+    transform: rotate(5deg);
+}
+
+/* Responsive considerations: Optional hide on small screens if layout conflicts */
+@media (max-width: 768px) {
+    .side-social {
+        left: 1rem;
+        padding: 1rem 0.5rem;
+        gap: 1rem;
+    }
+    
+    .social-item {
+        width: 2.2rem;
+        height: 2.2rem;
+    }
 }
 
 .hero-scroll-sequence {

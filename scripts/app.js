@@ -306,3 +306,25 @@
         }
     });
 })();
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sideSocial = document.querySelector('.side-social');
+    let scrollTimeout;
+
+    // Time in milliseconds before the element hides after scroll stops
+    const idleDelay = 1200; 
+
+    window.addEventListener('scroll', () => {
+        // User is moving: instantly restore default position
+        sideSocial.classList.remove('is-idle');
+
+        // Reset the timer on every scroll tick
+        clearTimeout(scrollTimeout);
+
+        // Initiate the slow slide out once scrolling activity ceases
+        scrollTimeout = setTimeout(() => {
+            sideSocial.classList.add('is-idle');
+        }, idleDelay);
+    });
+});
