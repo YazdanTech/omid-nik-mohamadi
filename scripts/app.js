@@ -328,3 +328,63 @@ document.addEventListener('DOMContentLoaded', () => {
         }, idleDelay);
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const fadeVideos = document.querySelectorAll('.hero-background-video');
+    const fadeText = document.querySelector('.hero-text-container');
+    
+    // CHANGE THIS SELECTOR to the class or ID of your next section (e.g., '.the-craft' or '#wedding')
+    const triggerElement = document.querySelector('.the-craft'); 
+
+    if (!triggerElement) return;
+
+    window.addEventListener('scroll', () => {
+        const rect = triggerElement.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+
+        // rect.top is the distance from the top of the viewport to the target element.
+        // When rect.top == vh, the element is at the very bottom of the screen.
+        // When rect.top == 0, the element has reached the very top of the screen.
+
+        // ==========================================
+        // CONFIGURATION: ADJUST TIMINGS HERE
+        // ==========================================
+        // Video starts fading when trigger is at 100% vh (bottom), vanishes when trigger reaches 40% vh
+        let videoOpacity = (rect.top - (vh * 0.4)) / (vh - (vh * 0.4));
+        
+        // Text starts fading later when trigger is at 80% vh, vanishes when trigger reaches 10% vh
+        let textOpacity = (rect.top - (vh * 0.1)) / ((vh * 0.8) - (vh * 0.1));
+
+        // Clamp video values between 0 and 1
+        if (videoOpacity < 0) videoOpacity = 0;
+        if (videoOpacity > 1) videoOpacity = 1;
+
+        // Clamp text values between 0 and 1
+        if (textOpacity < 0) textOpacity = 0;
+        if (textOpacity > 1) textOpacity = 1;
+
+        // ==========================================
+        // EXECUTE VIDEO STATES
+        // ==========================================
+        fadeVideos.forEach(video => {
+            video.style.opacity = videoOpacity;
+            if (videoOpacity === 0) {
+                video.classList.add('is-hidden');
+            } else {
+                video.classList.remove('is-hidden');
+            }
+        });
+
+        // ==========================================
+        // EXECUTE TEXT STATES
+        // ==========================================
+        if (fadeText) {
+            fadeText.style.opacity = textOpacity;
+            if (textOpacity === 0) {
+                fadeText.classList.add('is-hidden');
+            } else {
+                fadeText.classList.remove('is-hidden');
+            }
+        }
+    });
+});
