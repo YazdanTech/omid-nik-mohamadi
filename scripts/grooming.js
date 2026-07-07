@@ -1,190 +1,154 @@
-document.addEventListener('DOMContentLoaded', () => {
-    initScrollAnimations();
-    initInfiniteGallery();
-    initBookingModal();
-    initMultiStepWizard();
-});
+(function () {
+    'use strict';
 
-/**
- * Scroll Mechanics: Threshold Visibility Reveals
- */
-function initScrollAnimations() {
-    const items = document.querySelectorAll('.scroll-reveal');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    items.forEach(item => observer.observe(item));
-}
-
-/**
- * 3-Row Dynamic Micro-Scrolling Showcase Architecture
- */
-function initInfiniteGallery() {
-    const tracks = document.querySelectorAll('.grooming-gallery__track');
-    
-    tracks.forEach(track => {
-        const strip = track.querySelector('.grooming-gallery__strip');
-        // Duplicate structural nodes to handle visual stitching seamlessly
-        const duplicate = strip.cloneNode(true);
-        track.appendChild(duplicate);
-
-        let speed = 0.8;
-        let currentX = 0;
-        const isLeft = track.classList.contains('grooming-gallery__track--left');
-        
-        function renderTimeline() {
-            if (isLeft) {
-                currentX -= speed;
-                if (Math.abs(currentX) >= strip.offsetWidth) {
-                    currentX = 0;
-                }
-            } else {
-                currentX += speed;
-                if (currentX >= 0) {
-                    currentX = -strip.offsetWidth;
-                }
-            }
-            
-            track.style.transform = `translateX(${currentX}px)`;
-            requestAnimationFrame(renderTimeline);
-        }
-        
-        if (!isLeft) {
-            // Set initial layout position for right-moving tracks
-            currentX = -strip.offsetWidth;
-        }
-        
-        renderTimeline();
-    });
-}
-
-/**
- * Modal Framework Interception Setup
- */
-function initBookingModal() {
-    const modal = document.getElementById('authModal');
-    const triggers = document.querySelectorAll('.js-trigger-booking');
-    const closeElements = document.querySelectorAll('.js-close-modal');
-
-    triggers.forEach(btn => {
-        btn.addEventListener('click', () => {
-            modal.classList.add('active');
-            document.body.classList.add('no-scroll');
-        });
-    });
-
-    closeElements.forEach(el => {
-        el.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.classList.remove('no-scroll');
-        });
-    });
-
-    // Handle structural tab updates between logic models
-    const tabSignIn = document.getElementById('tabSignIn');
-    const tabSignUp = document.getElementById('tabSignUp');
-    const formSignIn = document.getElementById('formSignIn');
-    const wizardSignUp = document.getElementById('wizardSignUp');
-
-    tabSignIn.addEventListener('click', () => {
-        tabSignIn.classList.add('active');
-        tabSignUp.classList.remove('active');
-        formSignIn.classList.remove('hidden');
-        wizardSignUp.classList.add('hidden');
-    });
-
-    tabSignUp.addEventListener('click', () => {
-        tabSignUp.classList.add('active');
-        tabSignIn.classList.remove('active');
-        wizardSignUp.classList.remove('hidden');
-        formSignIn.classList.add('hidden');
-    });
-}
-
-/**
- * Progressive Multi-Stage Setup System Logic
- */
-function initMultiStepWizard() {
-    let activeStep = 1;
-    const totalSteps = 3;
-    
-    const wizard = document.getElementById('wizardSignUp');
-    const nextButtons = wizard.querySelectorAll('.js-wizard-next');
-    const prevButtons = wizard.querySelectorAll('.js-wizard-prev');
-    const progressBar = wizard.querySelector('.wizard-progress__bar');
-    const stepNumberDisplay = document.getElementById('currentStepNum');
-
-    function syncWizardView() {
-        const steps = wizard.querySelectorAll('.wizard-step');
-        steps.forEach(step => {
-            if (parseInt(step.dataset.step) === activeStep) {
-                step.classList.remove('hidden');
-            } else {
-                step.classList.add('hidden');
-            }
-        });
-
-        // Compute fluid structural bar alignment properties
-        const percentage = (activeStep / totalSteps) * 100;
-        progressBar.style.setProperty('--wizard-progress', `${percentage}%`);
-        stepNumberDisplay.textContent = activeStep;
-    }
-
-    nextButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const currentStepEl = wizard.querySelector(`.wizard-step[data-step="${activeStep}"]`);
-            const inputs = currentStepEl.querySelectorAll('input');
-            
-            // Validate data constraints prior to moving forward
-            let valid = true;
-            inputs.forEach(input => {
-                if (!input.checkValidity()) {
-                    input.reportValidity();
-                    valid = false;
+    var revealEls = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window && revealEls.length) {
+        var revealObserver = new IntersectionObserver(function (entries, obs) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    obs.unobserve(entry.target);
                 }
             });
+        }, { threshold: 0.15 });
+        revealEls.forEach(function (el) {
+            revealObserver.observe(el);
+        });
+    } else {
+        revealEls.forEach(function (el) {
+            el.classList.add('is-visible');
+        });
+    }
 
-            if (valid && activeStep < totalSteps) {
-                activeStep++;
-                syncWizardView();
+    var video = document.getElementById('groomingVideo');
+    var videoToggle = document.getElementById('groomingVideoToggle');
+    if (video && videoToggle) {
+        var playIcon = videoToggle.querySelector('.grooming-video__icon--play');
+        var pauseIcon = videoToggle.querySelector('.grooming-video__icon--pause');
+
+        videoToggle.addEventListener('click', function () {
+            if (video.paused) {
+                video.muted = false;
+                var playPromise = video.play();
+                if (playPromise && playPromise.catch) {
+                    playPromise.catch(function () {});
+                }
+            } else {
+                video.pause();
             }
         });
-    });
 
-    prevButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (activeStep > 1) {
-                activeStep--;
-                syncWizardView();
-            }
+        video.addEventListener('play', function () {
+            playIcon.hidden = true;
+            pauseIcon.hidden = false;
+            videoToggle.setAttribute('aria-label', 'Pause package guide video');
         });
-    });
 
-    // Step 3 submission event hook
-    const activationBtn = wizard.querySelector('.id-activation-trigger');
-    activationBtn.addEventListener('click', (e) => {
-        const otpInput = document.getElementById('regOTP');
-        if (otpInput.checkValidity()) {
-            e.preventDefault();
-            activationBtn.textContent = "Verifying Client Access...";
-            setTimeout(() => {
-                alert("Client profile validated. Welcome to the Atelier.");
-                document.getElementById('authModal').classList.remove('active');
-                document.body.classList.remove('no-scroll');
-                activationBtn.textContent = "Complete Activation";
-            }, 1500);
-        } else {
-            otpInput.reportValidity();
+        video.addEventListener('pause', function () {
+            playIcon.hidden = false;
+            pauseIcon.hidden = true;
+            videoToggle.setAttribute('aria-label', 'Play package guide video');
+        });
+    }
+
+    var rows = document.querySelectorAll('.grooming-gallery__row');
+    rows.forEach(function (row) {
+        var track = row.querySelector('[data-track]');
+        if (!track) {
+            return;
         }
+
+        var direction = row.getAttribute('data-direction') === 'right' ? 1 : -1;
+        var speed = 0.4;
+        var isPaused = false;
+        var isDragging = false;
+        var dragStartX = 0;
+        var dragStartScroll = 0;
+        var halfWidth = track.scrollWidth / 2;
+
+        if (direction === -1) {
+            track.scrollLeft = halfWidth;
+        } else {
+            track.scrollLeft = 0;
+        }
+
+        function normalizeScroll() {
+            if (track.scrollLeft >= halfWidth * 2 - 1) {
+                track.scrollLeft = track.scrollLeft - halfWidth;
+            } else if (track.scrollLeft <= 0) {
+                track.scrollLeft = track.scrollLeft + halfWidth;
+            }
+        }
+
+        function step() {
+            if (!isPaused && !isDragging && !prefersReducedMotion) {
+                track.scrollLeft += speed * direction;
+                normalizeScroll();
+            }
+            requestAnimationFrame(step);
+        }
+
+        row.addEventListener('mouseenter', function () {
+            isPaused = true;
+        });
+
+        row.addEventListener('mouseleave', function () {
+            isPaused = false;
+        });
+
+        track.addEventListener('pointerdown', function (e) {
+            isDragging = true;
+            isPaused = true;
+            dragStartX = e.clientX;
+            dragStartScroll = track.scrollLeft;
+            track.setPointerCapture(e.pointerId);
+        });
+
+        track.addEventListener('pointermove', function (e) {
+            if (!isDragging) {
+                return;
+            }
+            var delta = e.clientX - dragStartX;
+            track.scrollLeft = dragStartScroll - delta;
+        });
+
+        function endDrag() {
+            if (!isDragging) {
+                return;
+            }
+            isDragging = false;
+            normalizeScroll();
+            setTimeout(function () {
+                isPaused = false;
+            }, 1200);
+        }
+
+        track.addEventListener('pointerup', endDrag);
+        track.addEventListener('pointercancel', endDrag);
+
+        track.addEventListener('scroll', function () {
+            if (!isDragging) {
+                return;
+            }
+            halfWidth = track.scrollWidth / 2;
+        });
+
+        requestAnimationFrame(step);
     });
-}
+
+    document.querySelectorAll('.grooming-package-card__cta').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var packageName = button.getAttribute('data-package') || 'this package';
+            button.textContent = 'Reserved';
+            button.classList.add('grooming-package-card__cta--confirmed');
+            button.disabled = true;
+            window.setTimeout(function () {
+                button.textContent = 'Reserve';
+                button.classList.remove('grooming-package-card__cta--confirmed');
+                button.disabled = false;
+            }, 2600);
+        });
+    });
+})();

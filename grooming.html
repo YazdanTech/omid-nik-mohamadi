@@ -1,224 +1,283 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-theme="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura & Edge | Premium Grooming Atelier</title>
-    <meta name="description" content="Experience high-end bespoke grooming packages, artisan cuts, and meticulous styling designed for your life's monumental moments.">
-    <meta name="keywords" content="premium barber, luxury grooming, hair styling, bespoke haircut, wedding groom styling">
-    <meta property="og:title" content="Aura & Edge | Premium Grooming Atelier">
-    <meta property="og:description" content="Impeccable structural cuts and bespoke treatments engineered for modern perfection.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=1200">
-    <meta property="og:type" content="website">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="./styles/style.css">
-    <link rel="stylesheet" href="./styles/grooming.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400&family=Manrope:wght@300;400;600&family=Space+Mono&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grooming Packages — Omid Nik Mohammadi</title>
+<meta name="description" content="Signature grooming packages by Omid Nik Mohammadi. Precision haircuts, beard sculpting, and wedding-day rituals, booked as complete experiences.">
+<link rel="canonical" href="https://omidnikmohammadi.com/grooming">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Grooming Packages — Omid Nik Mohammadi">
+<meta property="og:description" content="Signature grooming packages by Omid Nik Mohammadi. Precision haircuts, beard sculpting, and wedding-day rituals, booked as complete experiences.">
+<meta property="og:image" content="https://picsum.photos/seed/omid-grooming-og/1200/630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Manrope:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles/grooming.css">
+<link rel="stylesheet" href="./styles/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Barber Grooming Package",
+  "provider": {
+    "@type": "Person",
+    "name": "Omid Nik Mohammadi"
+  },
+  "areaServed": "Local",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Signature Grooming Packages",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "The Classic Gentleman" },
+        "price": "85",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "The Executive Groom" },
+        "price": "140",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "The Wedding Day Ritual" },
+        "price": "260",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "The Full Signature Experience" },
+        "price": "340",
+        "priceCurrency": "USD"
+      }
+    ]
+  }
+}
+</script>
 </head>
 <body>
 
-    <main class="grooming-wrapper">
-        
-        <!-- Section 1: Hero Heading -->
-        <header class="grooming-hero scroll-reveal">
-            <h1 class="grooming-hero__title">Grooming Services</h1>
-            <p class="grooming-hero__subtitle">Architectural lines. Bespoke execution. Engineered for the modern vanguard.</p>
-        </header>
+  
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#top" class="brand">OMID</a>
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
+        <span class="theme-toggle-dot"></span>
+      </button>
 
-        <!-- Section 2: Package Guide Video -->
-        <section class="grooming-showcase scroll-reveal">
-            <div class="grooming-video-container">
-                <div class="grooming-video-container__layer" style="background-image: url('https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&q=80&w=1400');"></div>
-                <div class="grooming-video-container__overlay"></div>
-                <button class="grooming-video-container__play-btn" aria-label="Play Cinematic Experience Guide">
-                    <span class="grooming-video-container__play-icon"></span>
-                </button>
-                <div class="grooming-video-container__caption">The Atelier Ritual — A Visual Overview</div>
-            </div>
-        </section>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">
+        <span class="menu-toggle-line"></span>
+        <span class="menu-toggle-line"></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-        <!-- Section 3: Work Samples Infinite Rows -->
-        <section class="grooming-gallery">
-            <div class="grooming-gallery__track grooming-gallery__track--left">
-                <div class="grooming-gallery__strip">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&q=80&w=400" alt="Bespoke Textured Crop">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1605497746444-ac9da58d440f?auto=format&fit=crop&q=80&w=400" alt="Classic Pompadour Modern Blend">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=400" alt="Precision Taper Fade">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&q=80&w=400" alt="Sculpted Beard Contour">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1517832606589-7a598b647192?auto=format&fit=crop&q=80&w=400" alt="Executive Razor Shave">
-                </div>
-            </div>
-            <div class="grooming-gallery__track grooming-gallery__track--right">
-                <div class="grooming-gallery__strip">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&q=80&w=400" alt="Sharp Hairline Framing">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1512864084360-7c0c4d0a0845?auto=format&fit=crop&q=80&w=400" alt="Low Fade Undercut">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&q=80&w=400" alt="Hot Towel Infusion Ritual">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1534346738546-a7c1e3a24f2e?auto=format&fit=crop&q=80&w=400" alt="Artisan Scissors Sculpting">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1634480256802-7cb5b451f99a?auto=format&fit=crop&q=80&w=400" alt="Textured Quiff Execution">
-                </div>
-            </div>
-            <div class="grooming-gallery__track grooming-gallery__track--left">
-                <div class="grooming-gallery__strip">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&q=80&w=400" alt="Beard Nourishment Application">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&q=80&w=400" alt="Premium Burst Fade">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&q=80&w=400" alt="Slick-Back High Taper">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=400" alt="Traditional Straight Razor Line">
-                    <img class="grooming-gallery__img" src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=400" alt="Atelier Style Finish">
-                </div>
-            </div>
-        </section>
+<div class="side-nav" id="sideNav">
+  <div class="side-nav-overlay" id="sideNavOverlay"></div>
+  <nav class="side-nav-panel" aria-label="Primary">
+    <div class="side-nav-top">
+      <div class="side-nav-brand">
+        <span class="side-nav-brand-name">Omid Nik Mohamadi</span>
+        <span class="side-nav-brand-sub" lang="fa" dir="rtl"> امید نیک محمدی</span>
+      </div>
+      <button class="side-nav-close" id="sideNavClose" aria-label="Close navigation menu">&times;</button>
+    </div>
+    <ul class="side-nav-links">
+      <li><a href="#top" class="side-nav-link" data-nav-link><span class="side-nav-link-index">01</span>Home</a></li>
+      <li><a href="#craft" class="side-nav-link" data-nav-link><span class="side-nav-link-index">02</span>The Craft</a></li>
+      <li><a href="#services" class="side-nav-link" data-nav-link><span class="side-nav-link-index">03</span>Services</a></li>
+      <li><a href="#contact" class="side-nav-link" data-nav-link><span class="side-nav-link-index">04</span>Contact</a></li>
+    </ul>
+    <div class="side-nav-bottom">
+      <a href="#contact" class="side-nav-book" data-nav-link>
+        <span lang="fa" dir="rtl">رزرو نوبت</span>
+        <span class="side-nav-book-en">Book an Appointment</span>
+      </a>
+      <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </nav>
+</div>
 
-        <!-- Section 4: Packages Canvas -->
-        <section class="grooming-packages">
-            <div class="grooming-packages__grid">
-                
-                <!-- Package 1 -->
-                <article class="package-card scroll-reveal">
-                    <div class="package-card__bg" style="background-image: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=800');"></div>
-                    <div class="package-card__overlay"></div>
-                    <div class="package-card__content">
-                        <h3 class="package-card__title">The Sovereign Cut</h3>
-                        <p class="package-card__desc">A detailed refinement of form, proportion, and texture designed to highlight your facial features.</p>
-                        <ul class="package-card__list">
-                            <li class="package-card__item">Anatomical Profile Analysis</li>
-                            <li class="package-card__item">Artisan Shear Sculpting & Taper</li>
-                            <li class="package-card__item">Essential Essential Oil Wash & Scalp Massage</li>
-                        </ul>
-                        <div class="package-card__footer">
-                            <div class="package-card__price">$85</div>
-                            <button class="package-card__btn js-trigger-booking" data-package="Sovereign Cut">Book Selection</button>
-                        </div>
-                    </div>
-                </article>
+<main class="grooming">
 
-                <!-- Package 2 -->
-                <article class="package-card scroll-reveal">
-                    <div class="package-card__bg" style="background-image: url('https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&q=80&w=800');"></div>
-                    <div class="package-card__overlay"></div>
-                    <div class="package-card__content">
-                        <h3 class="package-card__title">The Vanguard Ritual</h3>
-                        <p class="package-card__desc">A complete sensory experience blending modern style with classic straight-razor care.</p>
-                        <ul class="package-card__list">
-                            <li class="package-card__item">Sovereign Structural Haircut</li>
-                            <li class="package-card__item">Hot Towel Infusion & Botanical Cleanse</li>
-                            <li class="package-card__item">Straight Razor Beard Detailing & Steam Treatment</li>
-                        </ul>
-                        <div class="package-card__footer">
-                            <div class="package-card__price">$150</div>
-                            <button class="package-card__btn js-trigger-booking" data-package="Vanguard Ritual">Book Selection</button>
-                        </div>
-                    </div>
-                </article>
+  <section class="grooming-hero" aria-label="Grooming packages introduction">
+    <div class="grooming-hero__inner">
+      <span class="grooming-hero__eyebrow" data-reveal>Signature Grooming</span>
+      <h1 class="grooming-hero__title" data-reveal>
+        Packages built for the man who does not repeat himself.
+      </h1>
+      <p class="grooming-hero__lede" data-reveal>
+        Every package is a complete ritual, not a menu item. Choose the one that matches the day ahead, and let the rest take care of itself.
+      </p>
+    </div>
+  </section>
 
-                <!-- Package 3 -->
-                <article class="package-card scroll-reveal">
-                    <div class="package-card__bg" style="background-image: url('https://images.unsplash.com/photo-1517832606589-7a598b647192?auto=format&fit=crop&q=80&w=800');"></div>
-                    <div class="package-card__overlay"></div>
-                    <div class="package-card__content">
-                        <h3 class="package-card__title">The Monumental Tier</h3>
-                        <p class="package-card__desc">An elite, comprehensive personal grooming routine engineered for major events and weddings.</p>
-                        <ul class="package-card__list">
-                            <li class="package-card__item">Full Style Consultation & Hair/Beard Design</li>
-                            <li class="package-card__item">Exfoliating Facial Detox & Eye Mask Refresh</li>
-                            <li class="package-card__item">Hand Artisan Styling, Product Education & Fine Cologne Tuning</li>
-                        </ul>
-                        <div class="package-card__footer">
-                            <div class="package-card__price">$260</div>
-                            <button class="package-card__btn js-trigger-booking" data-package="Monumental Tier">Book Selection</button>
-                        </div>
-                    </div>
-                </article>
+  <section class="grooming-video" aria-label="Package guide video">
+    <div class="grooming-video__frame" data-reveal>
+      <video class="grooming-video__player" id="groomingVideo" playsinline muted loop preload="metadata" poster="https://picsum.photos/seed/omid-video-poster/1600/900">
+        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+      </video>
+      <button class="grooming-video__toggle" id="groomingVideoToggle" type="button" aria-label="Play package guide video">
+        <svg class="grooming-video__icon grooming-video__icon--play" viewBox="0 0 24 24" width="22" height="22"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <svg class="grooming-video__icon grooming-video__icon--pause" viewBox="0 0 24 24" width="22" height="22" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor"/></svg>
+      </button>
+      <span class="grooming-video__caption">A short walkthrough of what each package includes</span>
+    </div>
+  </section>
 
-            </div>
-        </section>
-
-        <!-- Section 5: Psychological Text -->
-        <footer class="grooming-footer scroll-reveal">
-            <h2 class="grooming-footer__text">Have the luxurious look on your most important day of life.</h2>
-        </footer>
-
-    </main>
-
-    <!-- Booking Authentication Overlays -->
-    <div class="booking-modal" id="authModal" aria-hidden="true">
-        <div class="booking-modal__backdrop js-close-modal"></div>
-        <div class="booking-modal__shell">
-            <button class="booking-modal__close js-close-modal" aria-label="Close modal">✕</button>
-            
-            <div class="auth-box">
-                <div class="auth-box__tabs">
-                    <button class="auth-box__tab active" id="tabSignIn">Sign In</button>
-                    <button class="auth-box__tab" id="tabSignUp">New Client Registration</button>
-                </div>
-
-                <!-- Sign In Module -->
-                <form class="auth-form" id="formSignIn">
-                    <h4 class="auth-form__title">Welcome Back to the Atelier</h4>
-                    <div class="auth-form__group">
-                        <label class="auth-form__label">Email or Mobile Number</label>
-                        <input type="text" class="auth-form__input" placeholder="e.g., name@domain.com or +1..." required autocomplete="username">
-                    </div>
-                    <button type="submit" class="auth-form__submit">Secure Log In</button>
-                </form>
-
-                <!-- Progressive Multi-Step Sign-Up Wizard -->
-                <div class="auth-wizard hidden" id="wizardSignUp">
-                    <div class="wizard-progress">
-                        <div class="wizard-progress__bar" style="--wizard-progress: 33.3%;"></div>
-                        <span class="wizard-progress__indicator">Step <span id="currentStepNum">1</span> of 3</span>
-                    </div>
-
-                    <!-- Wizard Step 1 -->
-                    <div class="wizard-step" data-step="1">
-                        <h4 class="auth-form__title">Identity Registration</h4>
-                        <div class="auth-form__group">
-                            <label class="auth-form__label">Full Legal Name</label>
-                            <input type="text" id="regName" class="auth-form__input" placeholder="Johnathan Doe" required autocomplete="name">
-                        </div>
-                        <div class="auth-form__group">
-                            <label class="auth-form__label">Birth Date</label>
-                            <input type="date" id="regBirth" class="auth-form__input" required>
-                        </div>
-                        <button type="button" class="auth-form__submit js-wizard-next">Continue Setup</button>
-                    </div>
-
-                    <!-- Wizard Step 2 -->
-                    <div class="wizard-step hidden" data-step="2">
-                        <h4 class="auth-form__title">Secure Contact Access</h4>
-                        <div class="auth-form__group">
-                            <label class="auth-form__label">Mobile Phone Number</label>
-                            <input type="tel" id="regPhone" class="auth-form__input" placeholder="+1 (555) 000-0000" required autocomplete="tel">
-                        </div>
-                        <div class="auth-form__group">
-                            <label class="auth-form__label">Email Address <span class="auth-form__label--optional">(Optional)</span></label>
-                            <input type="email" id="regEmail" class="auth-form__input" placeholder="client@luxury.com" autocomplete="email">
-                        </div>
-                        <div class="wizard-step__actions">
-                            <button type="button" class="auth-form__back js-wizard-prev">Back</button>
-                            <button type="button" class="auth-form__submit js-wizard-next">Request Secure Code</button>
-                        </div>
-                    </div>
-
-                    <!-- Wizard Step 3 -->
-                    <div class="wizard-step hidden" data-step="3">
-                        <h4 class="auth-form__title">Identity Verification</h4>
-                        <p class="auth-form__hint">Enter the 6-digit verification code sent via SMS to your secure mobile device.</p>
-                        <div class="auth-form__group">
-                            <label class="auth-form__label">Verification Token</label>
-                            <input type="text" id="regOTP" class="auth-form__input auth-form__input--otp" placeholder="000000" maxlength="6" inputmode="numeric" pattern="[0-9]{6}" required autocomplete="one-time-code">
-                        </div>
-                        <div class="wizard-step__actions">
-                            <button type="button" class="auth-form__back js-wizard-prev">Back</button>
-                            <button type="button" class="auth-form__submit id-activation-trigger">Complete Activation</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+  <section class="grooming-gallery" aria-label="Grooming work samples">
+    <div class="grooming-gallery__heading" data-reveal>
+      <span class="grooming-gallery__eyebrow">The Work</span>
+      <h2 class="grooming-gallery__title">A quiet record of finished looks</h2>
     </div>
 
+    <div class="grooming-gallery__row" data-direction="left">
+      <div class="grooming-gallery__track" data-track>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-01/480/600" alt="Grooming work sample one" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-02/480/600" alt="Grooming work sample two" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-03/480/600" alt="Grooming work sample three" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-04/480/600" alt="Grooming work sample four" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-05/480/600" alt="Grooming work sample five" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-01/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-02/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-03/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-04/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-05/480/600" alt="" loading="lazy"></div>
+      </div>
+    </div>
+
+    <div class="grooming-gallery__row" data-direction="right">
+      <div class="grooming-gallery__track" data-track>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-06/480/600" alt="Grooming work sample six" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-07/480/600" alt="Grooming work sample seven" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-08/480/600" alt="Grooming work sample eight" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-09/480/600" alt="Grooming work sample nine" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-10/480/600" alt="Grooming work sample ten" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-06/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-07/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-08/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-09/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-10/480/600" alt="" loading="lazy"></div>
+      </div>
+    </div>
+
+    <div class="grooming-gallery__row" data-direction="left">
+      <div class="grooming-gallery__track" data-track>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-11/480/600" alt="Grooming work sample eleven" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-12/480/600" alt="Grooming work sample twelve" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-13/480/600" alt="Grooming work sample thirteen" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-14/480/600" alt="Grooming work sample fourteen" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-15/480/600" alt="Grooming work sample fifteen" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-11/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-12/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-13/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-14/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img src="https://picsum.photos/seed/groom-work-15/480/600" alt="" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grooming-packages" aria-label="Premium grooming packages">
+    <div class="grooming-packages__heading" data-reveal>
+      <span class="grooming-packages__eyebrow">Reserve a Package</span>
+      <h2 class="grooming-packages__title">Four ways to arrive looking finished</h2>
+    </div>
+
+    <div class="grooming-packages__grid">
+
+      <article class="grooming-package-card" data-reveal itemscope itemtype="https://schema.org/Service">
+        <img class="grooming-package-card__media" src="https://picsum.photos/seed/package-classic/800/1000" alt="" loading="lazy">
+        <div class="grooming-package-card__overlay"></div>
+        <div class="grooming-package-card__body">
+          <h3 class="grooming-package-card__title" itemprop="name">The Classic Gentleman</h3>
+          <p class="grooming-package-card__desc">A disciplined haircut and shape-up, delivered with the quiet precision of a first appointment done right.</p>
+          <ul class="grooming-package-card__list">
+            <li class="grooming-package-card__list-item">Precision haircut &amp; taper</li>
+            <li class="grooming-package-card__list-item">Beard line-up</li>
+            <li class="grooming-package-card__list-item">Hot towel finish</li>
+          </ul>
+          <div class="grooming-package-card__footer">
+            <span class="grooming-package-card__price"><span class="grooming-package-card__price-currency">$</span>85</span>
+            <button class="grooming-package-card__cta" type="button" data-package="The Classic Gentleman">Reserve</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="grooming-package-card" data-reveal itemscope itemtype="https://schema.org/Service">
+        <img class="grooming-package-card__media" src="https://picsum.photos/seed/package-executive/800/1000" alt="" loading="lazy">
+        <div class="grooming-package-card__overlay"></div>
+        <div class="grooming-package-card__body">
+          <h3 class="grooming-package-card__title" itemprop="name">The Executive Groom</h3>
+          <p class="grooming-package-card__desc">For the calendar that moves fast. A complete refresh built to hold its shape through back-to-back meetings.</p>
+          <ul class="grooming-package-card__list">
+            <li class="grooming-package-card__list-item">Signature haircut</li>
+            <li class="grooming-package-card__list-item">Beard sculpting &amp; design</li>
+            <li class="grooming-package-card__list-item">Scalp treatment</li>
+            <li class="grooming-package-card__list-item">Straight razor finish</li>
+          </ul>
+          <div class="grooming-package-card__footer">
+            <span class="grooming-package-card__price"><span class="grooming-package-card__price-currency">$</span>140</span>
+            <button class="grooming-package-card__cta" type="button" data-package="The Executive Groom">Reserve</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="grooming-package-card" data-reveal itemscope itemtype="https://schema.org/Service">
+        <img class="grooming-package-card__media" src="https://picsum.photos/seed/package-wedding/800/1000" alt="" loading="lazy">
+        <div class="grooming-package-card__overlay"></div>
+        <div class="grooming-package-card__body">
+          <h3 class="grooming-package-card__title" itemprop="name">The Wedding Day Ritual</h3>
+          <p class="grooming-package-card__desc">A slower, longer session timed for the morning of. Built so every photograph holds up years later.</p>
+          <ul class="grooming-package-card__list">
+            <li class="grooming-package-card__list-item">Trial consultation</li>
+            <li class="grooming-package-card__list-item">Wedding-day haircut</li>
+            <li class="grooming-package-card__list-item">Beard sculpting &amp; design</li>
+            <li class="grooming-package-card__list-item">Classic hot towel shave</li>
+            <li class="grooming-package-card__list-item">On-site touch-up kit</li>
+          </ul>
+          <div class="grooming-package-card__footer">
+            <span class="grooming-package-card__price"><span class="grooming-package-card__price-currency">$</span>260</span>
+            <button class="grooming-package-card__cta" type="button" data-package="The Wedding Day Ritual">Reserve</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="grooming-package-card" data-reveal itemscope itemtype="https://schema.org/Service">
+        <img class="grooming-package-card__media" src="https://picsum.photos/seed/package-signature/800/1000" alt="" loading="lazy">
+        <div class="grooming-package-card__overlay"></div>
+        <div class="grooming-package-card__body">
+          <h3 class="grooming-package-card__title" itemprop="name">The Full Signature Experience</h3>
+          <p class="grooming-package-card__desc">Everything, in one sitting. The complete range of the craft, reserved for the days that matter most.</p>
+          <ul class="grooming-package-card__list">
+            <li class="grooming-package-card__list-item">Full consultation &amp; styling plan</li>
+            <li class="grooming-package-card__list-item">Signature haircut</li>
+            <li class="grooming-package-card__list-item">Beard sculpting &amp; design</li>
+            <li class="grooming-package-card__list-item">Scalp &amp; hair treatment</li>
+            <li class="grooming-package-card__list-item">Straight razor shave</li>
+            <li class="grooming-package-card__list-item">Hot towel ritual</li>
+          </ul>
+          <div class="grooming-package-card__footer">
+            <span class="grooming-package-card__price"><span class="grooming-package-card__price-currency">$</span>340</span>
+            <button class="grooming-package-card__cta" type="button" data-package="The Full Signature Experience">Reserve</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="grooming-signoff" aria-label="Closing statement">
+    <p class="grooming-signoff__text" data-reveal>Have the luxurious look on your most important day of life.</p>
+  </section>
+
+</main>
+ 
     <script src="./scripts/app.js"></script>
     <script src="./scripts/grooming.js"></script>
 </body>
