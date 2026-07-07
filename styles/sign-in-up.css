@@ -615,7 +615,7 @@ input {
 }
 
 /* Media Query - Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
+/* @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
@@ -629,4 +629,4 @@ input {
 .auth__otp-input:focus-visible,
 a:focus-visible,
 button:focus-visible {
-}
+} */
