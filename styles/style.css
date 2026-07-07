@@ -28,6 +28,7 @@ html {
 
     --bg-main: var(--black);
     --text-main: var(--white);
+    --text-main-reverse: var(--black);
     --text-muted: var(--gray);
     --accent: var(--orange);
     --nav-bg: rgba(10, 10, 10, 0.699);
@@ -42,6 +43,7 @@ html {
     --bg-main: #F8F9FA;
     --text-main: #111111;
     --text-muted: #666666;
+    --text-main-reverse: var(--white);
     --accent: var(--dark-blue);
     --nav-bg: rgba(248, 249, 250, 0.699);
     --border-color: rgba(0, 0, 0, 0.08);
@@ -512,7 +514,7 @@ button {
 .hero-text {
     font-family: var(--font-display);
     font-weight: 300;
-    font-size: 4rem;
+    font-size: 3rem;
     line-height: 1.15;
     max-width: 90%;
     margin: 0 auto;
@@ -551,7 +553,7 @@ button {
 .hero-text-meta {
     margin-top: 0.3rem;
     min-height: 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: var(--text-muted);
 }
 
