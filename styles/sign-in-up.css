@@ -620,7 +620,7 @@ input {
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
     }
-}
+} */
 
 .auth__theme-toggle:focus-visible,
 .auth__tab:focus-visible,
@@ -629,4 +629,4 @@ input {
 .auth__otp-input:focus-visible,
 a:focus-visible,
 button:focus-visible {
-} */
+}
