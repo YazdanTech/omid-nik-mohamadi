@@ -15,6 +15,7 @@
 }
 
 .grooming-hero {
+    margin-top: 10vh;
     padding-block: 5rem 3rem;
     padding-inline: 1.5rem;
 }
@@ -180,7 +181,8 @@
     flex: none;
     inline-size: 11rem;
     block-size: 14rem;
-    border-radius: var(--radius-md);
+    /* border-radius: var(--radius-sm); */
+    border: 1px solid var(--dark-blue);
     overflow: hidden;
     box-shadow: 0 0.6rem 1.5rem rgba(0, 0, 0, 0.35);
 }
@@ -235,16 +237,28 @@
 .grooming-package-card {
     position: relative;
     aspect-ratio: 3 / 4;
-    border-radius: var(--radius-lg);
     overflow: hidden;
+    border: 1px solid var(--dark-blue);
     transform: translateY(0);
-    box-shadow: 0 0.6rem 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.6rem 0.7rem rgba(0, 0, 0, 0.3);
     transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    animation: 2s border-shine infinite alternate;
+}
+
+@keyframes border-shine {
+    from {
+    box-shadow: 0px 0px 30px var(--dark-blue);
+    border: 1px solid var(--orange-transparent);
+    }
+    to {
+    box-shadow: 0px 0px 10px var(--dark-blue);
+        border: 1px solid var(--dark-blue);
+    }
 }
 
 .grooming-package-card:hover {
     transform: translateY(-0.6rem);
-    box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.5);
 }
 
 .grooming-package-card__media {
@@ -259,11 +273,23 @@
 .grooming-package-card:hover .grooming-package-card__media {
     transform: scale(1.05);
 }
+.grooming-package-card:hover .grooming-package-card__overlay {
+    transform: scale(1.05);
+    backdrop-filter: grayscale(0.2);
+}
 
 .grooming-package-card__overlay {
     position: absolute;
     inset: 0;
+    transition: 1s all ease;
+    backdrop-filter: grayscale(1);
     background: linear-gradient(to top, rgba(5, 5, 5, 0.96) 0%, rgba(5, 5, 5, 0.75) 42%, rgba(5, 5, 5, 0.1) 78%, transparent 100%);
+}
+
+[data-theme="light"] {
+    .grooming-package-card__overlay {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.75) 42%, rgba(255, 255, 255, 0.1) 78%, transparent 100%);
+}
 }
 
 .grooming-package-card__body {
@@ -282,14 +308,14 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-size: 1.5rem;
-    color: #fff;
+    color: var(--black);
     margin: 0;
 }
 
 .grooming-package-card__desc {
     font-size: 0.9rem;
     line-height: 1.55;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--text-muted);
     margin: 0;
 }
 
@@ -303,7 +329,7 @@
     font-family: var(--font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.02em;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--text-main);
     padding-inline-start: 1.1rem;
     position: relative;
 }
@@ -332,14 +358,16 @@
 .grooming-package-card__price {
     font-family: var(--font-display);
     font-size: 1.6rem;
-    color: #fff;
+    color: var(--text-main);
+
 }
 
 .grooming-package-card__price-currency {
     font-size: 1rem;
     vertical-align: super;
     margin-inline-end: 0.15rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-main);
+
 }
 
 .grooming-package-card__cta {
@@ -418,6 +446,8 @@
 
     .grooming-video {
         padding-block-end: 7rem;
+        width: 80%;
+        margin: 0 auto;
     }
 
     .grooming-gallery {
@@ -435,11 +465,11 @@
     }
 
     .grooming-packages__grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .grooming-package-card {
-        aspect-ratio: 3 / 4.4;
+        aspect-ratio: 3 / 2;
     }
 }
 

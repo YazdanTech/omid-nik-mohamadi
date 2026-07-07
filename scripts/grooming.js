@@ -152,3 +152,191 @@
         });
     });
 })();
+
+
+
+// (function () {
+//     'use strict';
+
+//     var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+//     var revealEls = document.querySelectorAll('[data-reveal]');
+//     if ('IntersectionObserver' in window && revealEls.length) {
+//         var revealObserver = new IntersectionObserver(function (entries, obs) {
+//             entries.forEach(function (entry) {
+//                 if (entry.isIntersecting) {
+//                     entry.target.classList.add('is-visible');
+//                     obs.unobserve(entry.target);
+//                 }
+//             });
+//         }, { threshold: 0.15 });
+//         revealEls.forEach(function (el) {
+//             revealObserver.observe(el);
+//         });
+//     } else {
+//         revealEls.forEach(function (el) {
+//             el.classList.add('is-visible');
+//         });
+//     }
+
+//     var video = document.getElementById('groomingVideo');
+//     var videoToggle = document.getElementById('groomingVideoToggle');
+//     if (video && videoToggle) {
+//         var playIcon = videoToggle.querySelector('.grooming-video__icon--play');
+//         var pauseIcon = videoToggle.querySelector('.grooming-video__icon--pause');
+
+//         videoToggle.addEventListener('click', function () {
+//             if (video.paused) {
+//                 video.muted = false;
+//                 var playPromise = video.play();
+//                 if (playPromise && playPromise.catch) {
+//                     playPromise.catch(function () {});
+//                 }
+//             } else {
+//                 video.pause();
+//             }
+//         });
+
+//         video.addEventListener('play', function () {
+//             playIcon.hidden = true;
+//             pauseIcon.hidden = false;
+//             videoToggle.setAttribute('aria-label', 'Pause package guide video');
+//         });
+
+//         video.addEventListener('pause', function () {
+//             playIcon.hidden = false;
+//             pauseIcon.hidden = true;
+//             videoToggle.setAttribute('aria-label', 'Play package guide video');
+//         });
+//     }
+
+//     var rows = document.querySelectorAll('.grooming-gallery__row');
+//     rows.forEach(function (row) {
+//         var track = row.querySelector('[data-track]');
+//         if (!track) {
+//             return;
+//         }
+
+//         // Prevent CSS smooth scrolling from breaking the animation frames
+//         track.style.scrollBehavior = 'auto';
+
+//         var direction = row.getAttribute('data-direction') === 'right' ? 1 : -1;
+//         var speed = 0.4;
+//         var isPaused = false;
+//         var isDragging = false;
+//         var dragStartX = 0;
+//         var dragStartScroll = 0;
+        
+//         var halfWidth = track.scrollWidth / 2;
+//         var currentScroll = direction === -1 ? halfWidth : 0;
+
+//         track.scrollLeft = currentScroll;
+
+//         function step() {
+//             if (halfWidth === 0) {
+//                 halfWidth = track.scrollWidth / 2;
+//                 if (direction === -1) currentScroll = halfWidth;
+//             }
+
+//             if (!isPaused && !isDragging && !prefersReducedMotion && halfWidth > 0) {
+//                 currentScroll += speed * direction;
+
+//                 if (currentScroll >= halfWidth * 2) {
+//                     currentScroll -= halfWidth;
+//                 } else if (currentScroll <= 0) {
+//                     currentScroll += halfWidth;
+//                 }
+
+//                 track.scrollLeft = currentScroll;
+//             }
+//             requestAnimationFrame(step);
+//         }
+
+//         row.addEventListener('mouseenter', function () {
+//             isPaused = true;
+//         });
+
+//         row.addEventListener('mouseleave', function () {
+//             if (!isDragging) {
+//                 isPaused = false;
+//             }
+//         });
+
+//         track.addEventListener('pointerdown', function (e) {
+//             isDragging = true;
+//             isPaused = true;
+//             dragStartX = e.clientX;
+//             // Sync with current DOM state on press
+//             dragStartScroll = track.scrollLeft; 
+//             track.setPointerCapture(e.pointerId);
+//         });
+
+//         track.addEventListener('pointermove', function (e) {
+//             if (!isDragging) {
+//                 return;
+//             }
+//             var delta = e.clientX - dragStartX;
+//             var targetScroll = dragStartScroll - delta;
+
+//             // Infinite normalization dynamically updated DURING drag
+//             if (targetScroll >= halfWidth * 2) {
+//                 targetScroll -= halfWidth;
+//                 dragStartScroll -= halfWidth; 
+//             } else if (targetScroll <= 0) {
+//                 targetScroll += halfWidth;
+//                 dragStartScroll += halfWidth;
+//             }
+
+//             currentScroll = targetScroll;
+//             track.scrollLeft = currentScroll;
+//         });
+
+//         function endDrag() {
+//             if (!isDragging) {
+//                 return;
+//             }
+//             isDragging = false;
+            
+//             // Re-read ground truth from the element to prevent any positional jumping
+//             currentScroll = track.scrollLeft;
+
+//             if (currentScroll >= halfWidth * 2) {
+//                 currentScroll -= halfWidth;
+//             } else if (currentScroll <= 0) {
+//                 currentScroll += halfWidth;
+//             }
+//             track.scrollLeft = currentScroll;
+
+//             // Optional delay before autoscroll resumes loop execution
+//             setTimeout(function () {
+//                 // Only unpause if the mouse isn't currently hovering over the element
+//                 if (!row.matches(':hover')) {
+//                     isPaused = false;
+//                 }
+//             }, 1200);
+//         }
+
+//         track.addEventListener('pointerup', endDrag);
+//         track.addEventListener('pointercancel', endDrag);
+
+//         track.addEventListener('scroll', function () {
+//             halfWidth = track.scrollWidth / 2;
+//         });
+
+//         requestAnimationFrame(step);
+//     });
+
+//     document.querySelectorAll('.grooming-package-card__cta').forEach(function (button) {
+//         button.addEventListener('click', function () {
+//             var packageName = button.getAttribute('data-package') || 'this package';
+//             button.textContent = 'Reserved';
+//             button.classList.add('grooming-package-card__cta--confirmed');
+//             button.disabled = true;
+//             window.setTimeout(function () {
+//                 button.textContent = 'Reserve';
+//                 button.classList.remove('grooming-package-card__cta--confirmed');
+//                 button.disabled = false;
+//             }, 2600);
+//         });
+//     });
+// })();
