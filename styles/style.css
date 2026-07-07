@@ -10,7 +10,8 @@ html {
 
 :root {
     --orange: #fc4103;
-    --orange-transparent: #fc410325;
+    --orange-transparent: #fc410362;
+    --orange-less-transparent: #fc4103b9;
     --orange-light: #ff845c;
     --dark-blue: #0F172A;
     --dark-blue-transparent: #0F172A59;
@@ -154,7 +155,7 @@ button {
 }
 
 .site-header.is-scrolled:hover {
-    border-image: linear-gradient(to right, var(--orange) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange) 100%) 1;
+    border-image: linear-gradient(to right, var(--dark-blue) 0%, var(--orange-less-transparent) 40%, var(--orange-less-transparent) 60%, var(--dark-blue) 100%) 1;
     transition: 0.4s all ease;
 }
 
@@ -272,12 +273,13 @@ button {
     transform: translateX(100%);
     transition: transform 2s cubic-bezier(0.19, 1, 0.22, 1);
     will-change: transform;
+    border-left: 1px solid transparent;
     transition-property: box-shadow, border, transform;
 }
 
 .side-nav.active .side-nav-panel {
     transform: translateX(0%);
-    box-shadow: 0px 0px 40px black;
+    box-shadow: 0px 0px 40px var(--dark-blue);
     border-left: 1px solid var(--orange-transparent);
 }
 
