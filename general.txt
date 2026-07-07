@@ -188,6 +188,10 @@ theme:
     orange, blue, black, white, gray
     dark theme, light theme
 
+wedding:
+    2 packages that persons can buy
+    work sample of husbadns to show case and stuff
+
 pages:
     home
         header video
@@ -195,7 +199,7 @@ pages:
         top nav
         footer
         images and videos as background
-        (not yet) services
+        (not yet) services 
         (not yet) wedding page demo
         (now yet) product demo
         (not yet) login / sign up
