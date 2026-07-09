@@ -1,0 +1,67 @@
+<role>
+You are an expert frontend engineer specializing in modern responsive HTML, CSS, and Vanilla JavaScript.
+</role>
+
+<task>
+Generate a Product Page for a luxury professional persian barber(rtl layout), with direct checkout modal
+</task>
+
+<context>
+<current_basic_css>
+:root {
+    --orange: #fc4103;
+    --orange-transparent: #fc410362;
+    --orange-less-transparent: #fc4103b9;
+    --orange-light: #ff845c;
+    --dark-blue: #0F172A;
+    --dark-blue-transparent: #0F172A59;
+    --black: #0A0A0A;
+    --white: #cfcfcf;
+    --bg-main: #0a0a0aab;
+    --gray: #BFC1C2;
+    --gold: #C69B3C;
+    --overlay: rgba(0, 0, 0, 0.75);
+    --container-width: 1400px;
+    --transition-default: 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    --radius-sm: 0.3rem;
+    --radius-md: 0.8rem;
+    --radius-lg: 1.5rem;
+    --bg-main: var(--black);
+    --text-main: var(--white);
+    --text-main-reverse: var(--black);
+    --text-muted: var(--gray);
+    --accent: var(--orange);
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Manrope', -apple-system, sans-serif;
+    --font-mono: 'Space Mono', monospace;
+}
+</current_basic_css> 
+
+<page_architecture_and_layouts>
+1. Dedicated Product Page (`products.html`):
+   - heading (in Persian)
+   - A CSS Grid showcasing the products
+   - Product Card Design: image, Name, description, Price (in Tomans), and a "Buy" (`خرید`) button.
+
+3. Global Product Checkout Modal (Pop-up Overlay):
+   - Triggered by the "Buy" button on product cards.
+   - Flow:
+     * State A (Unauthenticated): Prompts an inline Sign In form(already designed, skip, only leave space for pasting the code).
+     * State B (Authenticated): Displays Product Summary + an auto-filled Shipping Form (Name, Phone, Address) simulating database pre-fill, followed by "Proceed to Payment".
+</page_architecture_and_layouts>
+
+<exclude_and_skip>
+    - top bar, side bar, footer, theme change functionalities, general css styling(:root, body, variables..)
+    - sign in / sign up(instead, use empty div to paste the current code for sign in, and sign up, and the js to change between them.)
+</exclude_and_skip>
+</context>
+
+<rules>
+- responsive mobile first design
+- no comments
+- no explanation of the process of excessive words. only provide the output
+</rules>
+
+<output_format>
+    provide result in seperate code blocks for html, css, js. 
+</output_format>

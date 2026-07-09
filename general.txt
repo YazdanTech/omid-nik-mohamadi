@@ -203,7 +203,6 @@ pages:
         (not yet) wedding page demo
         (now yet) product demo
         (not yet) login / sign up
-        gallery(not definite)
     login
     sign up
     wedding

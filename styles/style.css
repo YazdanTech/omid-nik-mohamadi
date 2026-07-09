@@ -1131,11 +1131,11 @@ button {
         gap: 1rem;
     }
 }
-
+/* 
 .menu-toggle:focus-visible,
 .theme-toggle:focus-visible,
 a:focus-visible,
 button:focus-visible {
     outline: 1px solid var(--accent);
     outline-offset: 3px;
-}
+} */
