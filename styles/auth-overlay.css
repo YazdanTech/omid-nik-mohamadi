@@ -462,7 +462,8 @@
     position: relative;
     width: 100%;
     max-width: 650px;
-    padding: 2rem;
+    margin: 2rem;
+    padding-top: 1rem;
 }
 
 .auth-global-close {
