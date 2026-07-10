@@ -8,9 +8,9 @@
     <title>محصولات پرمیوم پیرایش آرکان | اصالت و کیفیت</title>
     <meta name="description"
         content="مجموعه‌ای از محصولات مراقبتی و حالت‌دهنده مو و ریش آقایان با استانداردهای لوکس جهانی.">
-        <link rel="stylesheet" href="/styles/style.css">
-        <link rel="stylesheet" href="/styles/sign-in-up.css">
-        <link rel="stylesheet" href="/styles/book-shop.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/sign-in-up.css">
+    <link rel="stylesheet" href="/styles/book-shop.css">
 </head>
 
 <body>
@@ -136,10 +136,107 @@
                 <div class="modal-state" id="stateUnauth">
                     <h2 class="modal-title">ورود به حساب کاربری</h2>
                     <p class="modal-subtitle">برای ادامه خرید ابتدا وارد شوید</p>
-                    <div id="signInFormPlaceholder">
+                    <div id="signUpFormContainer">
+                        <header class="auth__header" data-reveal>
+                            <span class="auth__eyebrow">New Client</span>
+                            <h1 class="auth__title">Create your account</h1>
+                            <p class="auth__subtitle">Three short steps and you're booked in.</p>
+                        </header>
+
+                        <ol class="auth__steps" aria-label="Sign up progress" data-reveal>
+                            <li class="auth__step auth__step--active" data-step="1">
+                                <span class="auth__step-index">01</span>
+                                <span class="auth__step-label">Details</span>
+                            </li>
+                            <span class="auth__step-line" aria-hidden="true"></span>
+                            <li class="auth__step" data-step="2">
+                                <span class="auth__step-index">02</span>
+                                <span class="auth__step-label">Contact</span>
+                            </li>
+                            <span class="auth__step-line" aria-hidden="true"></span>
+                            <li class="auth__step" data-step="3">
+                                <span class="auth__step-index">03</span>
+                                <span class="auth__step-label">Verify</span>
+                            </li>
+                        </ol>
+
+                        <form class="auth__wizard" id="signUpForm" novalidate data-reveal>
+
+                            <div class="auth__stage auth__stage--current" data-stage="1">
+                                <div class="auth__stage-grid">
+                                    <div class="auth__field">
+                                        <label class="auth__label" for="fullName">Full name</label>
+                                        <input class="auth__input" type="text" id="fullName" name="fullName"
+                                            autocomplete="name" placeholder="Full name" required>
+                                    </div>
+                                    <div class="auth__field">
+                                        <label class="auth__label" for="birthDate">Birth date</label>
+                                        <input class="auth__input" type="date" id="birthDate" name="birthDate" required>
+                                    </div>
+                                </div>
+                                <div class="auth__nav-buttons">
+                                    <span></span>
+                                    <button class="auth__button auth__button--primary" type="button"
+                                        data-action="next">Continue</button>
+                                </div>
+                            </div>
+
+                            <div class="auth__stage" data-stage="2" hidden>
+                                <div class="auth__field">
+                                    <label class="auth__label" for="phoneNumber">Phone number</label>
+                                    <input class="auth__input" type="tel" id="phoneNumber" name="phoneNumber"
+                                        autocomplete="tel" placeholder="+1 555 000 0000" required>
+                                </div>
+                                <div class="auth__field">
+                                    <label class="auth__label" for="emailOptional">Email <span
+                                            class="auth__optional">(optional)</span></label>
+                                    <input class="auth__input" type="email" id="emailOptional" name="emailOptional"
+                                        autocomplete="email" placeholder="you@example.com">
+                                </div>
+                                <div class="auth__nav-buttons">
+                                    <button class="auth__button auth__button--ghost" type="button"
+                                        data-action="back">Back</button>
+                                    <button class="auth__button auth__button--primary" type="button"
+                                        data-action="next">Send code</button>
+                                </div>
+                            </div>
+
+                            <div class="auth__stage" data-stage="3" hidden>
+                                <p class="auth__subtitle">Enter the 6-digit code sent to your phone.</p>
+                                <div class="auth__otp" data-otp>
+                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
+                                        aria-label="Digit 1" required>
+                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
+                                        aria-label="Digit 2" required>
+                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
+                                        aria-label="Digit 3" required>
+                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
+                                        aria-label="Digit 4" required>
+                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
+                                        aria-label="Digit 5" required>
+                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
+                                        aria-label="Digit 6" required>
+                                </div>
+                                <button class="auth__resend" type="button" data-action="resend">Resend
+                                    code</button>
+                                <div class="auth__nav-buttons">
+                                    <button class="auth__button auth__button--ghost" type="button"
+                                        data-action="back">Back</button>
+                                    <button class="auth__button auth__button--primary" type="submit">Verify
+                                        &amp; create account</button>
+                                </div>
+                            </div>
+
+                            <p class="auth__error" id="signUpError" role="alert" aria-live="polite"></p>
+
+                        </form>
+
+                        <p class="auth__footer-note" data-reveal>Already have an account? <a class="auth__link"
+                                href="#" id="signInAccountBtn">Sign in</a></p>
+
 
                     </div>
-                    <div id="signUpFormPlaceholder">
+                    <div id="signInFormContainer" style="display: none;">
                         <form class="auth__form" id="signInForm" novalidate data-reveal>
 
                             <div class="auth__field" data-field="email" hidden style="display: none;">
@@ -182,8 +279,8 @@
 
                             <button class="auth__button auth__button--primary" type="submit">Sign in</button>
                         </form>
-                        <p class="auth__footer-note" data-reveal>New here? <a class="auth__link"
-                                href="sign-up.html">Create an account</a></p>
+                        <p class="auth__footer-note" data-reveal>New here? <a class="auth__link" href="#"
+                                id="createAccountBtn">Create an account</a></p>
                     </div>
                 </div>
 
@@ -220,7 +317,7 @@
 
 
     <script src="./scripts/book-shop.js"></script>
-    <!-- <script src="./scripts/sign-in-up.js"></script> -->
+    <script src="./scripts/sign-in-up.js"></script>
 </body>
 
 </html>
