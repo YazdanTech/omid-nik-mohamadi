@@ -29,7 +29,7 @@
 4. BOOKING PAGE
     - Layout: 3-step linear wizard interface. Step 1: Service Selection. Step 2: Interactive Date & Time Matrix. Step 3: Checkout / Code Bypass Form.
     - Content: Dynamic calendar slots, Pricing clear breakdowns, "Enter Exemption Code" field, payment portal redirect ($500 deposit logic).
-
+ 
 5. PRODUCT SHOP PAGE
     - Layout: Premium e-commerce grid (3 columns max to maintain luxury space), large asset images, minimalist typography for price and title.
     - Content: Product filter, detailed single-product view modal, "Add to Cart" and fast checkout controls.
@@ -228,10 +228,3 @@ functinalities:
 later:
     package selling
     toturial videos
-
-what i want from customers
-     a video for background of website(high quality, proffesional filming)
-     pictures for work samples
-     picture of Omid Nik Mohammadi
-     pictures for backgrounds of website
-     services and their prices

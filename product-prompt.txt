@@ -3,7 +3,7 @@ You are an expert frontend engineer specializing in modern responsive HTML, CSS,
 </role>
 
 <task>
-Generate a Product Page for a luxury professional persian barber(rtl layout), with direct checkout modal
+Generate the booking system for a luxury professional persian barber(rtl layout), with direct checkout modal
 </task>
 
 <context>
@@ -19,13 +19,8 @@ Generate a Product Page for a luxury professional persian barber(rtl layout), wi
     --white: #cfcfcf;
     --bg-main: #0a0a0aab;
     --gray: #BFC1C2;
-    --gold: #C69B3C;
     --overlay: rgba(0, 0, 0, 0.75);
-    --container-width: 1400px;
     --transition-default: 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    --radius-sm: 0.3rem;
-    --radius-md: 0.8rem;
-    --radius-lg: 1.5rem;
     --bg-main: var(--black);
     --text-main: var(--white);
     --text-main-reverse: var(--black);
@@ -37,18 +32,22 @@ Generate a Product Page for a luxury professional persian barber(rtl layout), wi
 }
 </current_basic_css> 
 
-<page_architecture_and_layouts>
-1. Dedicated Product Page (`products.html`):
-   - heading (in Persian)
-   - A CSS Grid showcasing the products
-   - Product Card Design: image, Name, description, Price (in Tomans), and a "Buy" (`خرید`) button.
+<architecture_and_layouts>
 
-3. Global Product Checkout Modal (Pop-up Overlay):
-   - Triggered by the "Buy" button on product cards.
-   - Flow:
-     * State A (Unauthenticated): Prompts an inline Sign In form(already designed, skip, only leave space for pasting the code).
-     * State B (Authenticated): Displays Product Summary + an auto-filled Shipping Form (Name, Phone, Address) simulating database pre-fill, followed by "Proceed to Payment".
-</page_architecture_and_layouts>
+2. Global Booking Modal (Pop-up Overlay):
+   - Mobile-First Layout: Stacked. Top half contains Service Selection; Bottom half contains Booking Flow/Auth.
+   - Desktop Layout: Split-screen Grid. Left side contains Service Selection; Right side contains Booking Flow/Auth.
+   - Selection Area (Two Categories):
+     * Category 1 (Normal Services): List items showing Name, Time/Duration, and Price Range.(able to select multiple items)
+     * Category 2 (Grooming Packages): List items showing Package Name (A or B), Price Range, and a "More Info" link strictly routing to the grooming page.(can select only one of them, and if selecting grooming, cannot select normal service)
+   - JavaScript Pre-selection logic: The JS must allow a specific service to be pre-selected when the modal opens via `data-service-id` attributes on external trigger buttons.
+   - The JS engine must search for any element with a `data-open-booking` attribute, extract its `data-service-id`, open the modal, and auto-focus/select that target item.
+   - Flow & Auth Area (Right/Bottom):
+     * State A (Unauthenticated): sign-in and sign-up form here(it is designed, pass and skip).
+     * State B (Authenticated): Shows Date/Time picker, Bypass Code input, and the final 500,000 Tomans deposit summary with the "Proceed to Gateway" CTA.
+     - The Date Picker input element must programmatically enforce a boundary limit of exactly 180 days (6 months) from the current date.
+   - Provide a simple global JavaScript constant `const IS_AUTHENTICATED = false;` at the top of the script so I can toggle between State A and State B.
+</architecture_and_layouts>
 
 <exclude_and_skip>
     - top bar, side bar, footer, theme change functionalities, general css styling(:root, body, variables..)
@@ -65,3 +64,41 @@ Generate a Product Page for a luxury professional persian barber(rtl layout), wi
 <output_format>
     provide result in seperate code blocks for html, css, js. 
 </output_format>
+
+
+
+
+<task>RTL booking modal structural layout and JS logic for a Persian barber page.</task>
+
+<context>
+- User handles decorative CSS (colors, fonts, custom borders, padding).
+- Claude handles layout architecture (Grid/Flexbox) and functional JS logic.
+</context>
+
+<layout_css>
+- Modal Overlay: Mobile (stacked layout: top = services, bottom = auth/flow). Desktop 1024px+ (50/50 split-screen grid: left = services, right = auth/flow).
+- Structural wireframe CSS only. No skinning, branding, or decorative variables.
+</layout_css>
+
+<html_architecture>
+- Service Area:
+  * Cat 1 (Normal): List items with structurally nested Name, Duration, Price. (Supports multi-select).
+  * Cat 2 (Grooming): List items with Name, Price, and link. (Supports single-select).
+- Auth/Flow Area:
+  * State A (Unauthenticated): Empty placeholder <div> for external Sign-In/Up code.
+  * State B (Authenticated): Date/Time inputs, Bypass Code input, 500,000 Toman deposit summary layout, and "Proceed" CTA.
+</html_architecture>
+
+<javascript_logic>
+- Toggle: Top-level `const IS_AUTHENTICATED = false;` to switch visibility between State A and State B layouts.
+- Auto-Trigger: Global listener for elements with `data-open-booking`. Extract `data-service-id`, open modal, and auto-check/focus the matching target item.
+- Exclusivity: JS must enforce that choosing any item in Cat 2 clears and locks out Cat 1 selections, and vice versa.
+- Date Boundary: On load, programmatically calculate and set the date input's `max` attribute to exactly Current Date + 180 days.
+- booking modal initiates and appears after book btn is clicked.
+- book btn will have service-id for pre-selection logic
+</javascript_logic>
+
+<constraints>
+- Outputs must be in distinct, individual code blocks for HTML, layout CSS, and JS.
+- Absolutely zero code comments. Zero conversational descriptions or introductions.
+</constraints>
