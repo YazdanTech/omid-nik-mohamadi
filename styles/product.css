@@ -54,8 +54,8 @@
 }
 
 .product-card {
-  background: linear-gradient(180deg, var(--black), transparent);
-  border: 1px solid #ffffff14;
+  background: linear-gradient(180deg, var(--bg-main), transparent);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
@@ -63,8 +63,17 @@
   transition: var(--transition-default);
 }
 
+
+[data-theme="light"] .product-card {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--dark-blue-transparent);
+  box-shadow: 0px 5px 22px rgba(0, 0, 0, 0.521);
+  border-radius: var(--radius-md);
+}
+
 .product-card:hover {
-  border-color: var(--orange-transparent);
+  border-color: var(--accent-transparent);
+  box-shadow: 0px 15px 32px rgba(0, 0, 0, 0.521);
   transform: translateY(-4px);
 }
 
@@ -89,7 +98,7 @@
   position: absolute;
   top: 0.8rem;
   right: 0.8rem;
-  background: var(--orange);
+  background: var(--accent);
   color: var(--text-main);
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -121,7 +130,7 @@
   line-height: 1.7;
   margin: 0;
   padding-right: 0.5rem;
-  border-right: 1px solid var(--orange-less-transparent);
+  border-right: 1px solid var(--accent-transparent);
   flex: 1;
 }
 
@@ -135,8 +144,9 @@
 
 .product-price {
   font-family: var(--font-mono);
-  color: var(--orange);
+  color: var(--accent);
   font-size: 1rem;
+  font-weight: 600;
   direction: ltr;
   white-space: nowrap;
 }
@@ -149,12 +159,12 @@
 .btn-buy {
   font-family: var(--font-body);
   font-weight: 600;
-  border: 1px solid var(--orange-less-transparent);
-  background-color: var(--orange-transparent);
+  border: 1px solid var(--accent-transparent);
+  background-color: var(--accent-transparent);
   color: var(--text-main);
   padding: 0.6rem 1.4rem;
   cursor: pointer;
-  box-shadow: 0px 0px 10px var(--orange-transparent );
+  box-shadow: 0px 0px 10px var(--accent-transparent);
   transition: var(--transition-default);
   font-size: 0.85rem;
 }
@@ -188,7 +198,7 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
-    border-image: linear-gradient(to bottom, var(--orange-transparent) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange-transparent) 100%) 1;
+    border-image: linear-gradient(to bottom, var(--accent-transparent) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--accent-transparent) 100%) 1;
     padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
@@ -216,7 +226,7 @@
 }
 
 .modal-close:hover {
-  color: var(--orange);
+  color: var(--accent);
 }
 
 .modal-state {
@@ -319,7 +329,7 @@
 
 .btn-pay {
   margin-top: 0.5rem;
-  background: var(--orange);
+  background: var(--accent);
   color: var(--text-main);
   border: none;
   padding: 0.85rem;

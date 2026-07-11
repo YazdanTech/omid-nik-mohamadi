@@ -32,6 +32,7 @@ html {
     --text-main-reverse: var(--black);
     --text-muted: var(--gray);
     --accent: var(--orange);
+    --accent-transparent: var(--orange-transparent);
     --nav-bg: rgba(10, 10, 10, 0.699);
     --border-color: rgba(255, 255, 255, 0.05);
 
@@ -46,8 +47,9 @@ html {
     --text-muted: #666666;
     --text-main-reverse: var(--white);
     --accent: var(--dark-blue);
+    --accent-transparent: var(--dark-blue-transparent);
     --nav-bg: rgba(248, 249, 250, 0.699);
-    --border-color: rgba(0, 0, 0, 0.08);
+    --border-color: rgba(0, 0, 0, 0.329);
 }
 
 body {
