@@ -42,9 +42,9 @@ html {
 }
 
 [data-theme="light"] {
-    --bg-main: #F8F9FA;
-    --text-main: #111111;
-    --text-muted: #666666;
+    --bg-main: var(--white);
+    --text-main: var(--black);
+    --text-muted: #272727;
     --text-main-reverse: var(--white);
     --accent: var(--dark-blue);
     --accent-transparent: var(--dark-blue-transparent);

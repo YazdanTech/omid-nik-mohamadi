@@ -9,42 +9,64 @@
 
 .auth__panel-inner {
     inline-size: 100%;
-    max-block-size: calc(100vh - 4rem); /* Prevents vertical run-off */
+    max-inline-size: 26rem;
     background: var(--nav-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border-color);
     border-image: linear-gradient(to bottom, var(--orange-transparent) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange-transparent) 100%) 1;
-    padding: 1.5rem 1rem;
+    padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    overflow-y: auto; /* Enables clean internal scrolling if form inputs overflow */
-    scrollbar-width: thin; /* Clean modern standard scrollbar styling */
-    animation: 10s border-shine infinite alternate-reverse linear;
+
+    position: relative;
+    overflow: hidden;
+    /* Clips the rotating inner gradient */
+    z-index: 1;
+    animation: shadow-pulse 8s infinite linear;
+
 }
-@keyframes border-shine {
+
+/* The true border glow layer */
+.auth__panel-inner::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    /* Intentionally larger to cover corners while rotating */
+    height: 150%;
+    background: conic-gradient(var(--dark-blue),
+            var(--orange-transparent),
+            var(--orange-less-transparent),
+            var(--orange-transparent),
+            var(--dark-blue));
+    animation: border-rotate 8s infinite linear;
+    z-index: -2;
+}
+
+/* The inner body mask to make it look like a fine border */
+.auth__panel-inner::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    /* The thickness of your border (e.g., 1px or 2px) */
+    background: var(--bg-main);
+    /* Must match container body color */
+    z-index: -1;
+}
+
+
+@keyframes border-rotate {
     0% {
-        box-shadow: 0px 0px 30px var(--dark-blue);
-        border-image: linear-gradient(to bottom, var(--dark-blue) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--dark-blue) 100%) 1;
+        transform: translate(-50%, -50%) rotate(0deg);
     }
-    25% {
-        box-shadow: 0px 0px 30px var(--dark-blue);
-        border-image: linear-gradient(to bottom, var(--dark-blue) 0%, var(--orange-transparent) 40%, var(--orange-transparent) 60%, var(--dark-blue) 100%) 1;
-    }
-    50% {
-        box-shadow: 0px 0px 10px var(--dark-blue);
-        border-image: linear-gradient(to right bottom, var(--dark-blue) 0%, var(--orange-less-transparent) 40%, var(--orange-less-transparent) 60%, var(--dark-blue) 100%) 1;
-    }
-    75% {
-        box-shadow: 0px 0px 30px var(--dark-blue);
-        border-image: linear-gradient(to right, var(--dark-blue) 0%, var(--orange-transparent) 40%, var(--orange-transparent) 60%, var(--dark-blue) 100%) 1;
-    }
+
     100% {
-        box-shadow: 0px 0px 10px var(--dark-blue);
-        border-image: linear-gradient(to top right, var(--dark-blue) 0%, var(--orange-transparent) 40%, var(--orange-transparent) 60%, var(--dark-blue) 100%) 1;
+        transform: translate(-50%, -50%) rotate(360deg);
     }
 }
+
 
 .auth__header {
     display: flex;
@@ -225,7 +247,7 @@
 .auth__error {
     min-block-size: 1.2rem;
     font-size: 0.8rem;
-    color: var(--orange);
+    color: var(--accent);
     margin: 0;
 }
 
@@ -374,7 +396,7 @@
     outline: none;
     border-color: var(--accent);
     transform: translateY(-0.15rem);
-    box-shadow: 0 0.5rem 1rem var(--orange-transparent);
+    box-shadow: 0 0.5rem 1rem var(--accent-transparent);
 }
 
 .auth__resend {
@@ -479,10 +501,10 @@
 }
 
 :root {
-    --sb-track-bg: #0a0a0a;
-    --sb-thumb-bg: var(--accent, #ff6a00);
-    --sb-thumb-glow: var(--orange-transparent, rgba(255, 106, 0, 0.4));
-    --sb-border-color: var(--border-color, #1a1a2e);
+    --sb-track-bg: var(--bg-main);
+    --sb-thumb-bg: var(--accent);
+    --sb-thumb-glow: var(--accent-transparent);
+    --sb-border-color: var(--border-color);
 }
 
 /* ==========================================================================
