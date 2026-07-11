@@ -1,16 +1,9 @@
 (function () {
     'use strict';
 
-    // ==========================================
+
     // 1. DOM Elements Selection
-    // ==========================================
-    var header = document.getElementById('siteHeader');
-    var themeToggle = document.getElementById('themeToggle');
-    var sideNav = document.getElementById('sideNav');
-    var menuToggle = document.getElementById('menuToggle');
-    var sideNavOverlay = document.getElementById('sideNavOverlay');
-    var sideNavClose = document.getElementById('sideNavClose');
-    var navLinks = document.querySelectorAll('[data-nav-link]');
+
     
     var heroTextInner = document.querySelector('.hero-text-inner');
     var heroTextFirst = document.getElementById('heroTextFirst');
@@ -24,9 +17,9 @@
     var videoOverlay = document.getElementById('videoOverlay');
     var craftCards = document.querySelectorAll('.craft-card');
 
-    // ==========================================
+
     // 2. Global State & Timers
-    // ==========================================
+
     var swapTimer = null;
     var activeCollapse = null;
     let currentPortraitIndex = -1;
@@ -35,80 +28,11 @@
         heroTextInner.dataset.current = heroTextInner.textContent.trim();
     }
 
-    // ==========================================
+
     // 3. Header State Functionality
-    // ==========================================
-    function updateHeaderState() {
-        if (window.scrollY > 40) {
-            header.classList.add('is-scrolled');
-        } else {
-            header.classList.remove('is-scrolled');
-        }
-    }
-    window.addEventListener('scroll', updateHeaderState, { passive: true });
-    updateHeaderState();
 
-    // ==========================================
-    // 4. Theme Toggle Functionality
-    // ==========================================
-    var storedTheme = null;
-    try {
-        storedTheme = localStorage.getItem('omid-theme');
-    } catch (err) {
-        storedTheme = null;
-    }
-    if (storedTheme === 'light') {
-        document.body.setAttribute('data-theme', 'light');
-    }
-    themeToggle.addEventListener('click', function () {
-        var isLight = document.body.getAttribute('data-theme') === 'light';
-        if (isLight) {
-            document.body.removeAttribute('data-theme');
-            try { localStorage.setItem('omid-theme', 'dark'); } catch (err) {}
-        } else {
-            document.body.setAttribute('data-theme', 'light');
-            try { localStorage.setItem('omid-theme', 'light'); } catch (err) {}
-        }
-    });
-
-    // ==========================================
-    // 5. Side Navigation Functionality
-    // ==========================================
-    function openNav() {
-        sideNav.classList.add('active');
-        menuToggle.classList.add('is-active');
-        menuToggle.setAttribute('aria-expanded', 'true');
-        document.body.classList.add('no-scroll');
-    }
-
-    function closeNav() {
-        sideNav.classList.remove('active');
-        menuToggle.classList.remove('is-active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('no-scroll');
-    }
-
-    menuToggle.addEventListener('click', function () {
-        if (sideNav.classList.contains('active')) {
-            closeNav();
-        } else {
-            openNav();
-        }
-    });
-    sideNavOverlay.addEventListener('click', closeNav);
-    sideNavClose.addEventListener('click', closeNav);
-    navLinks.forEach(function (link) {
-        link.addEventListener('click', closeNav);
-    });
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && sideNav.classList.contains('active')) {
-            closeNav();
-        }
-    });
-
-    // ==========================================
     // 6. Hero Text Animations & Intersection Logic
-    // ==========================================
+
     function setHeroText(newText) {
         if (!heroTextInner || heroTextInner.dataset.current === newText) {
             return;
@@ -241,9 +165,9 @@
         updateHeroText(0);
     }
     
-    // ==========================================
+
     // 7. Video Overlay & Craft Cards Functionality
-    // ==========================================
+
     craftCards.forEach(function (card) {
         var video = card.querySelector('.craft-video');
         var closeBtn = document.createElement('button');
@@ -346,9 +270,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // When rect.top == vh, the element is at the very bottom of the screen.
         // When rect.top == 0, the element has reached the very top of the screen.
 
-        // ==========================================
+    
         // CONFIGURATION: ADJUST TIMINGS HERE
-        // ==========================================
+    
         // Video starts fading when trigger is at 100% vh (bottom), vanishes when trigger reaches 40% vh
         let videoOpacity = (rect.top - (vh * 0.4)) / (vh - (vh * 0.4));
         
@@ -363,9 +287,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (textOpacity < 0) textOpacity = 0;
         if (textOpacity > 1) textOpacity = 1;
 
-        // ==========================================
+    
         // EXECUTE VIDEO STATES
-        // ==========================================
+    
         fadeVideos.forEach(video => {
             video.style.opacity = videoOpacity;
             if (videoOpacity === 0) {
@@ -375,9 +299,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // ==========================================
+    
         // EXECUTE TEXT STATES
-        // ==========================================
+    
         if (fadeText) {
             fadeText.style.opacity = textOpacity;
             if (textOpacity === 0) {
