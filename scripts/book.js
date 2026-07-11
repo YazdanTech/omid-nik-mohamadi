@@ -44,14 +44,27 @@ function bindTriggers() {
 
 function openModal(serviceId) {
   const overlay = document.getElementById('bookingModalOverlay');
+  
+  // Explicitly set starting state for the first-time open
+  overlay.style.opacity = '0';
+  overlay.style.display = 'flex';
+  
+  overlay.offsetHeight; // Force reflow to register starting state
+  overlay.style.transition = 'opacity 1s ease';
+  
   overlay.classList.add('is-open');
+  overlay.style.opacity = '1';
+  
   if (serviceId) preselectService(serviceId);
   goToStep(1);
 }
-
 function closeModal() {
   const overlay = document.getElementById('bookingModalOverlay');
-  overlay.classList.remove('is-open');
+  overlay.style.opacity = '0';
+  setTimeout(() => {
+    overlay.classList.remove('is-open');
+    overlay.style.display = 'none';
+  }, 1000); // Wait for 1s fade-out animation to complete
 }
 
 function bindClose() {
@@ -127,13 +140,10 @@ function bindNavigation() {
 }
 
 function goToStep(step) {
+  const currentSection = document.querySelector('.modal-step.is-active');
+  const targetSection = document.querySelector(`.modal-step[data-step="${step}"]`);
+  
   currentStep = step;
-
-  document.querySelectorAll('.modal-step').forEach(function (section) {
-    const isActive = Number(section.getAttribute('data-step')) === step;
-    section.classList.toggle('is-active', isActive);
-    section.setAttribute('aria-hidden', String(!isActive));
-  });
 
   document.querySelectorAll('.progress-step').forEach(function (el) {
     const idx = Number(el.getAttribute('data-step'));
@@ -149,7 +159,33 @@ function goToStep(step) {
   document.getElementById('backBtn').disabled = step === 1;
   document.getElementById('continueBtn').textContent = step === TOTAL_STEPS ? 'پرداخت بیعانه' : 'ادامه';
 
-  updateContinueState();
+  if (currentSection && currentSection !== targetSection) {
+    currentSection.style.transition = 'opacity 1s ease';
+    currentSection.style.opacity = '0';
+    
+    setTimeout(() => {
+      currentSection.classList.remove('is-active');
+      currentSection.setAttribute('aria-hidden', 'true');
+      
+      if (targetSection) {
+        targetSection.classList.add('is-active');
+        targetSection.setAttribute('aria-hidden', 'false');
+        targetSection.style.opacity = '0';
+        targetSection.style.transition = 'opacity 1s ease';
+        targetSection.offsetHeight; // Force reflow
+        targetSection.style.opacity = '1';
+      }
+      updateContinueState();
+    }, 500);
+  } else {
+    document.querySelectorAll('.modal-step').forEach(function (section) {
+      const isActive = Number(section.getAttribute('data-step')) === step;
+      section.classList.toggle('is-active', isActive);
+      section.setAttribute('aria-hidden', String(!isActive));
+      section.style.opacity = isActive ? '1' : '0';
+    });
+    updateContinueState();
+  }
 }
 
 function isStepValid(step) {

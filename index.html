@@ -269,7 +269,7 @@
   <div class="video-expansion-overlay" id="videoOverlay"></div>
 
 
-<div class="booking-modal-overlay" id="bookingModalOverlay" dir="rtl">
+<div class="booking-modal-overlay" id="bookingModalOverlay" dir="rtl" >
   <div class="booking-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <button type="button" class="modal-close" id="modalCloseBtn" aria-label="بستن">×</button>
 
@@ -277,17 +277,17 @@
 
     <nav class="modal-progress" id="modalProgress" aria-label="مراحل رزرو">
       <div class="progress-step" data-step="1">
-        <span class="progress-step-index">۰۱</span>
+        <span class="progress-step-index">01</span>
         <span class="progress-step-label">انتخاب خدمت</span>
       </div>
       <div class="progress-line"></div>
       <div class="progress-step" data-step="2">
-        <span class="progress-step-index">۰۲</span>
+        <span class="progress-step-index">02</span>
         <span class="progress-step-label">تاریخ و ساعت</span>
       </div>
       <div class="progress-line"></div>
       <div class="progress-step" data-step="3">
-        <span class="progress-step-index">۰۳</span>
+        <span class="progress-step-index">03</span>
         <span class="progress-step-label">خلاصه و پرداخت</span>
       </div>
     </nav>
@@ -296,43 +296,45 @@
       <section class="modal-step" data-step="1">
         <div class="booking-modal-services">
           <div class="service-category" data-category="normal">
+            <h3 class="service-category-title">خدمات عادی</h3>
             <ul class="service-list" id="normalServiceList">
               <li class="service-item" data-service-id="svc-101" data-category="normal">
                 <input type="checkbox" class="service-select" id="sel-svc-101" />
                 <label for="sel-svc-101" class="service-info">
                   <span class="service-name">اصلاح مو</span>
-                  <span class="service-duration">۳۰ دقیقه</span>
-                  <span class="service-price">۲۵۰,۰۰۰ تومان</span>
+                  <span class="service-duration">1.5H</span>
+                  <span class="service-price">2,900 T</span>
                 </label>
               </li>
               <li class="service-item" data-service-id="svc-102" data-category="normal">
                 <input type="checkbox" class="service-select" id="sel-svc-102" />
                 <label for="sel-svc-102" class="service-info">
                   <span class="service-name">اصلاح ریش</span>
-                  <span class="service-duration">۲۰ دقیقه</span>
-                  <span class="service-price">۱۵۰,۰۰۰ تومان</span>
+                  <span class="service-duration">30M</span>
+                  <span class="service-price">2,900 T</span>
                 </label>
               </li>
             </ul>
           </div>
 
           <div class="service-category" data-category="grooming">
+            <h3 class="service-category-title">خدمات دوماد  </h3>
             <ul class="service-list" id="groomingServiceList">
               <li class="service-item" data-service-id="svc-201" data-category="grooming">
                 <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-201" />
                 <label for="sel-svc-201" class="service-info">
                   <span class="service-name">پکیج داماد</span>
-                  <span class="service-price">۸۰۰,۰۰۰ تومان</span>
+                  <span class="service-price">1,900 T</span>
                 </label>
-                <a class="service-link" href="#" data-service-id="svc-201">جزئیات</a>
+                <a class="service-link" href="#" data-service-id="svc-201">?</a>
               </li>
               <li class="service-item" data-service-id="svc-202" data-category="grooming">
                 <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-202" />
                 <label for="sel-svc-202" class="service-info">
                   <span class="service-name">پکیج VIP</span>
-                  <span class="service-price">۱,۲۰۰,۰۰۰ تومان</span>
+                  <span class="service-price">1,200 T</span>
                 </label>
-                <a class="service-link" href="#" data-service-id="svc-202">جزئیات</a>
+                <a class="service-link" href="#" data-service-id="svc-202">?</a>
               </li>
             </ul>
           </div>
@@ -346,8 +348,8 @@
             <input type="date" id="bookingDate" />
           </div>
           <div class="field-row">
-            <label for="bookingTime">ساعت</label><span id="timeErrorMsg" class="time-error">لطفا از بین 09:00 تا 23:00 انتخاب کنید</span>
             <input type="time" id="bookingTime" min="09:00" max="23:00" step="900" />
+            <label for="bookingTime">ساعت</label><span id="timeErrorMsg" class="time-error">لطفا از بین 09:00 تا 23:00 انتخاب کنید</span>
           </div>
           <div class="field-row field-row-full">
             <label for="bookingNote">توضیحات تکمیلی</label>
@@ -380,8 +382,7 @@
           <div class="deposit-summary">
             <div class="deposit-row">
               <span class="deposit-label">بیعانه</span>
-              <span class="deposit-amount">500,000</span>
-              <span class="deposit-currency">تومان</span>
+              <span class="deposit-amount">500 T</span>
             </div>
           </div>
         </div>
