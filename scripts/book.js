@@ -44,6 +44,8 @@ function bindTriggers() {
 
 function openModal(serviceId) {
   const overlay = document.getElementById('bookingModalOverlay');
+  document.body.classList.add('no-scroll');
+
   
   // Explicitly set starting state for the first-time open
   overlay.style.opacity = '0';
@@ -60,6 +62,7 @@ function openModal(serviceId) {
 }
 function closeModal() {
   const overlay = document.getElementById('bookingModalOverlay');
+  document.body.classList.remove('no-scroll');
   overlay.style.opacity = '0';
   setTimeout(() => {
     overlay.classList.remove('is-open');
