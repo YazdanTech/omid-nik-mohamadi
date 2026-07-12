@@ -15,7 +15,7 @@
     background: var(--nav-bg);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    padding: .8rem 0.5rem;
+    padding: .8rem 0rem;
     margin: .9rem .9rem;
     border: 1px solid var(--border-color);
     backdrop-filter: blur(6px);
