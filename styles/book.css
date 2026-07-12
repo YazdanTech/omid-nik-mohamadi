@@ -439,7 +439,7 @@
   background: rgba(0, 0, 0, 0.753);
   padding: 1.5rem;
   border: 1px solid var(--border-color);
-  box-shadow: 0px 10px 20px black;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.288);
   animation: SummaryBreath 3s ease infinite alternate;
 }
 
@@ -449,12 +449,12 @@
   background: rgba(0, 0, 0, 0.1);
   border: 1px solid var(--border-color);
   animation: SummaryBreathWhite 3s ease infinite alternate;
-  box-shadow: 0px 10px 20px black;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.664);
 }
 
 @keyframes SummaryBreathWhite {
   from {
-    box-shadow: 0px 20px 30px black;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.521);
     background: white;
     border: 1px solid var(--accent);
     transform: scale(1.02)
@@ -462,7 +462,7 @@
 
   to {
     background: var(--white);
-    box-shadow: 0px 0px 10px black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.507);
     border: 1px solid var(--accent-transparent);
   }
 }
@@ -528,7 +528,7 @@
   border-radius: 0;
   border: 1px solid var(--accent-transparent);
   background-color: rgba(0, 0, 0, 0.103);
-  box-shadow: 0px 0px 20px black;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.301);
 }
 
 .deposit-row {
