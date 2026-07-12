@@ -10,55 +10,96 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Manrope:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./styles/style.css">
 <link rel="stylesheet" href="./styles/sign-in-up.css">
+<link rel="stylesheet" href="./styles/footer.css">
+<link rel="stylesheet" href="./styles/nav.css">
 </head>
 <body>
 
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="#top" class="brand">OMID</a>
 
-<header class="site-header" id="siteHeader">
-  <div class="header-inner">
-    <a href="#top" class="brand">OMID</a>
-    <div class="header-actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
-        <span class="theme-toggle-dot"></span>
-      </button>
+      <!-- Middle Navigation (Desktop Only) -->
+      <nav class="desktop-nav" aria-label="Primary Desktop Navigation">
+        <ul class="desktop-nav-links">
+          <li><a href="/#top" class="desktop-nav-link">Home</a></li>
+          <li><a href="/#craft" class="desktop-nav-link">The Craft</a></li>
+          <li><a href="/#services" class="desktop-nav-link">Services</a></li>
+          <li><a href="grooming.html" class="desktop-nav-link">Grooming</a></li>
+          <li><a href="products.html" class="desktop-nav-link">Products</a></li>
+        </ul>
+      </nav>
 
-      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">
-        <span class="menu-toggle-line"></span>
-        <span class="menu-toggle-line"></span>
-      </button>
-    </div>
-  </div>
-</header>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
+          <span class="theme-toggle-dot"></span>
+        </button>
 
-<div class="side-nav" id="sideNav">
-  <div class="side-nav-overlay" id="sideNavOverlay"></div>
-  <nav class="side-nav-panel" aria-label="Primary">
-    <div class="side-nav-top">
-      <div class="side-nav-brand">
-        <span class="side-nav-brand-name">Omid Nik Mohamadi</span>
-        <span class="side-nav-brand-sub" lang="fa" dir="rtl"> امید نیک محمدی</span>
+        <!-- Booking Action Link (Swaps with Menu on Desktop) -->
+        <a href="#contact" class="header-book-btn">
+          <span lang="fa" dir="rtl">رزرو نوبت</span>
+          <span class="book-btn-en">Book</span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">
+          <span class="menu-toggle-line"></span>
+          <span class="menu-toggle-line"></span>
+        </button>
       </div>
-      <button class="side-nav-close" id="sideNavClose" aria-label="Close navigation menu">&times;</button>
     </div>
-    <ul class="side-nav-links">
-      <li><a href="index.html/#top" class="side-nav-link" data-nav-link><span class="side-nav-link-index">01</span>Home</a></li>
-      <li><a href="index.html/#craft" class="side-nav-link" data-nav-link><span class="side-nav-link-index">02</span>The Craft</a></li>
-      <li><a href="index.html/#services" class="side-nav-link" data-nav-link><span class="side-nav-link-index">03</span>Services</a></li>
-      <li><a href="index.html/#contact" class="side-nav-link" data-nav-link><span class="side-nav-link-index">04</span>Contact</a></li>
-      <li><a href="sign-up.html" class="side-nav-link" data-nav-link><span class="side-nav-link-index">05</span>Sign up</a></li>
-      <li><a href="sign-in.html" class="side-nav-link" data-nav-link><span class="side-nav-link-index">06</span>Sign in</a></li>
-      <li><a href="grooming.html" class="side-nav-link" data-nav-link><span class="side-nav-link-index">07</span>Grooming</a></li>
-    </ul>
-    <div class="side-nav-bottom">
-      <a href="#contact" class="side-nav-book" data-nav-link>
-        <span lang="fa" dir="rtl">رزرو نوبت</span>
-        <span class="side-nav-book-en">Book an Appointment</span>
-      </a>
-      <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank" rel="noopener">Instagram</a>
-    </div>
-  </nav>
-</div>
+  </header>
 
+  <div class="side-nav" id="sideNav">
+    <div class="side-nav-overlay" id="sideNavOverlay"></div>
+    <nav class="side-nav-panel" aria-label="Primary">
+
+      <!-- Top Block: Brand & Close -->
+      <div class="side-nav-top">
+        <div class="side-nav-brand">
+          <span class="side-nav-brand-name">Omid Nik Mohamadi</span>
+          <span class="side-nav-brand-sub" lang="fa" dir="rtl">امید نیک محمدی</span>
+        </div>
+        <button class="side-nav-close" id="sideNavClose" aria-label="Close navigation menu">&times;</button>
+      </div>
+
+      <!-- Main Navigation (Pages and Sections combined cleanly) -->
+      <ul class="side-nav-links">
+        <li><a href="/#top" class="side-nav-link" data-nav-link><span
+              class="side-nav-link-index">01</span>Home</a></li>
+        <li><a href="/#craft" class="side-nav-link" data-nav-link><span
+              class="side-nav-link-index">02</span>The Craft</a></li>
+        <li><a href="/#services" class="side-nav-link" data-nav-link><span
+              class="side-nav-link-index">03</span>Services</a></li>
+        <li><a href="grooming.html" class="side-nav-link" data-nav-link><span
+              class="side-nav-link-index">04</span>Grooming</a></li>
+        <li><a href="products.html" class="side-nav-link" data-nav-link><span
+              class="side-nav-link-index">05</span>Products</a></li>
+        <li><a href="/#contact" class="side-nav-link" data-nav-link><span
+              class="side-nav-link-index">06</span>Contact</a></li>
+      </ul>
+
+
+      <!-- Bottom Actions -->
+      <div class="side-nav-bottom">
+        <a href="#contact" class="side-nav-book" data-nav-link>
+          <span lang="fa" dir="rtl">رزرو نوبت</span>
+          <span class="side-nav-book-en">Book an Appointment</span>
+        </a>
+        <a href="sign-up.html" class="side-nav-book" data-nav-link>
+          <span lang="fa" dir="rtl">ساخت حساب / ورود</span>
+          <span class="side-nav-book-en">Log in</span>
+        </a>
+        <div class="side-nav-bottom-social">
+          <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank"
+            rel="noopener">Instagram | </a>
+          <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank"
+            rel="noopener">Whatsapp</a>
+
+        </div>
+      </div>
+
+    </nav>
+  </div>
 
 <div class="auth" data-page="sign-in">
 
