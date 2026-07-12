@@ -60,7 +60,6 @@ APP 2: services
     - Models:
         -- Service:
             --- title (CharField)
-            --- description (TextField)
             --- price (DecimalField)
             --- duration_minutes (IntegerField)
             --- is_active (BooleanField, default=True)

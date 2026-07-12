@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="./styles/book.css">
   <link rel="stylesheet" href="./styles/footer.css">
   <link rel="stylesheet" href="./styles/nav.css">
+  <link rel="stylesheet" href="./styles/grid-slot.css">
 </head>
 
 <body>
@@ -98,10 +99,9 @@
 
       <!-- Main Navigation (Pages and Sections combined cleanly) -->
       <ul class="side-nav-links">
-        <li><a href="/#top" class="side-nav-link" data-nav-link><span
-              class="side-nav-link-index">01</span>Home</a></li>
-        <li><a href="/#craft" class="side-nav-link" data-nav-link><span
-              class="side-nav-link-index">02</span>The Craft</a></li>
+        <li><a href="/#top" class="side-nav-link" data-nav-link><span class="side-nav-link-index">01</span>Home</a></li>
+        <li><a href="/#craft" class="side-nav-link" data-nav-link><span class="side-nav-link-index">02</span>The
+            Craft</a></li>
         <li><a href="/#services" class="side-nav-link" data-nav-link><span
               class="side-nav-link-index">03</span>Services</a></li>
         <li><a href="grooming.html" class="side-nav-link" data-nav-link><span
@@ -289,13 +289,13 @@
         </div>
       </div>
       <div class="footer-right">
-            <a href="https://instagram.com/omidnikMohamadi" class="footer-instagram" target="_blank" rel="noopener">
-                <span class="footer-instagram-text">Instagram</span>
-            </a>
-            <a href="https://instagram.com/omidnikMohamadi" class="footer-instagram" target="_blank" rel="noopener">
-                <span class="footer-instagram-text">Whatsapp</span>
-            </a>
-        </div>
+        <a href="https://instagram.com/omidnikMohamadi" class="footer-instagram" target="_blank" rel="noopener">
+          <span class="footer-instagram-text">Instagram</span>
+        </a>
+        <a href="https://instagram.com/omidnikMohamadi" class="footer-instagram" target="_blank" rel="noopener">
+          <span class="footer-instagram-text">Whatsapp</span>
+        </a>
+      </div>
     </div>
     <div class="container footer-bottom">
       <span>&copy; 2026 Omid Nik Mohamadi</span>
@@ -380,17 +380,27 @@
           <div class="booking-fields">
             <div class="field-row">
               <label for="bookingDate">تاریخ</label>
-              <input type="date" id="bookingDate" placeholder="0/0/2000"/>
-            </div>
-            <div class="field-row">
-              <label for="bookingTime">ساعت </label>
-              <input type="time" id="bookingTime" min="09:00" max="23:00" step="900" placeholder="00:00"/>
-               <span id="timeErrorMsg" class="time-error">* لطفا از بین 09:00 تا 23:00 انتخاب کنید </span>
+              <input type="date" id="bookingDate" placeholder="0/0/2000" />
             </div>
             <div class="field-row field-row-full">
               <label for="bookingNote">توضیحات تکمیلی</label>
               <textarea id="bookingNote" rows="4" placeholder="در صورت نیاز توضیحات خود را وارد کنید..."></textarea>
             </div>
+
+            <div class="field-row" id="timeSelectionRow">
+              <label>ساعت</label>
+              <div class="slot-container">
+                <div id="slotGridWrapper" class="is-disabled">
+                  <div id="slotGrid"></div>
+                </div>
+                <div id="slotSummary">
+                  <span class="slot-summary-time"></span>
+                  <button type="button" class="slot-summary-change">تغییر ساعت</button>
+                </div>
+                <input type="hidden" id="bookingTime" name="bookingTime" required />
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -433,6 +443,7 @@
   </div>
   <script src="./scripts/app.js"></script>
   <script src="./scripts/book.js"></script>
+  <script src="./scripts/grid-slot.js"></script>
   <script src="./scripts/nav.js"></script>
 </body>
 

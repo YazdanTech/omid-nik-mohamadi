@@ -613,3 +613,132 @@
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+
+
+  #bookingDate {
+    padding: 10px 12px;
+    border: 1px solid rgba(0,0,0,0.15);
+    font-family: inherit;
+    font-size: 14px;
+  }
+
+
+  #timeSelectionRow .slot-container {
+    position: relative;
+  }
+
+  /* ---- Animation canvas ---- */
+  #slotGridWrapper {
+    max-height: 600px;
+    opacity: 1;
+    transition: max-height 1s ease, opacity 1s ease;
+  }
+  #slotGridWrapper.is-collapsed {
+    max-height: 0;
+    opacity: 0;
+  }
+  #slotGridWrapper.is-disabled #slotGrid {
+    pointer-events: none;
+  }
+
+  /* ---- Grid: vertical stack ---- */
+  #slotGrid {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--border-color);
+    box-shadow: 0px 0px 20px black;
+    transition: 1s ease all;
+  }
+
+  [data-theme=light] #slotGrid {
+    box-shadow: 0px 0px 30px var(--dark-blue-transparent);
+  }
+
+  .slot-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    font-size: 14px;
+    border-top: 1px solid rgba(0,0,0,0.12);
+    transition: 1s ease all;
+
+  }
+  .slot-row:first-child { border-top: none; }
+
+  /* time on the left, status/button on the right (per spec, regardless of RTL text flow) */
+  .slot-time { order: 2; font-variant-numeric: tabular-nums; }
+  .slot-status { order: 1; }
+
+  /* ---- Default inactive (no date chosen yet) ---- */
+  .slot-row[data-status="inactive"] {
+    background: var(--bg-main);
+    pointer-events: none;
+  }
+
+  /* ---- Available ---- */
+  .slot-row[data-status="available"] {
+    transition: 1s ease all;
+    border-left: 1px solid rgba(0, 128, 0, 0.473)
+  }
+  .slot-row[data-status="available"] .slot-select-btn {
+    border: 1px solid color-mix(in srgb, var(--accent-transparent) 50%, transparent 50%);
+    background: color-mix(in srgb, var(--accent-transparent) 20%, transparent 80%);
+    box-shadow:0px 0px 10px rgba(0, 0, 0, 0.404);
+    color: var(--text-main);
+    font-size: 12px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+  .slot-row[data-status="available"] .slot-select-btn:hover { filter: brightness(0.92); }
+
+  /* ---- Unavailable ---- */
+  .slot-row[data-status="unavailable"] {
+    transition: 1s ease all;
+    opacity: 0.4;
+  }
+  .slot-row[data-status="unavailable"] .slot-status-text {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* ---- Visual unification: merge consecutive identical states ---- */
+  .slot-row[data-status="available"]  + .slot-row[data-status="available"],
+  .slot-row[data-status="unavailable"] + .slot-row[data-status="unavailable"],
+  .slot-row[data-status="inactive"]   + .slot-row[data-status="inactive"] {
+    border-top: none;
+    margin-top: -1px;
+  }
+  /* ---- Summary block (shown after a slot is picked) ---- */
+  #slotSummary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border: 1px solid var(--accent-transparent);
+    background: var(--bg-main);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 1s ease, max-height 1s ease;
+  }
+  #slotSummary.is-visible {
+    opacity: 1;
+    max-height: 100px;
+    margin-top: 10px;
+  }
+  #slotSummary .slot-summary-time {
+    font-weight: 700;
+    color: var(--accent);
+  }
+  #slotSummary .slot-summary-change {
+    border: none;
+    background: transparent;
+    color: var(--text-main);
+    text-decoration: underline 1px var(--accent-less-transparent);
+    font-size: 13px;
+    cursor: pointer;
+  }
