@@ -2,11 +2,11 @@
 .site-footer {
     position: relative;
     overflow: hidden;
-    padding: 6rem 1.75rem 1.1rem;
-    padding: 6rem 0 2rem;
-    border: 1px solid var(--orange-transparent);
-    box-shadow: 0px 0px 20px var(--dark-blue);
-    background-color: var(--bg-main);
+    padding: 6rem  2rem;
+    margin: 5rem 1rem;
+    border: 1px solid var(--accent-transparent);
+    box-shadow: 0px 0px 20px var(--accent);
+    background-color: var(--dark-blue);
     animation: 2s border-shine infinite alternate;
 }
 
@@ -39,7 +39,7 @@
     height: 100%;
     /* transform: scale(1.1); */
     background: var(--overlay);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(16px);
     z-index: 2;
 }
 
@@ -79,7 +79,7 @@
     font-size: 0.95rem;
     margin-top:3rem;
     padding: 0.8rem 1.4rem;
-    border: 1px solid var(--orange);
+    border: 1px solid var(--accent);
     border-radius: var(--radius-sm);
     color: var(--white);
     backdrop-filter: blur(15px);
@@ -87,7 +87,7 @@
 }
 
 .footer-book:hover {
-    background: var(--orange);
+    background: var(--accent);
     color: var(--black);
 }
 
@@ -112,20 +112,21 @@
 }
 
 .footer-link:hover {
-    color: var(--orange);
+    color: var(--accent);
 }
 
 .footer-right {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    width: 30%;
+    align-items: center;
     gap: 1.5rem;
 }
 
 .footer-instagram {
     position: relative;
     font-family: var(--font-display);
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-size: 1.5rem;
     padding-bottom: 0.2rem;
     color: var(--white);
 }
@@ -142,7 +143,7 @@
     bottom: 0;
     height: 0.5rem;
     width: 0;
-    background: var(--orange-transparent);
+    background: var(--accent-transparent);
     z-index: 1;
     transition: width var(--transition-default);
 }

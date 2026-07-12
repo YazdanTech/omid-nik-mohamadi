@@ -15,8 +15,8 @@
     background: var(--nav-bg);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    padding: .8rem 0;
-    margin: .9rem 1rem;
+    padding: .8rem 0.5rem;
+    margin: .9rem 0;
     border: 1px solid var(--border-color);
     backdrop-filter: blur(6px);
     border-image: linear-gradient(to right, var(--orange-transparent) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange-transparent) 100%) 1;
@@ -339,6 +339,9 @@
 
     .desktop-nav {
         display: block;
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .desktop-nav-links {

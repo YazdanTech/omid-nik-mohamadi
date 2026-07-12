@@ -376,14 +376,14 @@ button {
     height: 100%;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 0 80px var(--bg-main);
+    box-shadow: 0 0 80px var(--black);
 }
 
 .portrait-frame::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, var(--bg-main) 0%, transparent 22%, transparent 78%, var(--bg-main) 100%);
+    background: linear-gradient(to bottom, var(--black) 0%, transparent 22%, transparent 78%, var(--black) 100%);
     z-index: 2;
     pointer-events: none;
 }
@@ -531,8 +531,6 @@ button {
     inset: 0;
     z-index: 9998;
     background: rgba(10, 10, 10, 0.92);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--transition-default);
