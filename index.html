@@ -14,6 +14,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="./styles/style.css">
   <link rel="stylesheet" href="./styles/book.css">
+  <link rel="stylesheet" href="./styles/footer.css">
   <link rel="stylesheet" href="./styles/nav.css">
 </head>
 
@@ -55,7 +56,7 @@
       <!-- Middle Navigation (Desktop Only) -->
       <nav class="desktop-nav" aria-label="Primary Desktop Navigation">
         <ul class="desktop-nav-links">
-          <li><a href="index.html/#top" class="desktop-nav-link">Home</a></li>
+          <li><a href="/#top" class="desktop-nav-link">Home</a></li>
           <li><a href="index.html/#craft" class="desktop-nav-link">The Craft</a></li>
           <li><a href="index.html/#services" class="desktop-nav-link">Services</a></li>
           <li><a href="grooming.html" class="desktop-nav-link">Grooming</a></li>
@@ -97,17 +98,17 @@
 
       <!-- Main Navigation (Pages and Sections combined cleanly) -->
       <ul class="side-nav-links">
-        <li><a href="index.html/#top" class="side-nav-link" data-nav-link><span
+        <li><a href="/#top" class="side-nav-link" data-nav-link><span
               class="side-nav-link-index">01</span>Home</a></li>
-        <li><a href="index.html/#craft" class="side-nav-link" data-nav-link><span
+        <li><a href="/#craft" class="side-nav-link" data-nav-link><span
               class="side-nav-link-index">02</span>The Craft</a></li>
-        <li><a href="index.html/#services" class="side-nav-link" data-nav-link><span
+        <li><a href="/#services" class="side-nav-link" data-nav-link><span
               class="side-nav-link-index">03</span>Services</a></li>
         <li><a href="grooming.html" class="side-nav-link" data-nav-link><span
               class="side-nav-link-index">04</span>Grooming</a></li>
         <li><a href="products.html" class="side-nav-link" data-nav-link><span
               class="side-nav-link-index">05</span>Products</a></li>
-        <li><a href="index.html/#contact" class="side-nav-link" data-nav-link><span
+        <li><a href="/#contact" class="side-nav-link" data-nav-link><span
               class="side-nav-link-index">06</span>Contact</a></li>
       </ul>
 
@@ -286,18 +287,17 @@
           <a href="#portal" class="footer-link">Client Portal</a>
         </div>
       </div>
-      <!-- <div class="footer-right">
+      <div class="footer-right">
             <a href="https://instagram.com/omidnikMohamadi" class="footer-instagram" target="_blank" rel="noopener">
                 <span class="footer-instagram-text">Instagram</span>
             </a>
             <a href="https://instagram.com/omidnikMohamadi" class="footer-instagram" target="_blank" rel="noopener">
-                <span class="footer-instagram-text">Instagram</span>
+                <span class="footer-instagram-text">Whatsapp</span>
             </a>
-        </div> -->
+        </div>
     </div>
     <div class="container footer-bottom">
       <span>&copy; 2026 Omid Nik Mohamadi</span>
-      <span class="footer-bottom-mono">MILESTONE 01</span>
     </div>
   </footer>
   <div class="video-expansion-overlay" id="videoOverlay"></div>
@@ -382,9 +382,9 @@
               <input type="date" id="bookingDate" />
             </div>
             <div class="field-row">
+              <label for="bookingTime">ساعت </label>
               <input type="time" id="bookingTime" min="09:00" max="23:00" step="900" />
-              <label for="bookingTime">ساعت</label><span id="timeErrorMsg" class="time-error">لطفا از بین 09:00 تا 23:00
-                انتخاب کنید</span>
+               <span id="timeErrorMsg" class="time-error">* لطفا از بین 09:00 تا 23:00 انتخاب کنید </span>
             </div>
             <div class="field-row field-row-full">
               <label for="bookingNote">توضیحات تکمیلی</label>
