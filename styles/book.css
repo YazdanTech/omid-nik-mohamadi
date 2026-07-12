@@ -6,8 +6,7 @@
   align-items: center;
   justify-content: center;
   background: transparent;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(6px);
+  background-color: var(--bg-main);
 }
 
 .booking-modal-overlay.is-open {
@@ -28,7 +27,6 @@
   font-family: var(--font-body);
   color: var(--text-main);
   display: flex;
-  padding-top:1rem;
   flex-direction: column;
   overflow: hidden;
 }
@@ -52,7 +50,7 @@
   margin: 0.75rem;
   border: 1px solid var(--border-color);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.068);
   color: var(--text-muted);
   font-size: 1.2rem;
   line-height: 1;
@@ -61,8 +59,8 @@
 }
 
 .modal-close:hover {
-  color: var(--orange);
-  border-color: var(--orange-transparent);
+  color: var(--accent);
+  border-color: var(--accent-transparent);
   background: rgba(255, 255, 255, 0.06);
 }
 
@@ -70,6 +68,7 @@
   padding: 1.75rem 2rem 0;
   font-family: var(--font-display);
   font-size: 1.5rem;
+  text-align: center;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--text-main);
@@ -98,7 +97,7 @@
 .progress-step-index {
   width: 1.9rem;
   height: 1.9rem;
-  border: 1px solid var(--orange-transparent);
+  border: 1px solid var(--accent-transparent);
   border-radius: 0;
   display: flex;
   align-items: center;
@@ -111,14 +110,14 @@
 }
 
 .progress-step.is-active .progress-step-index {
-  border-color: var(--orange);
-  background-color:var(--bg-main);
-  color: var(--orange);
-  box-shadow: 0 0 22px var(--orange-less-transparent);
+  border-color: var(--accent);
+  background-color: var(--bg-main);
+  color: var(--accent);
+  box-shadow: 0 0 22px var(--accent-less-transparent);
 }
 
 .progress-step.is-complete .progress-step-index {
-  background-color: var(--orange);
+  background-color: var(--accent);
   color: var(--black);
   transform: scale(0.8) rotate(225deg);
   filter: blur(2px);
@@ -144,7 +143,7 @@
   overflow-y: auto;
   padding: 2rem;
   scrollbar-width: thin;
-  scrollbar-color: var(--orange-transparent) transparent;
+  scrollbar-color: var(--accent-transparent) transparent;
 }
 
 .modal-body::-webkit-scrollbar {
@@ -152,7 +151,7 @@
 }
 
 .modal-body::-webkit-scrollbar-thumb {
-  background: var(--orange-transparent);
+  background: var(--accent-transparent);
   border-radius: 0;
 }
 
@@ -183,7 +182,7 @@
   display: block;
   width: 100%;
   height: 1px;
-  background: var(--orange);
+  background: var(--accent);
   margin-top: 0.75rem;
   opacity: 0.6;
 }
@@ -207,6 +206,20 @@
   background: rgba(0, 0, 0, 0.753);
   transition: var(--transition-default) all;
   gap: 0.75rem;
+}
+
+
+[data-theme="light"] .service-item {
+    padding: 0.75rem 1rem;
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color-scheme: dark;
+
+    border: 1px solid var(--accent-transparent);
+    border-right: 3px solid transparent;
+    background: rgba(0, 0, 0, 0.1);
+    transition: 2s ease all;
 }
 
 .service-item label {
@@ -234,7 +247,7 @@
 
 .service-item:has(.service-select:checked) {
   border: 1px solid transparent;
-  border-right:3px solid var(--orange);
+  border-right: 3px solid var(--accent);
 }
 
 .service-select {
@@ -252,9 +265,9 @@
 }
 
 .service-select:checked {
-  border-color: var(--orange);
-  background: var(--orange);
-  box-shadow: 0 0 12px var(--orange-transparent);
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-transparent);
 }
 
 .service-select:checked::after {
@@ -265,7 +278,7 @@
   align-items: center;
   justify-content: center;
   font-size: .85rem;
-  color: var(--black);
+  color: var(--bg-main);
   font-weight: 700;
 }
 
@@ -297,7 +310,7 @@
   font-family: var(--font-mono);
   font-size: 0.9rem;
   direction: ltr;
-  color: var(--orange);
+  color: var(--accent);
   margin-top: 0.3rem;
 }
 
@@ -311,11 +324,11 @@
   flex-shrink: 0;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  background-color:black;
+  background-color: var(--bg-main);
   text-decoration: none;
-  border: 1px solid var(--orange-transparent);
+  border: 1px solid var(--accent-transparent);
   width: 1.5rem;
-  border-radius:50%;
+  border-radius: 50%;
   text-align: center;
   height: 1.5rem;
   transition: var(--transition-default);
@@ -323,8 +336,8 @@
 }
 
 .service-link:hover {
-  color: var(--orange);
-  border-color: var(--orange);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .booking-fields {
@@ -347,6 +360,11 @@
   letter-spacing: 0.02em;
 }
 
+.field-row input::placeholder,
+.field-row textarea::placeholder {
+  color: (--gray);
+}
+
 .field-row input,
 .field-row textarea {
 
@@ -356,9 +374,8 @@
   font-size: 0.9rem;
   color-scheme: dark;
 
-  border: 1px solid var(--border-color);
-  border-right: 3px solid transparent;
-  background: rgba(0, 0, 0, 0.753);
+  border: 1px solid var(--accent-transparent);
+  background: var(--bg-main);
   transition: 2s ease all;
 }
 
@@ -402,7 +419,7 @@
 .field-row input:focus,
 .field-row textarea:focus {
   outline: none;
-  border-color: var(--dark-blue);
+  border-color: var(--accent-transparent);
   transform: translateY(-5px);
   box-shadow: 0px 10px 20px black;
   transition: var(--transition-default) all;
@@ -426,18 +443,28 @@
   animation: SummaryBreath 3s ease infinite alternate;
 }
 
-@keyframes SummaryBreath {
-    from {
-      box-shadow: 0px 0px 30px black;
-      background: rgb(0, 0, 0);
-      border: 1px solid var(--orange);
-      transform: scale(1.05)
-    }
-    to {
-      background: rgba(0, 0, 0, 0.63);
-      box-shadow: 0px 0px 10px black;
-      border: 1px solid var(--orange-transparent);
-    }
+
+[data-theme="light"] .summary-details {
+
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  animation: SummaryBreathWhite 3s ease infinite alternate;
+  box-shadow: 0px 10px 20px black;
+}
+
+@keyframes SummaryBreathWhite {
+  from {
+    box-shadow: 0px 20px 30px black;
+    background: white;
+    border: 1px solid var(--accent);
+    transform: scale(1.02)
+  }
+
+  to {
+    background: var(--white);
+    box-shadow: 0px 0px 10px black;
+    border: 1px solid var(--accent-transparent);
+  }
 }
 
 
@@ -447,8 +474,8 @@
   align-items: center;
   gap: 1rem;
   color: var(--text-main);
-  border-bottom:1px solid var(--border-color);
-  padding-bottom:0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
 }
 
 .summary-label {
@@ -467,8 +494,8 @@
 
 #summaryServicesList {
   display: flex;
-  border-right: 1px solid var(--orange);
-  padding:1rem;
+  border-right: 1px solid var(--accent);
+  padding: 1rem;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
@@ -477,10 +504,10 @@
 
 .summary-service-item {
   display: flex;
-  width:100%;
+  width: 100%;
   align-items: center;
   gap: 0.6rem;
-  justify-content:space-between;
+  justify-content: space-between;
   font-family: var(--font-mono);
   font-size: 0.85rem;
 }
@@ -490,7 +517,7 @@
 }
 
 .summary-service-item .price {
-  color: var(--orange);
+  color: var(--accent);
   direction: ltr;
 }
 
@@ -499,8 +526,9 @@
   flex-direction: column;
   padding: 1.25rem 1.5rem;
   border-radius: 0;
-  border: 1px solid var(--orange);
-  background-color:black;
+  border: 1px solid var(--accent-transparent);
+  background-color: rgba(0, 0, 0, 0.103);
+  box-shadow: 0px 0px 20px black;
 }
 
 .deposit-row {
@@ -517,10 +545,10 @@
 }
 
 .deposit-amount {
-  font-family:var(--font-mono);
+  font-family: var(--font-mono);
   font-size: 1.4rem;
-  color: var(--orange);
-  font-weight: 600; 
+  color: var(--accent);
+  font-weight: 600;
   direction: ltr;
 }
 
@@ -531,7 +559,7 @@
   gap: 1rem;
   padding: 1.5rem 2rem;
   border-top: 1px solid var(--border-color);
-  background-color:rgba(0, 0, 0, 0.753);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .modal-navigation button {
@@ -547,12 +575,12 @@
 .btn-back {
   background: transparent;
   color: var(--text-main);
-  border: 1px solid var(--orange-transparent);
+  border: 1px solid var(--accent-transparent);
 }
 
 .btn-back:hover:not(:disabled) {
-  border-color: var(--orange-transparent);
-  color: var(--orange);
+  border-color: var(--accent-transparent);
+  color: var(--accent);
 }
 
 .btn-back:disabled {
@@ -562,14 +590,14 @@
 
 .btn-continue {
   color: var(--text-main);
-  border: 1px solid var(--orange);
+  border: 1px solid var(--accent);
   font-weight: 600;
-  box-shadow: 0px 0px 20px var(--orange-transparent);
+  box-shadow: 0px 0px 20px var(--accent-transparent);
 }
 
 .btn-continue:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 14px 36px -8px var(--orange-less-transparent);
+  box-shadow: 0 14px 36px -8px var(--accent-less-transparent);
 }
 
 .btn-continue:disabled {
@@ -580,6 +608,6 @@
 
 .modal-navigation button:focus-visible,
 .modal-close:focus-visible {
-  outline: 2px solid var(--orange);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
