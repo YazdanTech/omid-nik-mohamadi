@@ -1,0 +1,96 @@
+<instruction>
+    Act as an expert backend engineer. Generate a production-ready monolith Django architecture. Django will render standard HTML templates for page navigation, but use Django REST Framework (DRF) exclusively for asynchronous Vanilla JS fetch endpoints handling dynamic booking and shop checkout overlays. Include Persian (fa locale) support.
+</instruction>
+
+<global_configurations>
+    Implement session-based authentication natively. Standard pages use Django views; dynamic JSON endpoints use DRF views nested under /api/.
+</global_configurations>
+
+<admin_panel_requirements>
+    Optimize admin.py for client operation.
+    <bookings>
+        Client must view slots filtered by date, and easily toggle specific hours or entire days as unavailable (is_booked).
+    </bookings>
+    <shop>
+        Client must see orders with status (Pending, Paid, Delivered) highly visible using list_display, list_filter, and colored status tags.
+    </shop>
+</admin_panel_requirements>
+
+<app_architecture>
+    <app name="users">
+        <models>
+            <model name="CustomUser" inherits="AbstractUser">
+                full_name (Char), phone_number (Char, unique), birth_date (Date), email (Email, null/blank=True), is_verified (Bool, default=False)
+            </model>
+            <model name="SMSVerification">
+                user (FK->CustomUser), code (Char[6]), created_at (DateTime, auto_now_add), is_used (Bool, default=False)
+            </model>
+        </models>
+        <views>
+            SignUpView, VerifyOTPView, LoginView, LogoutView (DRF endpoints for auth modals).
+        </views>
+    </app>
+
+    <app name="services">
+        <models>
+            <model name="Service">
+                title (Char), price (Dec[10,2]), duration_minutes (Int), is_active (Bool, default=True)
+            </model>
+        </models>
+        <views>
+            ServiceListView (DRF GET) injects active services into frontend arrays.
+        </views>
+    </app>
+
+    <app name="bookings">
+        <models>
+            <model name="BookingSlot">
+                date (Date), start_time (Time), is_booked (Bool, default=False)
+            </model>
+            <model name="BypassCode">
+                code (Char, unique), description (Char), is_active (Bool, default=True)
+            </model>
+            <model name="Booking">
+                user (FK->CustomUser), service (FK->Service), slot (O2O->BookingSlot), deposit_paid (Bool, default=False), bypass_code_used (FK->BypassCode, null/blank=True), status (Char: Pending, Confirmed, Cancelled)
+            </model>
+        </models>
+        <views>
+            <view name="AvailableSlotsView" method="DRF GET">
+                Params ?date=YYYY-MM-DD&amp;duration=X. Query 30-min BookingSlot intervals. Mark slot available only if consecutive slots equal to duration are unbooked.
+            </view>
+            <view name="CreateBookingView" method="DRF POST">
+                Atomic lock on slots, validate BypassCode, or process deposit.
+            </view>
+            <view name="PaymentVerifyView" method="DRF GET/POST">
+                Webhook to finalize booking.
+            </view>
+        </views>
+    </app>
+
+    <app name="shop">
+        <models>
+            <model name="Product">
+                title (Char), description (Text), price (Dec[10,2]), stock (Int), image (Image, upload_to=products/)
+            </model>
+            <model name="Order">
+                user (FK->CustomUser), total_amount (Dec[10,2]), created_at (DateTime, auto_now_add), is_paid (Bool, default=False), status (Char: Pending, Paid, Delivered, Cancelled), shipping_name (Char), shipping_phone (Char), shipping_address (Text)
+            </model>
+            <model name="OrderItem">
+                order (FK->Order), product (FK->Product), quantity (Int, default=1), price_at_purchase (Dec[10,2])
+            </model>
+        </models>
+        <views>
+            <view name="ProductCatalogView" method="DRF GET" />
+            <view name="CheckoutView" method="DRF POST">
+                Direct Buy Now flow. Calculates value, executes database-level atomic stock checks (select_for_update), decrements stock provisionally, generates Order/OrderItem, returns payment payload.
+            </view>
+            <view name="OrderPaymentVerifyView" method="DRF GET/POST">
+                Webhook to lock stock permanently or restore on failure.
+            </view>
+        </views>
+    </app>
+</app_architecture>
+
+<execution_output>
+    Provide models.py, serializers.py, views.py, admin.py, and urls.py for the DRF API components and Admin configuration. Ensure strict separation of standard template views and DRF API endpoints. no comments, no explanations or fluff. provide only the files.
+</execution_output>
