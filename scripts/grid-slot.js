@@ -104,6 +104,7 @@
 
   function handleDateChange() {
     hiddenTimeInput.value = "";
+    dateInput.dispatchEvent(new Event("input", { bubbles: true })); // ADD THIS LINE
     summary.classList.remove("is-visible");
     
     wrapper.style.display = "block";
@@ -121,6 +122,7 @@
 
   function selectSlot(time) {
     hiddenTimeInput.value = time;
+    dateInput.dispatchEvent(new Event("input", { bubbles: true }));
     wrapper.classList.add("is-collapsed");
     wrapper.style.pointerEvents = "none";
     
@@ -136,6 +138,7 @@
 
   function handleChangeClick() {
     summary.classList.remove("is-visible");
+    dateInput.dispatchEvent(new Event("input", { bubbles: true }));
     hiddenTimeInput.value = "";
     
     wrapper.style.display = "block";

@@ -391,27 +391,6 @@
   background: rgba(255, 0, 0, 0.1);
 }
 
-
-.time-error {
-  display: inline;
-  font-size: 0.85rem;
-  opacity: 0;
-  background-color: green;
-  padding: 0.5rem;
-  direction: rtl;
-  border-radius: 5px;
-  display: none;
-  transition: 2s ease opacity, 2s ease background-color;
-
-}
-
-.time-error.is-visible {
-  background-color: rgba(255, 0, 0, 0.123);
-  display: block;
-  transition: 1s ease opacity, .0s ease background-color;
-  opacity: 1;
-}
-
 .field-row textarea {
   font-family: var(--font-body);
   resize: vertical;
@@ -618,7 +597,6 @@
 
   #bookingDate {
     padding: 10px 12px;
-    border: 1px solid rgba(0,0,0,0.15);
     font-family: inherit;
     font-size: 14px;
   }
@@ -640,6 +618,7 @@
   }
   #slotGridWrapper.is-disabled #slotGrid {
     pointer-events: none;
+    filter: blur(3px);
   }
 
   /* ---- Grid: vertical stack ---- */
