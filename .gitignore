@@ -1,1 +1,4 @@
-assets/unused
+static/assets/unused
+venv/
+*/migrations/*
+/_stuff/
