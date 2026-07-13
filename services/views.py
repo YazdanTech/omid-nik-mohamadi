@@ -8,7 +8,7 @@ from .serializers import ServiceSerializer
 
 def home_page(request):
     services = Service.objects.filter(is_active=True)
-    return render(request, 'home.html', {'services': services})
+    return render(request, 'index.html', {'services': services})
 
 def grooming_page(request):
     grooming_services = Service.objects.filter(is_active=True) 
