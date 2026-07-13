@@ -1,3 +1,4 @@
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -11,6 +12,17 @@ from .serializers import (
     VerifyOTPSerializer,
 )
 
+
+
+def sign_in_page(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    return render(request, 'sign-in.html')
+
+def sign_up_page(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    return render(request, 'sign-up.html')
 
 class SignUpView(APIView):
     permission_classes = [AllowAny]

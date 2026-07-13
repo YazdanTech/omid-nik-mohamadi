@@ -1,5 +1,5 @@
 from django.db import transaction
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render  # <-- UPDATED TO INCLUDE render
 from rest_framework import status
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -8,6 +8,11 @@ from rest_framework.views import APIView
 
 from .models import Order, OrderItem, Product
 from .serializers import CheckoutSerializer, OrderSerializer, ProductSerializer
+
+
+def product_page(request):
+    products = Product.objects.filter(stock__gt=0)
+    return render(request, "products.html", {"products": products})
 
 
 class ProductCatalogView(ListAPIView):
@@ -64,19 +69,25 @@ class OrderPaymentVerifyView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        return self._verify(request)
+        """Handles the user browser return redirect from bank. Renders HTML result."""
+        order, success = self._process_verification(request)
+        return render(request, "payment_result.html", {"order": order, "success": success})
 
     def post(self, request):
-        return self._verify(request)
+        """Handles direct server-to-server bank webhook verification. Returns JSON."""
+        order, success = self._process_verification(request)
+        return Response(OrderSerializer(order).data, status=status.HTTP_200_OK)
 
-    def _verify(self, request):
+    def _process_verification(self, request):
+        """Isolated shared business logic for database modification."""
         order_id = request.data.get("order_id") or request.query_params.get("order_id")
         payment_success = request.data.get("success") or request.query_params.get("success")
 
         order = get_object_or_404(Order, id=order_id)
+        is_success = str(payment_success).lower() in ("1", "true")
 
         with transaction.atomic():
-            if str(payment_success).lower() in ("1", "true"):
+            if is_success:
                 order.is_paid = True
                 order.status = Order.Status.PAID
                 order.save(update_fields=["is_paid", "status"])
@@ -86,5 +97,5 @@ class OrderPaymentVerifyView(APIView):
                 for item in order.items.select_related("product"):
                     item.product.stock += item.quantity
                     item.product.save(update_fields=["stock"])
-
-        return Response(OrderSerializer(order).data, status=status.HTTP_200_OK)
+                    
+        return order, is_success
