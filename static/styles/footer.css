@@ -98,6 +98,10 @@
     flex-wrap: wrap;
 }
 
+.footer-nav .link-title {
+    margin:0;
+}
+
 .footer-nav-col {
     display: flex;
     flex-direction: column;

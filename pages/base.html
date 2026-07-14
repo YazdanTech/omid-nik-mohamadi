@@ -16,7 +16,7 @@
         href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Manrope:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
     <link rel="stylesheet" href="{% static 'styles/footer.css' %}">
     <link rel="stylesheet" href="{% static 'styles/nav.css' %}">
     <link rel="stylesheet" href="{% static 'styles/auth-overlay.css' %}">
@@ -78,19 +78,19 @@
             </div>
 
             <!-- Main Navigation (Pages and Sections combined cleanly) -->
-            <ul class="side-nav-links">
-            <li><a href="{% url 'services:home' %}#top" class="side-nav-link" data-nav-link><span
-                            class="side-nav-link-index">01</span>Home</a></li>
-            <li><a href="{% url 'services:home' %}#craft" class="side-nav-link" data-nav-link><span class="side-nav-link-index">02</span>The
-                Craft</a></li>
-            <li><a href="{% url 'services:home' %}#services" class="side-nav-link" data-nav-link><span
-                            class="side-nav-link-index">03</span>Services</a></li>
-            <li><a href="{% url 'services:grooming' %}" class="side-nav-link" data-nav-link><span
-                            class="side-nav-link-index">04</span>Grooming</a></li>
-            <li><a href="{% url 'shop:product_page' %}" class="side-nav-link" data-nav-link><span
-                            class="side-nav-link-index">05</span>Products</a></li>
-            <li><a href="{% url 'services:home' %}#contact" class="side-nav-link" data-nav-link><span
-                            class="side-nav-link-index">06</span>Contact</a></li>
+            <ul class="side-nav-links" dir="rtl">
+                <li><a href="{% url 'services:home' %}#top" class="side-nav-link" data-nav-link><span
+                            class="side-nav-link-index">01</span>خانه</a></li>
+                <li><a href="{% url 'services:home' %}#craft" class="side-nav-link" data-nav-link><span
+                            class="side-nav-link-index">02</span>تجربه</a></li>
+                <li><a href="{% url 'services:home' %}#services" class="side-nav-link" data-nav-link><span
+                            class="side-nav-link-index">03</span>خدمات</a></li>
+                <li><a href="{% url 'services:grooming' %}" class="side-nav-link" data-nav-link><span
+                            class="side-nav-link-index">04</span>دامادی</a></li>
+                <li><a href="{% url 'shop:product_page' %}" class="side-nav-link" data-nav-link><span
+                            class="side-nav-link-index">05</span>محصولات</a></li>
+                <li><a href="{% url 'services:home' %}#contact" class="side-nav-link" data-nav-link><span
+                            class="side-nav-link-index">06</span>ارتباط با من</a></li>
             </ul>
 
 
@@ -118,29 +118,27 @@
 
     {% block content %}{% endblock %}
 
-    <footer class="site-footer" id="contact">
+    <footer class="site-footer" id="contact" dir="rtl">
         <video class="footer-video" autoplay loop muted playsinline>
             <source src="./assets/videos/yeaa.mp4" type="video/mp4">
         </video>
         <div class="footer-overlay"></div>
         <div class="container footer-inner">
             <div class="footer-left">
-                <span class="footer-brand">Omid Nik Mohamadi</span>
-                <p class="footer-line">Studio by appointment. Marseille adjacent, by request.</p>
+                <span class="footer-brand">امید نیک محمدی</span>
+                <p class="footer-line">سینما، مدلینگ، دامادی، و..</p>
                 <button data-open-booking class="footer-book" lang="fa" dir="rtl">رزرو نوبت</button>
             </div>
             <div class="footer-nav">
+                <h2 class="link-title">لینک ها</h2>
                 <div class="footer-nav-col">
-                    <a href="#wedding" class="footer-link">Wedding</a>
-                    <a href="#products" class="footer-link">Products Hub</a>
+                    <a href="#wedding" class="footer-link">دامادی</a>
+                    <a href="#products" class="footer-link">محصولات</a>
+                    <a href="#packages" class="footer-link">خدمات</a>
+                    <a href="#tutorials" class="footer-link">بیوگرافی</a>
+                    <a href="#portal" class="footer-link">تجربه</a>
                 </div>
-                <div class="footer-nav-col">
-                    <a href="#packages" class="footer-link">Premium Packages</a>
-                    <a href="#tutorials" class="footer-link">Master Tutorials</a>
-                </div>
-                <div class="footer-nav-col">
-                    <a href="#portal" class="footer-link">Client Portal</a>
-                </div>
+
             </div>
             <div class="footer-right">
                 <a href="https://instagram.com/omidnikMohamadi" class="footer-instagram" target="_blank" rel="noopener">
@@ -322,144 +320,145 @@
         </div>
     </div>
 
-    
-  <div class="booking-modal-overlay" id="bookingModalOverlay" dir="rtl">
-    <div class="booking-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button type="button" class="modal-close" id="modalCloseBtn" aria-label="بستن">×</button>
 
-      <h2 class="modal-title" id="modalTitle">رزرو نوبت</h2>
+    <div class="booking-modal-overlay" id="bookingModalOverlay" dir="rtl">
+        <div class="booking-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button type="button" class="modal-close" id="modalCloseBtn" aria-label="بستن">×</button>
 
-      <nav class="modal-progress" id="modalProgress" aria-label="مراحل رزرو">
-        <div class="progress-step" data-step="1">
-          <span class="progress-step-index">01</span>
-          <span class="progress-step-label">انتخاب خدمت</span>
-        </div>
-        <div class="progress-line"></div>
-        <div class="progress-step" data-step="2">
-          <span class="progress-step-index">02</span>
-          <span class="progress-step-label">تاریخ و ساعت</span>
-        </div>
-        <div class="progress-line"></div>
-        <div class="progress-step" data-step="3">
-          <span class="progress-step-index">03</span>
-          <span class="progress-step-label">خلاصه و پرداخت</span>
-        </div>
-      </nav>
+            <h2 class="modal-title" id="modalTitle">رزرو نوبت</h2>
 
-      <div class="modal-body">
-        <section class="modal-step" data-step="1">
-          <div class="booking-modal-services">
-            <div class="service-category" data-category="normal">
-              <h3 class="service-category-title">خدمات عادی</h3>
-              <ul class="service-list" id="normalServiceList">
-                <li class="service-item" data-service-id="svc-101" data-category="normal">
-                  <input type="checkbox" class="service-select" id="sel-svc-101" />
-                  <label for="sel-svc-101" class="service-info">
-                    <span class="service-name">اصلاح مو</span>
-                    <span class="service-duration">1.5H</span>
-                    <span class="service-price">2,900 T</span>
-                  </label>
-                </li>
-                <li class="service-item" data-service-id="svc-102" data-category="normal">
-                  <input type="checkbox" class="service-select" id="sel-svc-102" />
-                  <label for="sel-svc-102" class="service-info">
-                    <span class="service-name">اصلاح ریش</span>
-                    <span class="service-duration">30M</span>
-                    <span class="service-price">2,900 T</span>
-                  </label>
-                </li>
-              </ul>
-            </div>
-
-            <div class="service-category" data-category="grooming">
-              <h3 class="service-category-title">خدمات دوماد </h3>
-              <ul class="service-list" id="groomingServiceList">
-                <li class="service-item" data-service-id="svc-201" data-category="grooming">
-                  <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-201" />
-                  <label for="sel-svc-201" class="service-info">
-                    <span class="service-name">پکیج داماد</span>
-                    <span class="service-price">1,900 T</span>
-                  </label>
-                  <a class="service-link" href="#" data-service-id="svc-201">?</a>
-                </li>
-                <li class="service-item" data-service-id="svc-202" data-category="grooming">
-                  <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-202" />
-                  <label for="sel-svc-202" class="service-info">
-                    <span class="service-name">پکیج VIP</span>
-                    <span class="service-price">1,200 T</span>
-                  </label>
-                  <a class="service-link" href="#" data-service-id="svc-202">?</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section class="modal-step" data-step="2">
-          <div class="booking-fields">
-            <div class="field-row">
-              <label for="bookingDate">تاریخ</label>
-              <input type="date" id="bookingDate" placeholder="0/0/2000" />
-            </div>
-            <div class="field-row field-row-full">
-              <label for="bookingNote">توضیحات تکمیلی</label>
-              <textarea id="bookingNote" rows="4" placeholder="در صورت نیاز توضیحات خود را وارد کنید..."></textarea>
-            </div>
-
-            <div class="field-row" id="timeSelectionRow">
-              <label>ساعت</label>
-              <div class="slot-container">
-                <div id="slotGridWrapper" class="is-disabled">
-                  <div id="slotGrid"></div>
+            <nav class="modal-progress" id="modalProgress" aria-label="مراحل رزرو">
+                <div class="progress-step" data-step="1">
+                    <span class="progress-step-index">01</span>
+                    <span class="progress-step-label">انتخاب خدمت</span>
                 </div>
-                <div id="slotSummary">
-                  <span class="slot-summary-time"></span>
-                  <button type="button" class="slot-summary-change">تغییر ساعت</button>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2">
+                    <span class="progress-step-index">02</span>
+                    <span class="progress-step-label">تاریخ و ساعت</span>
                 </div>
-                <input type="hidden" id="bookingTime" name="bookingTime" required />
-              </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="3">
+                    <span class="progress-step-index">03</span>
+                    <span class="progress-step-label">خلاصه و پرداخت</span>
+                </div>
+            </nav>
+
+            <div class="modal-body">
+                <section class="modal-step" data-step="1">
+                    <div class="booking-modal-services">
+                        <div class="service-category" data-category="normal">
+                            <h3 class="service-category-title">خدمات عادی</h3>
+                            <ul class="service-list" id="normalServiceList">
+                                <li class="service-item" data-service-id="svc-101" data-category="normal">
+                                    <input type="checkbox" class="service-select" id="sel-svc-101" />
+                                    <label for="sel-svc-101" class="service-info">
+                                        <span class="service-name">اصلاح مو</span>
+                                        <span class="service-duration">1.5H</span>
+                                        <span class="service-price">2,900 T</span>
+                                    </label>
+                                </li>
+                                <li class="service-item" data-service-id="svc-102" data-category="normal">
+                                    <input type="checkbox" class="service-select" id="sel-svc-102" />
+                                    <label for="sel-svc-102" class="service-info">
+                                        <span class="service-name">اصلاح ریش</span>
+                                        <span class="service-duration">30M</span>
+                                        <span class="service-price">2,900 T</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="service-category" data-category="grooming">
+                            <h3 class="service-category-title">خدمات دوماد </h3>
+                            <ul class="service-list" id="groomingServiceList">
+                                <li class="service-item" data-service-id="svc-201" data-category="grooming">
+                                    <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-201" />
+                                    <label for="sel-svc-201" class="service-info">
+                                        <span class="service-name">پکیج داماد</span>
+                                        <span class="service-price">1,900 T</span>
+                                    </label>
+                                    <a class="service-link" href="#" data-service-id="svc-201">?</a>
+                                </li>
+                                <li class="service-item" data-service-id="svc-202" data-category="grooming">
+                                    <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-202" />
+                                    <label for="sel-svc-202" class="service-info">
+                                        <span class="service-name">پکیج VIP</span>
+                                        <span class="service-price">1,200 T</span>
+                                    </label>
+                                    <a class="service-link" href="#" data-service-id="svc-202">?</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="modal-step" data-step="2">
+                    <div class="booking-fields">
+                        <div class="field-row">
+                            <label for="bookingDate">تاریخ</label>
+                            <input type="date" id="bookingDate" placeholder="0/0/2000" />
+                        </div>
+                        <div class="field-row field-row-full">
+                            <label for="bookingNote">توضیحات تکمیلی</label>
+                            <textarea id="bookingNote" rows="4"
+                                placeholder="در صورت نیاز توضیحات خود را وارد کنید..."></textarea>
+                        </div>
+
+                        <div class="field-row" id="timeSelectionRow">
+                            <label>ساعت</label>
+                            <div class="slot-container">
+                                <div id="slotGridWrapper" class="is-disabled">
+                                    <div id="slotGrid"></div>
+                                </div>
+                                <div id="slotSummary">
+                                    <span class="slot-summary-time"></span>
+                                    <button type="button" class="slot-summary-change">تغییر ساعت</button>
+                                </div>
+                                <input type="hidden" id="bookingTime" name="bookingTime" required />
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section class="modal-step" data-step="3">
+                    <div class="booking-summary-wrapper">
+                        <div class="summary-details">
+                            <div class="summary-row">
+                                <span class="summary-label">خدمات انتخابی</span>
+                                <div class="summary-value" id="summaryServicesList"></div>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">تاریخ</span>
+                                <span class="summary-value" id="summaryDate">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">ساعت</span>
+                                <span class="summary-value" id="summaryTime">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">توضیحات</span>
+                                <span class="summary-value" id="summaryNote">—</span>
+                            </div>
+                        </div>
+
+                        <div class="deposit-summary">
+                            <div class="deposit-row">
+                                <span class="deposit-label">بیعانه</span>
+                                <span class="deposit-amount">500 T</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
 
-          </div>
-        </section>
-
-        <section class="modal-step" data-step="3">
-          <div class="booking-summary-wrapper">
-            <div class="summary-details">
-              <div class="summary-row">
-                <span class="summary-label">خدمات انتخابی</span>
-                <div class="summary-value" id="summaryServicesList"></div>
-              </div>
-              <div class="summary-row">
-                <span class="summary-label">تاریخ</span>
-                <span class="summary-value" id="summaryDate">—</span>
-              </div>
-              <div class="summary-row">
-                <span class="summary-label">ساعت</span>
-                <span class="summary-value" id="summaryTime">—</span>
-              </div>
-              <div class="summary-row">
-                <span class="summary-label">توضیحات</span>
-                <span class="summary-value" id="summaryNote">—</span>
-              </div>
+            <div class="modal-navigation">
+                <button type="button" class="btn-back" id="backBtn">بازگشت</button>
+                <button type="button" class="btn-continue" id="continueBtn" disabled>ادامه</button>
             </div>
-
-            <div class="deposit-summary">
-              <div class="deposit-row">
-                <span class="deposit-label">بیعانه</span>
-                <span class="deposit-amount">500 T</span>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <div class="modal-navigation">
-        <button type="button" class="btn-back" id="backBtn">بازگشت</button>
-        <button type="button" class="btn-continue" id="continueBtn" disabled>ادامه</button>
-      </div>
+        </div>
     </div>
-  </div>
 
 
     <script src="{% static 'scripts/main.js' %}"></script>
