@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Create Account — Omid Nik Mohammadi
+{% endblock %}
+
+{% block meta %}
+
+{% endblock %}
+
+{% block style %}
+    <script src="{% static 'styles/sign-in-up.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="auth" data-page="sign-up">
+
+  <div class="auth__layout">
+
+    <section class="auth__visual" aria-hidden="true">
+      <img class="auth__visual-image" src="https://picsum.photos/seed/omid-portrait-two/1200/1600" alt="">
+
+      <!--
+      <video class="auth__visual-video" autoplay muted loop playsinline poster="https://picsum.photos/seed/omid-portrait-two/1200/1600">
+        <source src="./assets/video/studio-loop.mp4" type="video/mp4">
+      </video>
+      -->
+
+      <div class="auth__visual-overlay"></div>
+      <div class="auth__visual-content" data-reveal>
+        <span class="auth__visual-eyebrow">Omid Nik Mohammadi</span>
+        <p class="auth__visual-quote">Precision grooming and identity architecture.</p>
+      </div>
+    </section>
+
+    <section class="auth__panel">
+      <div class="auth__panel-inner">
+
+        <header class="auth__header" data-reveal>
+          <span class="auth__eyebrow">New Client</span>
+          <h1 class="auth__title">Create your account</h1>
+          <p class="auth__subtitle">Three short steps and you're booked in.</p>
+        </header>
+
+        <ol class="auth__steps" aria-label="Sign up progress" data-reveal>
+          <li class="auth__step auth__step--active" data-step="1">
+            <span class="auth__step-index">01</span>
+            <span class="auth__step-label">Details</span>
+          </li>
+          <span class="auth__step-line" aria-hidden="true"></span>
+          <li class="auth__step" data-step="2">
+            <span class="auth__step-index">02</span>
+            <span class="auth__step-label">Contact</span>
+          </li>
+          <span class="auth__step-line" aria-hidden="true"></span>
+          <li class="auth__step" data-step="3">
+            <span class="auth__step-index">03</span>
+            <span class="auth__step-label">Verify</span>
+          </li>
+        </ol>
+
+        <form class="auth__wizard" id="signUpForm" novalidate data-reveal>
+
+          <div class="auth__stage auth__stage--current" data-stage="1">
+            <div class="auth__stage-grid">
+              <div class="auth__field">
+                <label class="auth__label" for="fullName">Full name</label>
+                <input class="auth__input" type="text" id="fullName" name="fullName" autocomplete="name" placeholder="Full name" required>
+              </div>
+              <div class="auth__field">
+                <label class="auth__label" for="birthDate">Birth date</label>
+                <input class="auth__input" type="date" id="birthDate" name="birthDate" required>
+              </div>
+            </div>
+            <div class="auth__nav-buttons">
+              <span></span>
+              <button class="auth__button auth__button--primary" type="button" data-action="next">Continue</button>
+            </div>
+          </div>
+
+          <div class="auth__stage" data-stage="2" hidden>
+            <div class="auth__field">
+              <label class="auth__label" for="phoneNumber">Phone number</label>
+              <input class="auth__input" type="tel" id="phoneNumber" name="phoneNumber" autocomplete="tel" placeholder="+1 555 000 0000" required>
+            </div>
+            <div class="auth__field">
+              <label class="auth__label" for="emailOptional">Email <span class="auth__optional">(optional)</span></label>
+              <input class="auth__input" type="email" id="emailOptional" name="emailOptional" autocomplete="email" placeholder="you@example.com">
+            </div>
+            <div class="auth__nav-buttons">
+              <button class="auth__button auth__button--ghost" type="button" data-action="back">Back</button>
+              <button class="auth__button auth__button--primary" type="button" data-action="next">Send code</button>
+            </div>
+          </div>
+
+          <div class="auth__stage" data-stage="3" hidden>
+            <p class="auth__subtitle">Enter the 6-digit code sent to your phone.</p>
+            <div class="auth__otp" data-otp>
+              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 1" required>
+              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2" required>
+              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3" required>
+              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4" required>
+              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5" required>
+              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6" required>
+            </div>
+            <button class="auth__resend" type="button" data-action="resend">Resend code</button>
+            <div class="auth__nav-buttons">
+              <button class="auth__button auth__button--ghost" type="button" data-action="back">Back</button>
+              <button class="auth__button auth__button--primary" type="submit">Verify &amp; create account</button>
+            </div>
+          </div>
+
+          <p class="auth__error" id="signUpError" role="alert" aria-live="polite"></p>
+
+        </form>
+
+        <p class="auth__footer-note" data-reveal>Already have an account? <a class="auth__link" href="sign-in.html">Sign in</a></p>
+
+      </div>
+    </section>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'scripts/sign-in-up.js' %}"></script>
+{% endblock %}

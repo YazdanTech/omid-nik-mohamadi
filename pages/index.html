@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Omid Nik Mohamadi — Hair Design &amp; Identity Architecture{% endblock %}
+
+{% block meta %}
+<meta name="description"
+  content="Omid Nik Mohamadi. Precision grooming and identity architecture. Hair design, beard sculpting, and the quiet discipline of craft.">
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'styles/grid-slot.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="side-social">
+  <a href="https://instagram.com/omidnikmohamadii" target="_blank" rel="noopener noreferrer" class="social-item"
+    aria-label="Instagram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+      stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    </svg>
+  </a>
+  <a href="https://wa.me/yournumber" target="_blank" rel="noopener noreferrer" class="social-item"
+    aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path
+        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+      </path>
+    </svg>
+  </a>
+  <a href="tel:+yournumber" class="social-item" aria-label="Phone Call">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path
+        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+      </path>
+    </svg>
+  </a>
+</div>
+
+<main id="top">
+  <section class="hero-scroll-sequence" aria-label="Introduction">
+    <video class="hero-background-video" autoplay muted loop playsinline>
+      <source src="./assets/videos/yeaa.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-background-overlay"></div>
+
+    <div class="hero-text-container">
+      <h1 class="hero-text" id="heroText">
+        <span class="hero-text-first" id="heroTextFirst">Omid Nik <br> Mohamadi</span>
+        <span class="hero-text-divider"></span>
+        <span class="hero-text-second" id="heroTextSecond">امید نیک<br>محمدی</span>
+      </h1>
+      <div class="hero-text-meta" id="heroTextMeta">
+        <span class="hero-text-meta-inner"></span>
+      </div>
+    </div>
+
+    <div class="hero-scroll-cue" id="heroScrollCue">
+      <span>Scroll</span>
+      <span class="hero-scroll-cue-line"></span>
+    </div>
+
+    <div class="scroll-content-layer">
+      <div class="hero-spacer"></div>
+
+      <section class="portrait-panel portrait-panel-phone" data-portrait-index="0"
+        data-portrait-text="Creative Direction & Styling">
+        <div class="portrait-frame">
+          <img src="./assets/images/omid-1.jpg" alt="Omid Nik Mohammadi, portrait one" loading="eager">
+        </div>
+      </section>
+
+      <section class="portrait-panel portrait-panel-phone" data-portrait-index="1"
+        data-portrait-text="میکاپ آرتیست و هیر استایلیست با بیش از ۷ سال تجربه حرفه‌ای در صنعت زیبایی، مد و تبلیغات. دارای سابقه همکاری در پروژه‌های فشن، کمپین‌های تبلیغاتی و تولیدات تصویری در کنار مدل‌ها، بازیگران و خوانندگان.">
+        <div class="portrait-frame">
+          <img src="./assets/images/omid-1.jpg" alt="Omid Nik Mohammadi at work, portrait two" loading="lazy">
+        </div>
+      </section>
+
+      <section class="portrait-panel portrait-panel-desktop" data-portrait-index="2"
+        data-portrait-text="میکاپ آرتیست و هیر استایلیست با بیش از ۷ سال تجربه حرفه‌ای در صنعت زیبایی، مد و تبلیغات. دارای سابقه همکاری در پروژه‌های فشن، کمپین‌های تبلیغاتی و تولیدات تصویری در کنار مدل‌ها، بازیگران و خوانندگان.">
+        <div class="portrait-frame">
+          <img src="./assets/images/omid-2-desktop.png" alt="Omid Nik Mohammadi at work, desktop" loading="lazy">
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="the-craft" id="craft" aria-label="The Craft">
+    <div class="container">
+      <div class="section-heading">
+        <span class="section-eyebrow" lang="fa" dir="rtl">هنر اصلاح</span>
+        <h2 class="section-title">The Craft</h2>
+        <p class="section-lede">A quiet record of the work. Not staged, not narrated — watched.</p>
+      </div>
+      <div class="craft-grid" id="craftGrid">
+
+        <article class="craft-card" data-video-index="0">
+          <video class="craft-video" playsinline muted loop preload="metadata" poster="" type="video/mp4">
+            <source src="./assets/videos/cool 4.mp4" type="video/mp4">
+          </video>
+          <button class="craft-play" aria-label="Play video">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path d="M8 5v14l11-7z" fill="currentColor" />
+            </svg>
+          </button>
+          <span class="craft-card-label">01 — Taper</span>
+        </article>
+
+        <article class="craft-card" data-video-index="1">
+          <video class="craft-video" playsinline muted loop preload="metadata" poster="">
+            <source src="./assets/videos/cool 5.mp4" type="video/mp4">
+          </video>
+          <button class="craft-play" aria-label="Play video">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path d="M8 5v14l11-7z" fill="currentColor" />
+            </svg>
+          </button>
+          <span class="craft-card-label">02 — Line Up</span>
+        </article>
+
+        <article class="craft-card" data-video-index="2">
+          <video class="craft-video" playsinline muted loop preload="metadata" poster="">
+            <source src="./assets/videos/cool 6.mp4" type="video/mp4">
+          </video>
+          <button class="craft-play" aria-label="Play video">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path d="M8 5v14l11-7z" fill="currentColor" />
+            </svg>
+          </button>
+          <span class="craft-card-label">03 — Finish</span>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="signature-services" id="services" aria-label="Signature Services">
+    <div class="container">
+      <div class="section-heading">
+        <span class="section-eyebrow" lang="fa" dir="rtl">خدمات</span>
+        <h2 class="section-title">Signature Services</h2>
+      </div>
+      <ul class="services-list">
+        <li class="service-row" data-open-booking data-service-id="svc-102">
+          <span class=" service-name">Hair Design</span>
+          <span class="service-sub" lang="fa" dir="rtl">طراحی مو</span>
+        </li>
+        <li class="service-row">
+          <span class="service-name">Beard Sculpting</span>
+          <span class="service-sub" lang="fa" dir="rtl">اصلاح و فرم‌دهی ریش</span>
+        </li>
+        <li class="service-row">
+          <span class="service-name">Classic Shave</span>
+          <span class="service-sub" lang="fa" dir="rtl">اصلاح کلاسیک</span>
+        </li>
+        <li class="service-row">
+          <span class="service-name">Hot Towel Ritual</span>
+          <span class="service-sub" lang="fa" dir="rtl">آیین حوله گرم</span>
+        </li>
+      </ul>
+      <a href="#contact" class="services-cta">Book via System</a>
+    </div>
+  </section>
+
+  <div class="video-expansion-overlay" id="videoOverlay"></div>
+
+
+
+  <div class="booking-modal-overlay" id="bookingModalOverlay" dir="rtl">
+    <div class="booking-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button type="button" class="modal-close" id="modalCloseBtn" aria-label="بستن">×</button>
+
+      <h2 class="modal-title" id="modalTitle">رزرو نوبت</h2>
+
+      <nav class="modal-progress" id="modalProgress" aria-label="مراحل رزرو">
+        <div class="progress-step" data-step="1">
+          <span class="progress-step-index">01</span>
+          <span class="progress-step-label">انتخاب خدمت</span>
+        </div>
+        <div class="progress-line"></div>
+        <div class="progress-step" data-step="2">
+          <span class="progress-step-index">02</span>
+          <span class="progress-step-label">تاریخ و ساعت</span>
+        </div>
+        <div class="progress-line"></div>
+        <div class="progress-step" data-step="3">
+          <span class="progress-step-index">03</span>
+          <span class="progress-step-label">خلاصه و پرداخت</span>
+        </div>
+      </nav>
+
+      <div class="modal-body">
+        <section class="modal-step" data-step="1">
+          <div class="booking-modal-services">
+            <div class="service-category" data-category="normal">
+              <h3 class="service-category-title">خدمات عادی</h3>
+              <ul class="service-list" id="normalServiceList">
+                <li class="service-item" data-service-id="svc-101" data-category="normal">
+                  <input type="checkbox" class="service-select" id="sel-svc-101" />
+                  <label for="sel-svc-101" class="service-info">
+                    <span class="service-name">اصلاح مو</span>
+                    <span class="service-duration">1.5H</span>
+                    <span class="service-price">2,900 T</span>
+                  </label>
+                </li>
+                <li class="service-item" data-service-id="svc-102" data-category="normal">
+                  <input type="checkbox" class="service-select" id="sel-svc-102" />
+                  <label for="sel-svc-102" class="service-info">
+                    <span class="service-name">اصلاح ریش</span>
+                    <span class="service-duration">30M</span>
+                    <span class="service-price">2,900 T</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+
+            <div class="service-category" data-category="grooming">
+              <h3 class="service-category-title">خدمات دوماد </h3>
+              <ul class="service-list" id="groomingServiceList">
+                <li class="service-item" data-service-id="svc-201" data-category="grooming">
+                  <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-201" />
+                  <label for="sel-svc-201" class="service-info">
+                    <span class="service-name">پکیج داماد</span>
+                    <span class="service-price">1,900 T</span>
+                  </label>
+                  <a class="service-link" href="#" data-service-id="svc-201">?</a>
+                </li>
+                <li class="service-item" data-service-id="svc-202" data-category="grooming">
+                  <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-202" />
+                  <label for="sel-svc-202" class="service-info">
+                    <span class="service-name">پکیج VIP</span>
+                    <span class="service-price">1,200 T</span>
+                  </label>
+                  <a class="service-link" href="#" data-service-id="svc-202">?</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="modal-step" data-step="2">
+          <div class="booking-fields">
+            <div class="field-row">
+              <label for="bookingDate">تاریخ</label>
+              <input type="date" id="bookingDate" placeholder="0/0/2000" />
+            </div>
+            <div class="field-row field-row-full">
+              <label for="bookingNote">توضیحات تکمیلی</label>
+              <textarea id="bookingNote" rows="4" placeholder="در صورت نیاز توضیحات خود را وارد کنید..."></textarea>
+            </div>
+
+            <div class="field-row" id="timeSelectionRow">
+              <label>ساعت</label>
+              <div class="slot-container">
+                <div id="slotGridWrapper" class="is-disabled">
+                  <div id="slotGrid"></div>
+                </div>
+                <div id="slotSummary">
+                  <span class="slot-summary-time"></span>
+                  <button type="button" class="slot-summary-change">تغییر ساعت</button>
+                </div>
+                <input type="hidden" id="bookingTime" name="bookingTime" required />
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="modal-step" data-step="3">
+          <div class="booking-summary-wrapper">
+            <div class="summary-details">
+              <div class="summary-row">
+                <span class="summary-label">خدمات انتخابی</span>
+                <div class="summary-value" id="summaryServicesList"></div>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">تاریخ</span>
+                <span class="summary-value" id="summaryDate">—</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">ساعت</span>
+                <span class="summary-value" id="summaryTime">—</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">توضیحات</span>
+                <span class="summary-value" id="summaryNote">—</span>
+              </div>
+            </div>
+
+            <div class="deposit-summary">
+              <div class="deposit-row">
+                <span class="deposit-label">بیعانه</span>
+                <span class="deposit-amount">500 T</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="modal-navigation">
+        <button type="button" class="btn-back" id="backBtn">بازگشت</button>
+        <button type="button" class="btn-continue" id="continueBtn" disabled>ادامه</button>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+
+  {% block script %}
+  <script src="{% static 'scripts/book.js' %}"></script>
+  <script src="{% static 'scripts/grid-slot.js' %}"></script>
+  <script src="{% static 'scripts/auth-overlay.js' %}"></script>
+  {% endblock %}

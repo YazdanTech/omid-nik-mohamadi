@@ -1,0 +1,229 @@
+
+
+
+# MASTER ARCHITECTURE AND DEVELOPMENT PLAN
+# PROJECT: OMID NIK MOHAMMADI - PREMIUM PORTAL
+# THEME: LUXURY, DEEP, SILENT (DARK/LIGHT)
+
+================================================================================
+1. ARCHITECTURE BLUEPRINT (FRONTEND & BACKEND)
+================================================================================
+
+1. HOME PAGE
+    - Layout: Full-screen cinematic video hero banner, minimal sticky top navigation, prominent fixed Instagram link (top-right or floating accent, NOT footer), floating side navigation bar for deep page jumps, clean section-based layout for demos.
+    - Content Sections:
+        -- Hero: Professional high-quality background video with silent/deep overlay typography.
+        -- Profile: Premium picture of Omid Nik Mohammadi with artist/master biography.
+        -- Services Demo: High-velocity preview card grid linking to individual booking.
+        -- Wedding Demo: Cinematic image carousel/gallery of wedding showcases.
+        -- Product Demo: Minimalist luxury product showcase (features top 3 products).
+    
+2. AUTHENTICATION PAGES (LOGIN / SIGNUP)
+    - Layout: Split screen. Left side: high-quality luxury ambient background image. Right side: clean, centered, distraction-free cryptographic-style form fields.
+    - Content: Full Name, Phone Number, Birth Date, Email (Optional). SMS OTP field for activation/verification.
+
+3. WEDDING SHOWCASE PAGE
+    - Layout: Modular masonry grid with variable image sizes and smooth hover states.
+    - Content: Premium category filter (Cinematic, Traditional, Editorial), high-resolution image viewer, client testimonials, direct "Inquire for Wedding" CTA button.
+
+4. BOOKING PAGE
+    - Layout: 3-step linear wizard interface. Step 1: Service Selection. Step 2: Interactive Date & Time Matrix. Step 3: Checkout / Code Bypass Form.
+    - Content: Dynamic calendar slots, Pricing clear breakdowns, "Enter Exemption Code" field, payment portal redirect ($500 deposit logic).
+ 
+5. PRODUCT SHOP PAGE
+    - Layout: Premium e-commerce grid (3 columns max to maintain luxury space), large asset images, minimalist typography for price and title.
+    - Content: Product filter, detailed single-product view modal, "Add to Cart" and fast checkout controls.
+
+--------------------------------------------------------------------------------
+DJANGO BACKEND ARCHITECTURE
+--------------------------------------------------------------------------------
+
+APP 1: users
+    - Models:
+        -- CustomUser(AbstractUser):
+            --- full_name (CharField)
+            --- phone_number (CharField, unique=True)
+            --- birth_date (DateField)
+            --- email (EmailField, blank=True, null=True)
+            --- is_verified (BooleanField, default=False)
+        -- SMSVerification:
+            --- user (ForeignKey to CustomUser)
+            --- code (CharField, max_length=6)
+            --- created_at (DateTimeField, auto_now_add=True)
+            --- is_used (BooleanField, default=False)
+    - Views:
+        -- SignUpView (APIView / FormView: validates data, triggers SMS OTP)
+        -- VerifyOTPView (Validates code, marks user as verified, logs user in)
+        -- LoginView / LogoutView (Session or Token-based auth management)
+
+APP 2: services
+    - Models:
+        -- Service:
+            --- title (CharField)
+            --- price (DecimalField)
+            --- duration_minutes (IntegerField)
+            --- is_active (BooleanField, default=True)
+    - Views:
+        -- ServiceListView (Fetches active services and prices for frontend injection)
+
+APP 3: bookings
+    - Models:
+        -- BookingSlot:
+            --- date (DateField)
+            --- start_time (TimeField)
+            --- is_booked (BooleanField, default=False)
+        -- BypassCode:
+            --- code (CharField, unique=True)
+            --- description (CharField)
+            --- is_active (BooleanField, default=True)
+        -- Booking:
+            --- user (ForeignKey to CustomUser)
+            --- service (ForeignKey to Service)
+            --- slot (OneToOneField to BookingSlot)
+            --- deposit_paid (BooleanField, default=False)
+            --- bypass_code_used (ForeignKey to BypassCode, null=True, blank=True)
+            --- status (CharField: Pending, Confirmed, Cancelled)
+    - Views:
+        -- AvailableSlotsView (Returns unbooked date/time matrix filtered by date)
+        -- CreateBookingView (Process code bypass or triggers $500 payment logic)
+
+APP 4: shop
+    - Models:
+        -- Product:
+            --- title (CharField)
+            --- description (TextField)
+            --- price (DecimalField)
+            --- stock (IntegerField)
+            --- image (ImageField)
+        -- Order:
+            --- user (ForeignKey to CustomUser)
+            --- total_amount (DecimalField)
+            --- created_at (DateTimeField)
+            --- is_paid (BooleanField, default=False)
+        -- OrderItem:
+            --- order (ForeignKey to Order)
+            --- product (ForeignKey to Product)
+            --- quantity (IntegerField)
+    - Views:
+        -- ProductCatalogView (Returns all products)
+        -- CheckoutView (Handles order generation and inventory decrement)
+
+
+================================================================================
+2. OPTIMAL ACTION PLAN (VERTICAL SLICE METHOD)
+================================================================================
+
+*The Verdict:* Do not build the entire frontend blindly first. Integration errors will force heavy UI refactoring. Instead, follow the **Data-First Vertical Slice** approach. Define structures, then wrap them immediately in visual layouts.
+
+MILESTONE 1: CORE ENGINE & BRANDING (Current Focus)
+    - Step 1: Initialize Django project, configure custom user model, and register models in Admin.
+    - Step 2: Build frontend HTML/CSS/JS shell (Base layouts, Dark/Light global toggles, Typography rules).
+    - Step 3: Implement Home Page template and populate with mock data.
+    - Step 4: Hook up structural navigation, placing the Instagram channel explicitly inside premium top-right layouts.
+
+MILESTONE 2: SYSTEM INTEGRATION (Booking & Shop)
+    - Step 1: Implement the Django SMS helper utilities (Integration with external SMS gateway API).
+    - Step 2: Code Auth backend logic (Signup/Login views) + Connect to the Auth frontend design.
+    - Step 3: Construct Booking backend data structures + Build 3-step Frontend Wizard UI. Connect via AJAX/Fetch.
+    - Step 4: Write logic check: `if User is Unknown and BypassCode is Null -> require $500 Deposit else Confirm`.
+    - Step 5: Implement Product Models, Shop Grid Views, and basic transactional processing.
+
+MILESTONE 3 & 4: SCALING (Future Phases)
+    - Step 1: Add Package Models (Bundled Services/Products at discount rates).
+    - Step 2: Add Tutorial Models (Video objects, User-purchased-video mapping relationships).
+    - Step 3: Secure static video streaming views restricted to authorized customer profiles.
+
+
+================================================================================
+3. GIT COMMIT ARCHITECTURE
+================================================================================
+
+Keep commits standardized but simple using concise functional prefixes.
+
+PREFIXES:
+    - `feat:`     -> Introducing a brand new programming feature or model.
+    - `fix:`      -> Rectifying a codebase bug or design broken asset link.
+    - `style:`    -> Code changes strictly involving CSS, layout spacing, colors, or themes.
+    - `docs:`     -> Writing readmes, architecture guidelines, or configuration comments.
+    - `refactor:` -> Code modification that neither fixes a bug nor adds a feature.
+
+RULES:
+    - Write in the present imperative tense ("add", not "added").
+    - Maximum 50 characters for the subject title line.
+
+EXAMPLES:
+    - `feat: implement custom user model with phone authentication`
+    - `style: establish luxury dark theme CSS variables and global typography`
+    - `fix: correct booking date matrix timezone offset query bug`
+    - `feat: build deposit payment requirement verification logic`
+    - `docs: update deployment asset collection requirements checklist`
+
+
+================================================================================
+4. CLIENT ASSETS DEMAND CHECKLIST
+================================================================================
+
+Provide this precise list to the client immediately to prevent development pipeline friction:
+
+1. [ ] Hero Video: 1x Ultra-high-quality widescreen loop (10-15s, professional cinematic filming, silent/minimal movement).
+2. [ ] Branding Images: 1x Master portrait picture of Omid Nik Mohammadi (luxury lighting, clean background).
+3. [ ] Gallery Assets: 15-20x High-resolution premium photos of past creative projects/weddings.
+4. [ ] Product Assets: High-fidelity image pack for initial retail inventory.
+5. [ ] Corporate Copy: Final text pricing matrix, specific service durations, and official bypass voucher codes.
+
+
+mile stone
+    1. personal branding and stuff
+    2. boooking system adn stuff and selling prodducts and stuff
+    3. packages
+    4. toturial selling and stuff
+
+general explanation and considerations:
+    personal branding, booking cusotmers, proffesionality, selling products.
+    instagram link not in footer, mostly in a better place and more obvious
+
+theme:
+    luxury, deep, silent
+    orange, blue, black, white, gray
+    dark theme, light theme
+
+wedding:
+    2 packages that persons can buy
+    work sample of husbadns to show case and stuff
+
+pages:
+    home
+        header video
+        side nav
+        top nav
+        footer
+        images and videos as background
+        (not yet) services 
+        (not yet) wedding page demo
+        (now yet) product demo
+        (not yet) login / sign up
+    login
+    sign up
+    wedding
+    booking
+    product
+
+functinalities:
+    q qr code to go straight to booking system. 
+    booking system
+        paying 500 if unknown customers
+        enter code and no need to pay
+        date and time and service all defined
+    sign up / login / logout:
+        full name
+        birth date
+        number
+        email(optional)
+    SMS services
+        sending code to approve number
+        sending booking updates and reminders
+    selling products
+
+later:
+    package selling
+    toturial videos

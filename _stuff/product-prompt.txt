@@ -1,0 +1,760 @@
+<role>Expert frontend engineer (Responsive HTML/CSS/Vanilla JS).</role>
+
+<task>Implement a step-by-step wizard booking system using the provided codebase.</task>
+
+<specs>
+- Top-level progress indicator tracking the active step.
+- Back and Continue navigation buttons.
+- Step 1: Service Selection. "Continue" is disabled until selected. Mutual exclusivity: selecting standard service deselects grooming package; selecting grooming deselects standard service.
+- Step 2: Date & Time Picker (9:00 AM to 11:00 PM limits) + Textarea for additional description.
+- Step 3: Summary screen displaying selected services, date, time, description, and "500,000 T prepayment" details. "Continue" maps to payment action.
+</specs>
+
+<context>
+<current_html>  <div class="booking-modal-overlay" id="bookingModalOverlay" dir="rtl">
+    <div class="booking-modal">
+      <button type="button" class="modal-close" id="modalCloseBtn" aria-label="بستن">×</button>
+
+      <div class="booking-modal-services">
+        <div class="service-category" data-category="normal">
+          <ul class="service-list" id="normalServiceList">
+            <li class="service-item" data-service-id="svc-101" data-category="normal">
+              <input type="checkbox" class="service-select" id="sel-svc-101" />
+              <div for="sel-svc-101" class="service-info">
+                <div class="right">
+                  <div class="service-name">اصلاح مو</div>
+                </div>
+                <div class="left">
+                  <div class="service-duration">۳۰ دقیقه</div>
+                  <div class="service-price">۲۵۰,۰۰۰ تومان</div>
+                </div>
+              </div>
+            </li>
+            <li class="service-item" data-service-id="svc-102" data-category="normal">
+              <input type="checkbox" class="service-select" id="sel-svc-102" />
+              <label for="sel-svc-102" class="service-info">
+                <span class="service-name">اصلاح ریش</span>
+                <span class="service-duration">۲۰ دقیقه</span>
+                <span class="service-price">۱۵۰,۰۰۰ تومان</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="service-category" data-category="grooming">
+          <ul class="service-list" id="groomingServiceList">
+            <li class="service-item" data-service-id="svc-201" data-category="grooming">
+              <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-201" />
+              <label for="sel-svc-201" class="service-info">
+                <span class="service-name">پکیج داماد</span>
+                <span class="service-price">۸۰۰,۰۰۰ تومان</span>
+              </label>
+              <a class="service-link" href="#" data-service-id="svc-201">جزئیات</a>
+            </li>
+            <li class="service-item" data-service-id="svc-202" data-category="grooming">
+              <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-202" />
+              <label for="sel-svc-202" class="service-info">
+                <span class="service-name">پکیج VIP</span>
+                <span class="service-price">۱,۲۰۰,۰۰۰ تومان</span>
+              </label>
+              <a class="service-link" href="#" data-service-id="svc-202">جزئیات</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="booking-modal-auth" style="display: block;">
+        <div class="auth-state auth-state-unauth" id="authStateUnauth">
+          <div id="authPlaceholder"></div>
+        </div>
+
+        <div class="auth-state auth-state-auth" id="authStateAuth">
+          <div class="booking-fields">
+            <div class="field-row">
+              <label for="bookingDate">تاریخ</label>
+              <input type="date" id="bookingDate" />
+            </div>
+            <div class="field-row">
+              <label for="bookingTime">ساعت</label>
+              <input type="time" id="bookingTime" />
+            </div>
+            <div class="field-row">
+              <label for="bypassCode">کد عبور</label>
+              <input type="text" id="bypassCode" />
+            </div>
+          </div>
+
+          <div class="deposit-summary">
+            <div class="deposit-row">
+              <span class="deposit-label">بیعانه</span>
+              <span class="deposit-amount">500,000</span>
+              <span class="deposit-currency">تومان</span>
+            </div>
+          </div>
+
+          <button type="button" class="proceed-cta" id="proceedBtn">ادامه</button>
+        </div>
+      </div>
+
+      <button class="continue"></button>
+    </div>
+  </div>
+</current_html>
+<current_css>.booking-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.booking-modal-overlay.is-open {
+  display: flex;
+}
+
+.booking-modal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.booking-modal-services,
+.booking-modal-auth {
+  flex: 1 1 50%;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  z-index: 10;
+}
+
+.service-category {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.service-item[data-category="normal"] .service-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.service-item[data-category="grooming"] .service-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.service-select {
+  flex-shrink: 0;
+}
+
+.service-link {
+  flex-shrink: 0;
+}
+
+.service-list.is-locked {
+  pointer-events: none;
+}
+
+.auth-state {
+  display: none;
+  flex-direction: column;
+}
+
+.auth-state.is-visible {
+  display: flex;
+}
+
+.booking-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.deposit-summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.deposit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.proceed-cta {
+  display: block;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .booking-modal {
+    width: auto;
+    height: auto;
+    max-width: 1100px;
+    max-height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .booking-modal-services {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .booking-modal-auth {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.booking-modal-overlay {
+  background: var(--overlay);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.booking-modal {
+
+  background: linear-gradient(160deg, var(--dark-blue) 0%, var(--black) 60%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-color);
+  font-family: var(--font-body);
+  color: var(--text-main);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 1100px;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+}
+
+.modal-close {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition-default);
+}
+
+.modal-close:hover {
+  color: var(--orange);
+  border-color: var(--orange-transparent);
+  background: rgba(255, 255, 255, 0.06);
+  transform: rotate(90deg);
+}
+
+.booking-modal-services {
+  padding: 2.5rem 2rem;
+  background: rgba(255, 255, 255, 0.015);
+  scrollbar-width: thin;
+  scrollbar-color: var(--orange-transparent) transparent;
+}
+
+.booking-modal-services::-webkit-scrollbar {
+  width: 6px;
+}
+
+.booking-modal-services::-webkit-scrollbar-thumb {
+  background: var(--orange-transparent);
+  border-radius: var(--radius-sm);
+}
+
+.booking-modal-auth {
+  padding: 2.5rem 2rem;
+  border-inline-start: 1px solid var(--border-color);
+}
+
+.service-category {
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.service-category::before {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 0.75rem;
+  opacity: 0.6;
+}
+
+.service-list {
+  gap: 0.75rem;
+}
+
+.service-item {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  transition: var(--transition-default);
+  gap: 0.75rem;
+}
+
+.service-item label {
+    width:100%;
+}
+
+.service-item:hover {
+  border-color: var(--orange-transparent);
+  background: rgba(252, 65, 3, 0.04);
+  transform: translateY(-1px);
+}
+
+.service-item:has(.service-select:checked) {
+  border-color: var(--orange);
+  background: linear-gradient(135deg, rgba(252, 65, 3, 0.1), rgba(198, 155, 60, 0.06));
+  box-shadow: 0 0 0 1px var(--orange-transparent), 0 8px 20px -8px var(--orange-transparent);
+}
+
+.service-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 1.5px solid var(--gray);
+  cursor: pointer;
+  position: relative;
+  background: transparent;
+  transition: var(--transition-default);
+}
+
+.service-item[data-category="normal"] .service-select {
+  border-radius: 0.3rem;
+}
+
+.service-item[data-category="grooming"] .service-select {
+  border-radius: 50%;
+}
+
+.service-select:checked {
+  border-color: var(--orange);
+  background: var(--orange);
+  box-shadow: 0 0 12px var(--orange-transparent);
+}
+
+.service-select:checked::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--black);
+  font-weight: 700;
+}
+
+.service-select:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.service-list.is-locked .service-item {
+  opacity: 0.4;
+  filter: grayscale(0.6);
+}
+
+
+.service-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--text-main);
+  letter-spacing: 0.01em;
+}
+
+.service-duration {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.service-price {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--gold);
+  margin-top: 0.3rem;
+}
+
+.service-item[data-category="grooming"] .service-price {
+  margin-top: 0;
+  margin-inline-start: auto;
+  margin-inline-end: 0.75rem;
+}
+
+.service-link {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--orange-light);
+  text-decoration: none;
+  border-bottom: 1px solid var(--orange-transparent);
+  padding-bottom: 1px;
+  transition: var(--transition-default);
+  white-space: nowrap;
+}
+
+.service-link:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
+.auth-state-unauth {
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+#authPlaceholder {
+  width: 100%;
+  min-height: 220px;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.booking-fields {
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.field-row {
+  gap: 0.5rem;
+}
+
+.field-row label {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.field-row input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  transition: var(--transition-default);
+  color-scheme: dark;
+}
+
+.field-row input:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-transparent);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.deposit-summary {
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(198, 155, 60, 0.1), rgba(252, 65, 3, 0.05));
+  border: 1px solid var(--gold);
+  margin-bottom: 2rem;
+}
+
+.deposit-row {
+  gap: 0.5rem;
+}
+
+.deposit-label {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.deposit-amount {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-inline-start: auto;
+}
+
+.deposit-currency {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.proceed-cta {
+  padding: 1rem;
+  border: none;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  color: var(--black);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: var(--transition-default);
+  box-shadow: 0 10px 30px -10px var(--orange-transparent);
+}
+
+.proceed-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px -8px var(--orange-less-transparent);
+}
+
+.proceed-cta:active {
+  transform: translateY(0);
+}
+
+@media (min-width: 1024px) {
+  .booking-modal-auth {
+    border-inline-start: 1px solid var(--border-color);
+    border-inline-end: none;
+  }
+}
+
+.modal-step {
+    width: 100%;
+    display: none;
+}
+
+.modal-step:first-of-type {
+    display: block;
+}
+
+.modal-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.modal-navigation button {
+    flex: 1;
+}
+
+.btn-back {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding-block: 0.75rem;
+}
+
+.booking-summary-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: var(--dark-blue-transparent);
+    padding: 1.5rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: var(--text-main);
+}
+
+#summaryServicesList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    color: var(--accent);
+}</current_css>
+<current_js>const IS_AUTHENTICATED = false;
+
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+  setAuthState();
+  setDateBoundary();
+  bindTriggers();
+  bindExclusivity();
+  bindClose();
+}
+
+function setAuthState() {
+  const unauth = document.getElementById('authStateUnauth');
+  const auth = document.getElementById('authStateAuth');
+  if (IS_AUTHENTICATED) {
+    unauth.classList.remove('is-visible');
+    auth.classList.add('is-visible');
+  } else {
+    auth.classList.remove('is-visible');
+    unauth.classList.add('is-visible');
+  }
+}
+
+function setDateBoundary() {
+  const dateInput = document.getElementById('bookingDate');
+  if (!dateInput) return;
+  const today = new Date();
+  const maxDate = new Date(today);
+  maxDate.setDate(maxDate.getDate() + 180);
+  dateInput.min = formatDate(today);
+  dateInput.max = formatDate(maxDate);
+}
+
+function formatDate(d) {
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function bindTriggers() {
+  document.addEventListener('click', function (e) {
+    const trigger = e.target.closest('[data-open-booking]');
+    if (!trigger) return;
+    const serviceId = trigger.getAttribute('data-service-id');
+    openModal(serviceId);
+  });
+}
+
+function openModal(serviceId) {
+  const overlay = document.getElementById('bookingModalOverlay');
+  overlay.classList.add('is-open');
+  if (serviceId) preselectService(serviceId);
+}
+
+function closeModal() {
+  const overlay = document.getElementById('bookingModalOverlay');
+  overlay.classList.remove('is-open');
+}
+
+function bindClose() {
+  const closeBtn = document.getElementById('modalCloseBtn');
+  const overlay = document.getElementById('bookingModalOverlay');
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeModal();
+  });
+}
+
+function preselectService(serviceId) {
+  const target = document.querySelector(`.service-item[data-service-id="${serviceId}"]`);
+  if (!target) return;
+  const input = target.querySelector('.service-select');
+  if (!input || input.disabled) return;
+  input.checked = true;
+  input.focus();
+  input.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
+function bindExclusivity() {
+  const normalList = document.getElementById('normalServiceList');
+  const groomingList = document.getElementById('groomingServiceList');
+  if (!normalList || !groomingList) return;
+
+  normalList.addEventListener('change', function (e) {
+    if (!e.target.classList.contains('service-select')) return;
+    if (e.target.checked) {
+      clearCategory(groomingList);
+      setCategoryLock(groomingList, true);
+    } else if (!normalList.querySelector('.service-select:checked')) {
+      setCategoryLock(groomingList, false);
+    }
+  });
+
+  groomingList.addEventListener('change', function (e) {
+    if (!e.target.classList.contains('service-select')) return;
+    if (e.target.checked) {
+      clearCategory(normalList);
+      setCategoryLock(normalList, true);
+    } else {
+      setCategoryLock(normalList, false);
+    }
+  });
+}
+
+function clearCategory(listEl) {
+  listEl.querySelectorAll('.service-select').forEach(function (input) {
+    input.checked = false;
+  });
+}
+
+function setCategoryLock(listEl, locked) {
+  listEl.querySelectorAll('.service-select').forEach(function (input) {
+    input.disabled = locked;
+  });
+  listEl.classList.toggle('is-locked', locked);
+}
+
+</current_js>
+</context>
+
+<rules>
+- Mobile-first, responsive execution.
+- No code comments.
+- Minimalist luxury aesthetic: pure black backgrounds, 0 border-radius, thin borders, high-end look.
+- Zero conversational filler or textual explanations. Output code blocks only.
+</rules>
+
+<output_format>Separate, clean code blocks for HTML, CSS, and JS.</output_format>
