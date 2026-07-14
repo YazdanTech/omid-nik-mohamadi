@@ -346,49 +346,42 @@
             <div class="modal-body">
                 <section class="modal-step" data-step="1">
                     <div class="booking-modal-services">
+
+                        <!-- 1. Normal Services Category -->
                         <div class="service-category" data-category="normal">
                             <h3 class="service-category-title">خدمات عادی</h3>
                             <ul class="service-list" id="normalServiceList">
-                                <li class="service-item" data-service-id="svc-101" data-category="normal">
-                                    <input type="checkbox" class="service-select" id="sel-svc-101" />
-                                    <label for="sel-svc-101" class="service-info">
-                                        <span class="service-name">اصلاح مو</span>
-                                        <span class="service-duration">1.5H</span>
-                                        <span class="service-price">2,900 T</span>
+                                {% for service in global_normal_services %}
+                                <li class="service-item" data-service-id="svc-{{ service.id }}" data-category="normal">
+                                    <input type="checkbox" class="service-select" id="sel-svc-{{ service.id }}" />
+                                    <label for="sel-svc-{{ service.id }}" class="service-info">
+                                        <span class="service-name">{{ service.title }}</span>
+                                        <span class="service-duration">{{ service.duration_minutes }}M</span>
+                                        <span class="service-price">{{ service.price }} T</span>
                                     </label>
                                 </li>
-                                <li class="service-item" data-service-id="svc-102" data-category="normal">
-                                    <input type="checkbox" class="service-select" id="sel-svc-102" />
-                                    <label for="sel-svc-102" class="service-info">
-                                        <span class="service-name">اصلاح ریش</span>
-                                        <span class="service-duration">30M</span>
-                                        <span class="service-price">2,900 T</span>
-                                    </label>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
 
+                        <!-- 2. Grooming Services Category -->
                         <div class="service-category" data-category="grooming">
-                            <h3 class="service-category-title">خدمات دوماد </h3>
+                            <h3 class="service-category-title">خدمات داماد</h3>
                             <ul class="service-list" id="groomingServiceList">
-                                <li class="service-item" data-service-id="svc-201" data-category="grooming">
-                                    <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-201" />
-                                    <label for="sel-svc-201" class="service-info">
-                                        <span class="service-name">پکیج داماد</span>
-                                        <span class="service-price">1,900 T</span>
+                                {% for service in global_grooming_services %}
+                                <li class="service-item" data-service-id="svc-{{ service.id }}"
+                                    data-category="grooming">
+                                    <input type="radio" name="groomingSelect" class="service-select"
+                                        id="sel-svc-{{ service.id }}" />
+                                    <label for="sel-svc-{{ service.id }}" class="service-info">
+                                        <span class="service-name">{{ service.title }}</span>
+                                        <span class="service-price">{{ service.price }} T</span>
                                     </label>
-                                    <a class="service-link" href="#" data-service-id="svc-201">?</a>
                                 </li>
-                                <li class="service-item" data-service-id="svc-202" data-category="grooming">
-                                    <input type="radio" name="groomingSelect" class="service-select" id="sel-svc-202" />
-                                    <label for="sel-svc-202" class="service-info">
-                                        <span class="service-name">پکیج VIP</span>
-                                        <span class="service-price">1,200 T</span>
-                                    </label>
-                                    <a class="service-link" href="#" data-service-id="svc-202">?</a>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
+
                     </div>
                 </section>
 

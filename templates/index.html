@@ -149,22 +149,18 @@
         <h2 class="section-title">Signature Services</h2>
       </div>
       <ul class="services-list">
-        <li class="service-row" data-open-booking data-service-id="svc-102">
-          <span class=" service-name">Hair Design</span>
-          <span class="service-sub" lang="fa" dir="rtl">طراحی مو</span>
+        {% for service in global_normal_services %}
+        <li class="service-row" data-open-booking data-service-id="svc-{{ service.id }}">
+          <span class="service-sub" lang="fa" dir="rtl">
+            {{ service.duration_minutes }} دقیقه
+          </span>
+          <span class="service-name">{{ service.title }}</span>
         </li>
-        <li class="service-row">
-          <span class="service-name">Beard Sculpting</span>
-          <span class="service-sub" lang="fa" dir="rtl">اصلاح و فرم‌دهی ریش</span>
+        {% empty %}
+        <li class="service-row-empty">
+          <span class="service-name">هیچ خدماتی یافت نشد.</span>
         </li>
-        <li class="service-row">
-          <span class="service-name">Classic Shave</span>
-          <span class="service-sub" lang="fa" dir="rtl">اصلاح کلاسیک</span>
-        </li>
-        <li class="service-row">
-          <span class="service-name">Hot Towel Ritual</span>
-          <span class="service-sub" lang="fa" dir="rtl">آیین حوله گرم</span>
-        </li>
+        {% endfor %}
       </ul>
       <a href="#contact" class="services-cta">Book / رزرو</a>
     </div>

@@ -37,7 +37,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'pages'],  # Tells Django to look inside your /pages folder
+        'DIRS': [BASE_DIR / 'templates'], # Or wherever your /pages/ folder is
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -45,6 +45,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                # ADD THIS LINE HERE:
+                'services.context_processors.booking_services',
             ],
         },
     },

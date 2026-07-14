@@ -5,14 +5,12 @@ from rest_framework.permissions import AllowAny
 from .models import Service
 from .serializers import ServiceSerializer
 
-
+# services/views.py
 def home_page(request):
-    services = Service.objects.filter(is_active=True)
-    return render(request, 'index.html', {'services': services})
+    return render(request, 'index.html') 
 
 def grooming_page(request):
-    grooming_services = Service.objects.filter(is_active=True) 
-    return render(request, 'grooming.html', {'services': grooming_services})
+    return render(request, 'grooming.html')
 
 class ServiceListView(ListAPIView):
     permission_classes = [AllowAny]
