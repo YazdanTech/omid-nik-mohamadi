@@ -35,11 +35,11 @@
             <!-- Middle Navigation (Desktop Only) -->
             <nav class="desktop-nav" aria-label="Primary Desktop Navigation">
                 <ul class="desktop-nav-links">
-                    <li><a href="{% url 'services:home' %}#top" class="desktop-nav-link">Home</a></li>
-                    <li><a href="{% url 'services:home' %}#craft" class="desktop-nav-link">The Craft</a></li>
-                    <li><a href="{% url 'services:home' %}#services" class="desktop-nav-link">Services</a></li>
-                    <li><a href="{% url 'services:grooming' %}" class="desktop-nav-link">Grooming</a></li>
-                    <li><a href="{% url 'shop:product_page' %}" class="desktop-nav-link">Products</a></li>
+                    <li><a href="{% url 'services:home' %}#top" class="desktop-nav-link">خانه</a></li>
+                    <li><a href="{% url 'services:home' %}#craft" class="desktop-nav-link">تجارب</a></li>
+                    <li><a href="{% url 'services:home' %}#services" class="desktop-nav-link">خدمات</a></li>
+                    <li><a href="{% url 'services:grooming' %}" class="desktop-nav-link">دامادی</a></li>
+                    <li><a href="{% url 'shop:product_page' %}" class="desktop-nav-link">محصولات</a></li>
                 </ul>
             </nav>
 
@@ -51,7 +51,6 @@
                 <!-- Booking Action Link (Swaps with Menu on Desktop) -->
                 <button data-open-booking class="header-book-btn">
                     <span lang="fa" dir="rtl">رزرو نوبت</span>
-                    <span class="book-btn-en">Book</span>
                 </button>
 
                 <a href="{% url 'users:login-page' %}" style="color: var(--accent)">ورود</a>

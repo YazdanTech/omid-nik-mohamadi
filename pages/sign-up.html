@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_auth.html' %}
 {% load static %}
 
 {% block title %}
@@ -10,12 +10,12 @@ Create Account — Omid Nik Mohammadi
 {% endblock %}
 
 {% block style %}
-    <script src="{% static 'styles/sign-in-up.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'styles/sign-in-up.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<div class="auth" data-page="sign-up">
+<div class="auth" data-page="sign-up" dir="rtl">
 
   <div class="auth__layout">
 
@@ -31,7 +31,7 @@ Create Account — Omid Nik Mohammadi
       <div class="auth__visual-overlay"></div>
       <div class="auth__visual-content" data-reveal>
         <span class="auth__visual-eyebrow">Omid Nik Mohammadi</span>
-        <p class="auth__visual-quote">Precision grooming and identity architecture.</p>
+        <p class="auth__visual-quote">دقت در پیرایش و معماری هویت.</p>
       </div>
     </section>
 
@@ -39,25 +39,25 @@ Create Account — Omid Nik Mohammadi
       <div class="auth__panel-inner">
 
         <header class="auth__header" data-reveal>
-          <span class="auth__eyebrow">New Client</span>
-          <h1 class="auth__title">Create your account</h1>
-          <p class="auth__subtitle">Three short steps and you're booked in.</p>
+          <span class="auth__eyebrow">مشتری جدید</span>
+          <h1 class="auth__title">حساب خود را بسازید</h1>
+          <p class="auth__subtitle">سه مرحله کوتاه و وقت شما رزرو می‌شود.</p>
         </header>
 
-        <ol class="auth__steps" aria-label="Sign up progress" data-reveal>
+        <ol class="auth__steps" aria-label="پیشرفت ثبت نام" data-reveal>
           <li class="auth__step auth__step--active" data-step="1">
             <span class="auth__step-index">01</span>
-            <span class="auth__step-label">Details</span>
+            <span class="auth__step-label">مشخصات</span>
           </li>
           <span class="auth__step-line" aria-hidden="true"></span>
           <li class="auth__step" data-step="2">
             <span class="auth__step-index">02</span>
-            <span class="auth__step-label">Contact</span>
+            <span class="auth__step-label">تماس</span>
           </li>
           <span class="auth__step-line" aria-hidden="true"></span>
           <li class="auth__step" data-step="3">
             <span class="auth__step-index">03</span>
-            <span class="auth__step-label">Verify</span>
+            <span class="auth__step-label">تایید</span>
           </li>
         </ol>
 
@@ -66,37 +66,37 @@ Create Account — Omid Nik Mohammadi
           <div class="auth__stage auth__stage--current" data-stage="1">
             <div class="auth__stage-grid">
               <div class="auth__field">
-                <label class="auth__label" for="fullName">Full name</label>
-                <input class="auth__input" type="text" id="fullName" name="fullName" autocomplete="name" placeholder="Full name" required>
+                <label class="auth__label" for="fullName">نام کامل</label>
+                <input class="auth__input" type="text" id="fullName" name="fullName" autocomplete="name" placeholder="نام کامل" required>
               </div>
               <div class="auth__field">
-                <label class="auth__label" for="birthDate">Birth date</label>
+                <label class="auth__label" for="birthDate">تاریخ تولد</label>
                 <input class="auth__input" type="date" id="birthDate" name="birthDate" required>
               </div>
             </div>
             <div class="auth__nav-buttons">
               <span></span>
-              <button class="auth__button auth__button--primary" type="button" data-action="next">Continue</button>
+              <button class="auth__button auth__button--primary" type="button" data-action="next">ادامه</button>
             </div>
           </div>
 
           <div class="auth__stage" data-stage="2" hidden>
             <div class="auth__field">
-              <label class="auth__label" for="phoneNumber">Phone number</label>
-              <input class="auth__input" type="tel" id="phoneNumber" name="phoneNumber" autocomplete="tel" placeholder="+1 555 000 0000" required>
+              <label class="auth__label" for="phoneNumber">شماره تلفن</label>
+              <input class="auth__input" type="tel" id="phoneNumber" name="phoneNumber" autocomplete="tel" placeholder="+98 912 000 0000" required>
             </div>
             <div class="auth__field">
-              <label class="auth__label" for="emailOptional">Email <span class="auth__optional">(optional)</span></label>
-              <input class="auth__input" type="email" id="emailOptional" name="emailOptional" autocomplete="email" placeholder="you@example.com">
+              <label class="auth__label" for="emailOptional">ایمیل <span class="auth__optional">(اختیاری)</span></label>
+              <input class="auth__input" type="email" id="emailOptional" name="emailOptional" autocomplete="email" placeholder="you@نمونه.com">
             </div>
             <div class="auth__nav-buttons">
-              <button class="auth__button auth__button--ghost" type="button" data-action="back">Back</button>
-              <button class="auth__button auth__button--primary" type="button" data-action="next">Send code</button>
+              <button class="auth__button auth__button--ghost" type="button" data-action="back">بازگشت</button>
+              <button class="auth__button auth__button--primary" type="button" data-action="next">ارسال کد</button>
             </div>
           </div>
 
           <div class="auth__stage" data-stage="3" hidden>
-            <p class="auth__subtitle">Enter the 6-digit code sent to your phone.</p>
+            <p class="auth__subtitle">کد شش رقمی ارسال شده به تلفن خود را وارد کنید.</p>
             <div class="auth__otp" data-otp>
               <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 1" required>
               <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2" required>
@@ -105,10 +105,10 @@ Create Account — Omid Nik Mohammadi
               <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5" required>
               <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6" required>
             </div>
-            <button class="auth__resend" type="button" data-action="resend">Resend code</button>
+            <button class="auth__resend" type="button" data-action="resend">ارسال مجدد کد</button>
             <div class="auth__nav-buttons">
-              <button class="auth__button auth__button--ghost" type="button" data-action="back">Back</button>
-              <button class="auth__button auth__button--primary" type="submit">Verify &amp; create account</button>
+              <button class="auth__button auth__button--ghost" type="button" data-action="back">بازگشت</button>
+              <button class="auth__button auth__button--primary" type="submit">تایید و ایجاد حساب کاربری</button>
             </div>
           </div>
 
@@ -116,7 +116,7 @@ Create Account — Omid Nik Mohammadi
 
         </form>
 
-        <p class="auth__footer-note" data-reveal>Already have an account? <a class="auth__link" href="sign-in.html">Sign in</a></p>
+        <p class="auth__footer-note" data-reveal>آیا قبلاً حساب دارید؟ <a class="auth__link" href="sign-in.html">وارد شوید</a></p>
 
       </div>
     </section>
@@ -127,5 +127,5 @@ Create Account — Omid Nik Mohammadi
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'scripts/sign-in-up.js' %}"></script>
+    <script src="{% static 'scripts/auth-overlay.js' %}"></script>
 {% endblock %}

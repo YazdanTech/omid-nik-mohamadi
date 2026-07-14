@@ -56,6 +56,7 @@
 
 .grooming-video {
     padding-inline: 1.5rem;
+    direction: ltr;
     padding-block-end: 5rem;
 }
 

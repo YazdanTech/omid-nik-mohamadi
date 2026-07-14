@@ -63,7 +63,7 @@
     font-family: var(--font-display);
     font-weight: 300;
     font-size: clamp(1.3rem, 4vw, 1.9rem);
-    color: #fff;
+    color: var(--text-main);
     margin: 0;
     max-inline-size: 26rem;
 }
@@ -75,89 +75,36 @@
     justify-content: center;
     padding: 2rem 1.25rem 3rem;
 }
-
 .auth__panel-inner {
     inline-size: 100%;
     max-inline-size: 26rem;
     background: var(--nav-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-image: linear-gradient(to bottom, var(--orange-transparent) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange-transparent) 100%) 1;
+
+    /* 1. Define the border width and style first */
+    border: 1.5px solid transparent; 
+
+    /* 2. Apply your gradient border-image on top of it */
+    border-image: linear-gradient(
+        to top left, 
+        var(--dark-blue) 0%, 
+        var(--dark-blue) 40%, 
+        var(--orange-transparent) 60%, 
+        var(--orange-transparent) 100%
+    ) 1;
+
     padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
-
     position: relative;
     overflow: hidden;
-    /* Clips the rotating inner gradient */
     z-index: 1;
-    animation: shadow-pulse 8s infinite linear;
 
-}
-
-/* The true border glow layer */
-.auth__panel-inner::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 150%;
-    /* Intentionally larger to cover corners while rotating */
-    height: 150%;
-    background: conic-gradient(var(--dark-blue),
-            var(--orange-transparent),
-            var(--orange-less-transparent),
-            var(--orange-transparent),
-            var(--dark-blue));
-    animation: border-rotate 8s infinite linear;
-    z-index: -2;
-}
-
-/* The inner body mask to make it look like a fine border */
-.auth__panel-inner::after {
-    content: '';
-    position: absolute;
-    inset: 1px;
-    /* The thickness of your border (e.g., 1px or 2px) */
-    background: var(--bg-main);
-    /* Must match container body color */
-    z-index: -1;
-}
-
-
-@keyframes border-rotate {
-    0% {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-
-    100% {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
-}
-
-@keyframes shadow-pulse {
-
-    0%,
-    100% {
-        box-shadow: 0px 0px 30px var(--dark-blue);
-    }
-
-    50% {
-        box-shadow: 0px 0px 10px var(--dark-blue);
-    }
-}
-
-
-[data-reveal] {
-    opacity: 0;
-    transform: translateY(1rem) scale(0.98);
-    transition: opacity var(--transition-default), transform var(--transition-default);
-}
-
-[data-reveal].is-visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+    box-shadow: 
+    20px 20px 20px color-mix(in srgb, var(--orange-transparent) 30%, transparent 70%),
+    -20px -20px 20px var(--dark-blue-transparent);
 }
 
 .auth__header {

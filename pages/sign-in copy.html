@@ -11,8 +11,7 @@
 {% endblock %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'styles/sign-in-up.css' %}">
-
+    <script src="{% static 'styles/sign-in-up.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -92,7 +91,7 @@
 
  
 
-        <p class="auth__footer-note" data-reveal>تازه‌وارد هستید؟ <a class="auth__link" href="{% url 'users:register-page' %}">ساخت حساب کاربری</a></p>
+        <p class="auth__footer-note" data-reveal>تازه‌وارد هستید؟ <a class="auth__link" href="sign-up.html">ساخت حساب کاربری</a></p>
 
       </div>
     </section>

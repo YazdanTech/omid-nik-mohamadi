@@ -52,6 +52,7 @@ orange.products-page {
 
 @media (min-width: 1024px) {
   .products-grid { grid-template-columns: repeat(3, 1fr); }
+  
 }
 
 .product-card {
@@ -111,6 +112,7 @@ orange.products-page {
 .product-body {
   padding: 1.25rem;
   display: flex;
+  direction: rtl;
   flex-direction: column;
   gap: 0.6rem;
   flex: 1;
@@ -176,6 +178,7 @@ orange.products-page {
 
 .checkout-overlay {
   position: fixed;
+  direction: rtl;
   inset: 0;
   background: var(--overlay);
   display: none;
