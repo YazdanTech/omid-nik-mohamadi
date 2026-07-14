@@ -1,2 +1,25 @@
-assets/unused
+# === Python / Virtual Environments ===
 venv/
+.venv/
+ENV/
+env/
+*.pyc
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+
+# === Django Media & Local State ===
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# === User Custom/Unused Folders ===
+_stuff/
+static/assets/unused/
+
+# === OS & IDE Metadata ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
