@@ -7,7 +7,7 @@ from users.models import CustomUser
 class Product(models.Model):
     title = models.CharField(_("عنوان"), max_length=200)
     description = models.TextField(_("توضیحات"))
-    price = models.DecimalField(_("قیمت"), max_digits=10, decimal_places=2)
+    price = models.IntegerField(_("قیمت"))
     stock = models.PositiveIntegerField(_("موجودی"))
     image = models.ImageField(_("تصویر"), upload_to="products/")
 

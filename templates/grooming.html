@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% load static %}
+
+{% load static %} {% load service_tags %}
 
 {% block title %}
 Grooming Packages — Omid Nik Mohammadi
@@ -69,232 +70,186 @@ Grooming Packages — Omid Nik Mohammadi
 
 {% block content %}
 
-  <main class="grooming" dir="rtl">
+<main class="grooming" dir="rtl">
 
-    <section class="grooming-hero" aria-label="Grooming packages introduction">
-      <div class="grooming-hero__inner">
-        <span class="grooming-hero__eyebrow" data-reveal>آرایش و تراش حرفه‌ای</span>
-        <h1 class="grooming-hero__title" data-reveal>
-          بسته‌هایی برای مردی که از تکرار اجتناب می‌کند
-        </h1>
-        <p class="grooming-hero__lede" data-reveal>
-          هر بسته یک تجربه مکمل است، نه منوی انتخاب. آن‌ها را انتخاب کنید که با روز پیش رو هماهنگ باشد، و بقیه خود را مدیریت کند.
-        </p>
+  <section class="grooming-hero" aria-label="Grooming packages introduction">
+    <div class="grooming-hero__inner">
+      <span class="grooming-hero__eyebrow" data-reveal>آرایش و تراش حرفه‌ای</span>
+      <h1 class="grooming-hero__title" data-reveal>
+        بسته‌هایی برای مردی که از تکرار اجتناب می‌کند
+      </h1>
+      <p class="grooming-hero__lede" data-reveal>
+        هر بسته یک تجربه مکمل است، نه منوی انتخاب. آن‌ها را انتخاب کنید که با روز پیش رو هماهنگ باشد، و بقیه خود را
+        مدیریت کند.
+      </p>
+    </div>
+  </section>
+
+  <section class="grooming-video" aria-label="Package guide video">
+    <div class="grooming-video__frame" data-reveal>
+      <video class="grooming-video__player" id="groomingVideo" playsinline muted loop preload="metadata"
+        poster="https://picsum.photos/seed/omid-video-poster/1600/900">
+        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          type="video/mp4">
+      </video>
+      <button class="grooming-video__toggle" id="groomingVideoToggle" type="button" aria-label="پخش راهنمای بسته‌ها">
+        <svg class="grooming-video__icon grooming-video__icon--play" viewBox="0 0 24 24" width="22" height="22">
+          <path d="M8 5v14l11-7z" fill="currentColor" />
+        </svg>
+        <svg class="grooming-video__icon grooming-video__icon--pause" viewBox="0 0 24 24" width="22" height="22" hidden>
+          <path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor" />
+        </svg>
+      </button>
+      <span class="grooming-video__caption">بررسی مختصری از محتویات هر بسته</span>
+    </div>
+  </section>
+
+  <section class="grooming-gallery" aria-label="Grooming work samples">
+    <div class="grooming-gallery__heading" data-reveal>
+      <span class="grooming-gallery__eyebrow">نمونه‌های کار</span>
+      <h2 class="grooming-gallery__title">آرشیوی خاموش از نگاه‌های نهایی</h2>
+    </div>
+
+    <div class="grooming-gallery__row" data-direction="left">
+      <div class="grooming-gallery__track" data-track>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-01/480/600"
+            alt="Grooming work sample one" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-02/480/600"
+            alt="Grooming work sample two" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-03/480/600"
+            alt="Grooming work sample three" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-04/480/600"
+            alt="Grooming work sample four" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-05/480/600"
+            alt="Grooming work sample five" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-01/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-02/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-03/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-04/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-05/480/600" alt="" loading="lazy"></div>
       </div>
-    </section>
+    </div>
 
-    <section class="grooming-video" aria-label="Package guide video">
-      <div class="grooming-video__frame" data-reveal>
-        <video class="grooming-video__player" id="groomingVideo" playsinline muted loop preload="metadata"
-          poster="https://picsum.photos/seed/omid-video-poster/1600/900">
-          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-            type="video/mp4">
-        </video>
-        <button class="grooming-video__toggle" id="groomingVideoToggle" type="button"
-          aria-label="پخش راهنمای بسته‌ها">
-          <svg class="grooming-video__icon grooming-video__icon--play" viewBox="0 0 24 24" width="22" height="22">
-            <path d="M8 5v14l11-7z" fill="currentColor" />
-          </svg>
-          <svg class="grooming-video__icon grooming-video__icon--pause" viewBox="0 0 24 24" width="22" height="22"
-            hidden>
-            <path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor" />
-          </svg>
-        </button>
-        <span class="grooming-video__caption">بررسی مختصری از محتویات هر بسته</span>
+    <div class="grooming-gallery__row" data-direction="right">
+      <div class="grooming-gallery__track" data-track>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-06/480/600"
+            alt="Grooming work sample six" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-07/480/600"
+            alt="Grooming work sample seven" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-08/480/600"
+            alt="Grooming work sample eight" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-09/480/600"
+            alt="Grooming work sample nine" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-10/480/600"
+            alt="Grooming work sample ten" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-06/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-07/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-08/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-09/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-10/480/600" alt="" loading="lazy"></div>
       </div>
-    </section>
+    </div>
 
-    <section class="grooming-gallery" aria-label="Grooming work samples">
-      <div class="grooming-gallery__heading" data-reveal>
-        <span class="grooming-gallery__eyebrow">نمونه‌های کار</span>
-        <h2 class="grooming-gallery__title">آرشیوی خاموش از نگاه‌های نهایی</h2>
+    <div class="grooming-gallery__row" data-direction="left">
+      <div class="grooming-gallery__track" data-track>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-11/480/600"
+            alt="Grooming work sample eleven" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-12/480/600"
+            alt="Grooming work sample twelve" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-13/480/600"
+            alt="Grooming work sample thirteen" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-14/480/600"
+            alt="Grooming work sample fourteen" loading="lazy"></div>
+        <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-15/480/600"
+            alt="Grooming work sample fifteen" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-11/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-12/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-13/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-14/480/600" alt="" loading="lazy"></div>
+        <div class="grooming-gallery__item" aria-hidden="true"><img
+            src="https://picsum.photos/seed/groom-work-15/480/600" alt="" loading="lazy"></div>
       </div>
+    </div>
+  </section>
 
-      <div class="grooming-gallery__row" data-direction="left">
-        <div class="grooming-gallery__track" data-track>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-01/480/600"
-              alt="Grooming work sample one" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-02/480/600"
-              alt="Grooming work sample two" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-03/480/600"
-              alt="Grooming work sample three" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-04/480/600"
-              alt="Grooming work sample four" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-05/480/600"
-              alt="Grooming work sample five" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-01/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-02/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-03/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-04/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-05/480/600" alt="" loading="lazy"></div>
+  <section class="grooming-packages" aria-label="Premium grooming packages">
+    <div class="grooming-packages__heading" data-reveal>
+      <span class="grooming-packages__eyebrow">رزرو بسته</span>
+      <h2 class="grooming-packages__title">چهار راه برای حضور با ظاهری کامل</h2>
+    </div>
+
+    <div class="grooming-packages__grid">
+
+      {% for package in global_grooming_services %}
+      <article class="grooming-package-card" data-reveal itemscope itemtype="https://schema.org/Service">
+
+        <!-- Render uploaded image, fallback to placeholder if null -->
+        {% if package.image %}
+        <img class="grooming-package-card__media" src="{{ package.image.url }}" alt="{{ package.title }}"
+          loading="lazy">
+        {% else %}
+        <!-- Make sure to place a default background graphic in your static folder -->
+        <img class="grooming-package-card__media" src="{% static 'images/default-package.jpg' %}"
+          alt="{{ package.title }}" loading="lazy">
+        {% endif %}
+
+        <div class="grooming-package-card__overlay"></div>
+        <div class="grooming-package-card__body">
+
+          <h3 class="grooming-package-card__title" itemprop="name">{{ package.title }}</h3>
+
+          <p class="grooming-package-card__desc">
+            {{ package.description|default:"پکیج ویژه گرومینگ تخصصی داماد." }}
+          </p>
+
+          <ul class="grooming-package-card__list">
+            {% if package.features %}
+            {% for feature in package.features|split_by_comma %}
+            <li class="grooming-package-card__list-item">{{ feature }}</li>
+            {% endfor %}
+            {% else %}
+            <li class="grooming-package-card__list-item">بدون ویژگی ثبت شده</li>
+            {% endif %}
+          </ul>
+
+          <div class="grooming-package-card__footer">
+            <span class="grooming-package-card__price">
+              {{ package.price }} <span class="grooming-package-card__price-currency">T</span>
+            </span>
+            <button class="grooming-package-card__cta" type="button" data-open-booking
+              data-service-id="svc-{{ package.id }}" data-package="{{ package.title }}">رزرو کنید</button>
+          </div>
+
         </div>
-      </div>
+      </article>
+      {% empty %}
+      <p>در حال حاضر پکیج دامادی فعال نیست.</p>
+      {% endfor %}
+    </div>
+  </section>
 
-      <div class="grooming-gallery__row" data-direction="right">
-        <div class="grooming-gallery__track" data-track>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-06/480/600"
-              alt="Grooming work sample six" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-07/480/600"
-              alt="Grooming work sample seven" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-08/480/600"
-              alt="Grooming work sample eight" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-09/480/600"
-              alt="Grooming work sample nine" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-10/480/600"
-              alt="Grooming work sample ten" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-06/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-07/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-08/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-09/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-10/480/600" alt="" loading="lazy"></div>
-        </div>
-      </div>
+  <section class="grooming-signoff" aria-label="Closing statement">
+    <p class="grooming-signoff__text" data-reveal>با ظاهری لوکس و شاهانه در مهم‌ترین روز زندگی خود حاضر شوید.</p>
+  </section>
 
-      <div class="grooming-gallery__row" data-direction="left">
-        <div class="grooming-gallery__track" data-track>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-11/480/600"
-              alt="Grooming work sample eleven" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-12/480/600"
-              alt="Grooming work sample twelve" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-13/480/600"
-              alt="Grooming work sample thirteen" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-14/480/600"
-              alt="Grooming work sample fourteen" loading="lazy"></div>
-          <div class="grooming-gallery__item"><img src="https://picsum.photos/seed/groom-work-15/480/600"
-              alt="Grooming work sample fifteen" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-11/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-12/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-13/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-14/480/600" alt="" loading="lazy"></div>
-          <div class="grooming-gallery__item" aria-hidden="true"><img
-              src="https://picsum.photos/seed/groom-work-15/480/600" alt="" loading="lazy"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="grooming-packages" aria-label="Premium grooming packages">
-      <div class="grooming-packages__heading" data-reveal>
-        <span class="grooming-packages__eyebrow">رزرو بسته</span>
-        <h2 class="grooming-packages__title">چهار راه برای حضور با ظاهری کامل</h2>
-      </div>
-
-      <div class="grooming-packages__grid">
-
-        <article class="grooming-package-card" data-reveal itemscope itemtype="https://schema.org/Service">
-          <img class="grooming-package-card__media" src="https://picsum.photos/seed/package-classic/800/1000" alt=""
-            loading="lazy">
-          <div class="grooming-package-card__overlay"></div>
-          <div class="grooming-package-card__body">
-            <h3 class="grooming-package-card__title" itemprop="name">آقای کلاسیک</h3>
-            <p class="grooming-package-card__desc">کاشت و شکل‌دهی‌ای منضبط با دقت آرام یک نخستین ملاقات موفق.</p>
-            <ul class="grooming-package-card__list">
-              <li class="grooming-package-card__list-item">کاشت دقیق و تِیپِر</li>
-              <li class="grooming-package-card__list-item">خط‌کشی ریش</li>
-              <li class="grooming-package-card__list-item">پایان‌کاری حوله‌ی گرم</li>
-            </ul>
-            <div class="grooming-package-card__footer">
-              <span class="grooming-package-card__price"><span
-                  class="grooming-package-card__price-currency">$</span>85</span>
-              <button class="grooming-package-card__cta" type="button"
-                data-package="آقای کلاسیک">رزرو کنید</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="grooming-package-card" data-reveal itemscope itemtype="https://schema.org/Service">
-          <img class="grooming-package-card__media" src="https://picsum.photos/seed/package-executive/800/1000" alt=""
-            loading="lazy">
-          <div class="grooming-package-card__overlay"></div>
-          <div class="grooming-package-card__body">
-            <h3 class="grooming-package-card__title" itemprop="name">اجرایی مشغول</h3>
-            <p class="grooming-package-card__desc">برای تقویم پررفت‌وآمد. تازه‌سازی کامل برای حفظ شکل در جلسات متوالی.</p>
-            <ul class="grooming-package-card__list">
-              <li class="grooming-package-card__list-item">کاشت امضایی</li>
-              <li class="grooming-package-card__list-item">طراحی و مجسمه‌سازی ریش</li>
-              <li class="grooming-package-card__list-item">درمان فروسالخورده</li>
-              <li class="grooming-package-card__list-item">پایان‌کاری تیغه راست</li>
-            </ul>
-            <div class="grooming-package-card__footer">
-              <span class="grooming-package-card__price"><span
-                  class="grooming-package-card__price-currency">$</span>140</span>
-              <button class="grooming-package-card__cta" type="button"
-                data-package="اجرایی مشغول">رزرو کنید</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="grooming-package-card" data-reveal itemscope itemtype="https://schema.org/Service">
-          <img class="grooming-package-card__media" src="https://picsum.photos/seed/package-wedding/800/1000" alt=""
-            loading="lazy">
-          <div class="grooming-package-card__overlay"></div>
-          <div class="grooming-package-card__body">
-            <h3 class="grooming-package-card__title" itemprop="name">تشریف روز ازدواج</h3>
-            <p class="grooming-package-card__desc">نشست درازتر و آهسته‌تر برای صبح روز. ساخته شده تا هر عکس سال‌ها دوام بیاورد.</p>
-            <ul class="grooming-package-card__list">
-              <li class="grooming-package-card__list-item">مشاوره پیمایشی</li>
-              <li class="grooming-package-card__list-item">کاشت روز ازدواج</li>
-              <li class="grooming-package-card__list-item">طراحی و مجسمه‌سازی ریش</li>
-              <li class="grooming-package-card__list-item">اصلاح کلاسیک با حوله گرم</li>
-              <li class="grooming-package-card__list-item">کیت لمس‌رفع محل</li>
-            </ul>
-            <div class="grooming-package-card__footer">
-              <span class="grooming-package-card__price"><span
-                  class="grooming-package-card__price-currency">$</span>260</span>
-              <button class="grooming-package-card__cta" type="button"
-                data-package="تشریف روز ازدواج">رزرو کنید</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="grooming-package-card" data-reveal itemscope itemtype="https://schema.org/Service">
-          <img class="grooming-package-card__media" src="https://picsum.photos/seed/package-signature/800/1000" alt=""
-            loading="lazy">
-          <div class="grooming-package-card__overlay"></div>
-          <div class="grooming-package-card__body">
-            <h3 class="grooming-package-card__title" itemprop="name">تجربه کامل امضایی</h3>
-            <p class="grooming-package-card__desc">همه چیز، در یک نشست. دامنه کامل هنر برای روزهایی که واقعاً مهم‌اند.</p>
-            <ul class="grooming-package-card__list">
-              <li class="grooming-package-card__list-item">مشاوره کامل و نقشه استایل</li>
-              <li class="grooming-package-card__list-item">کاشت امضایی</li>
-              <li class="grooming-package-card__list-item">طراحی و مجسمه‌سازی ریش</li>
-              <li class="grooming-package-card__list-item">درمان فروسالخورده و موی سر</li>
-              <li class="grooming-package-card__list-item">اصلاح تیغه راست</li>
-              <li class="grooming-package-card__list-item">تشریف حوله گرم</li>
-            </ul>
-            <div class="grooming-package-card__footer">
-              <span class="grooming-package-card__price"><span
-                  class="grooming-package-card__price-currency">$</span>340</span>
-              <button class="grooming-package-card__cta" type="button"
-                data-package="تجربه کامل امضایی">رزرو کنید</button>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <section class="grooming-signoff" aria-label="Closing statement">
-      <p class="grooming-signoff__text" data-reveal>با ظاهری لوکس و شاهانه در مهم‌ترین روز زندگی خود حاضر شوید.</p>
-    </section>
-
-  </main>
+</main>
 
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'scripts/grooming.js' %}"></script>
+<script src="{% static 'scripts/grooming.js' %}"></script>
 {% endblock %}

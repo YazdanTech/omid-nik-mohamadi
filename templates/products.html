@@ -5,168 +5,111 @@
 
 {% block meta %}
 <meta name="description"
-  content="Omid Nik Mohamadi. Precision grooming and identity architecture. Hair design, beard sculpting, and the quiet discipline of craft.">
+    content="Omid Nik Mohamadi. Precision grooming and identity architecture. Hair design, beard sculpting, and the quiet discipline of craft.">
 {% endblock %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'styles/product.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/auth-overlay.css' %}">
+<link rel="stylesheet" href="{% static 'styles/product.css' %}">
+<link rel="stylesheet" href="{% static 'styles/auth-overlay.css' %}">
 {% endblock %}
 
 {% block content %}
-    <!-- PRODUCT SHOWCASE PAGE -->
-    <main class="shop-container">
-        <section class="products-page">
-            <div class="container">
-                <div class="section-heading">
-                    <span class="heading-eyebrow">مجموعه محصولات</span>
-                    <h1 class="heading-title">محصولات اختصاصی آرایشگاه</h1>
-                    <p class="heading-desc">ابزارها و محصولات مراقبتی منتخب، ویژه آقایانی که ظرافت را می‌شناسند</p>
-                </div>
-
-                <div class="products-grid">
-
-                    <article class="product-card" data-id="p1" data-name="روغن ریش سلطنتی" data-price="1950000"
-                        data-img="https://images.unsplash.com/photo-1621607512214-68297480165e?w=600">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1621607512214-68297480165e?w=600"
-                                alt="روغن ریش سلطنتی" loading="lazy">
-                            <span class="product-badge">پرفروش</span>
-                        </div>
-                        <div class="product-body">
-                            <h3 class="product-name">روغن ریش سلطنتی</h3>
-                            <p class="product-desc">فرمول تغذیه‌کننده با روغن آرگان و صندل، مخصوص نرمی و درخشش ریش</p>
-                            <div class="product-footer">
-                                <button class="btn-buy" type="button">خرید</button>
-                                <span class="product-price"> 1,250 <small>T</small></span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="product-card" data-id="p2" data-name="تیغ اصلاح استیل دمشقی" data-price="3400000"
-                        data-img="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600"
-                                alt="تیغ اصلاح استیل دمشقی" loading="lazy">
-                        </div>
-                        <div class="product-body">
-                            <h3 class="product-name">تیغ اصلاح استیل دمشقی</h3>
-                            <p class="product-desc">دستساز، تیزی و ماندگاری بی‌نظیر برای اصلاحی حرفه‌ای</p>
-                            <div class="product-footer">
-                                <span class="product-price">۳,۴۰۰,۰۰۰ <small>تومان</small></span>
-                                <button class="btn-buy" type="button">خرید</button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="product-card" data-id="p3" data-name="ادکلن چوب عود اختصاصی" data-price="2100000"
-                        data-img="https://images.unsplash.com/photo-1541643600914-78b084683601?w=600">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=600"
-                                alt="ادکلن چوب عود اختصاصی" loading="lazy">
-                            <span class="product-badge">جدید</span>
-                        </div>
-                        <div class="product-body">
-                            <h3 class="product-name">ادکلن چوب عود اختصاصی</h3>
-                            <p class="product-desc">رایحه‌ای گرم و ماندگار، ترکیبی از عود اصیل و مشک</p>
-                            <div class="product-footer">
-                                <span class="product-price">۲,۱۰۰,۰۰۰ <small>تومان</small></span>
-                                <button class="btn-buy" type="button">خرید</button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="product-card" data-id="p4" data-name="ست شانه و قیچی چوبی" data-price="1890000"
-                        data-img="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600"
-                                alt="ست شانه و قیچی چوبی" loading="lazy">
-                        </div>
-                        <div class="product-body">
-                            <h3 class="product-name">ست شانه و قیچی چوبی</h3>
-                            <p class="product-desc">ساخته شده از چوب گردو، مناسب اصلاح دقیق و حرفه‌ای</p>
-                            <div class="product-footer">
-                                <span class="product-price">۱,۸۹۰,۰۰۰ <small>تومان</small></span>
-                                <button class="btn-buy" type="button">خرید</button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="product-card" data-id="p5" data-name="کرم اصلاح گرم" data-price="980000"
-                        data-img="https://images.unsplash.com/photo-1585652757141-8b8db99a3fdf?w=600">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1585652757141-8b8db99a3fdf?w=600"
-                                alt="کرم اصلاح گرم" loading="lazy">
-                        </div>
-                        <div class="product-body">
-                            <h3 class="product-name">کرم اصلاح گرم</h3>
-                            <p class="product-desc">بافت مخملی، محافظ پوست در برابر تحریک ناشی از تیغ</p>
-                            <div class="product-footer">
-                                <span class="product-price">۹۸۰,۰۰۰ <small>تومان</small></span>
-                                <button class="btn-buy" type="button">خرید</button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="product-card" data-id="p6" data-name="واکس مو مات لوکس" data-price="760000"
-                        data-img="https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=600">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=600"
-                                alt="واکس مو مات لوکس" loading="lazy">
-                        </div>
-                        <div class="product-body">
-                            <h3 class="product-name">واکس مو مات لوکس</h3>
-                            <p class="product-desc">فیکساسیون قوی با جلوه‌ای طبیعی و مات، بدون چربی</p>
-                            <div class="product-footer">
-                                <span class="product-price">۷۶۰,۰۰۰ <small>تومان</small></span>
-                                <button class="btn-buy" type="button">خرید</button>
-                            </div>
-                        </div>
-                    </article>
-
-                </div>
+<!-- PRODUCT SHOWCASE PAGE -->
+<main class="shop-container">
+    <section class="products-page">
+        <div class="container">
+            <div class="section-heading">
+                <span class="heading-eyebrow">مجموعه محصولات</span>
+                <h1 class="heading-title">محصولات اختصاصی آرایشگاه</h1>
+                <p class="heading-desc">ابزارها و محصولات مراقبتی منتخب، ویژه آقایانی که ظرافت را می‌شناسند</p>
             </div>
-        </section>
 
-        <div class="checkout-overlay" id="checkoutOverlay">
-            <div class="checkout-modal" role="dialog" id="checkoutModal" aria-modal="true">
-                <button class="modal-close" id="modalClose" aria-label="بستن" type="button">&times;</button>
+            <div class="products-grid">
 
-                <div class="modal-state" id="stateAuth">
-                    <h2 class="modal-title">تکمیل خرید</h2>
+                {% for product in products %}
+                <article class="product-card" data-id="{{ product.id }}" data-name="{{ product.title }}"
+                    data-price="{{ product.price }}"
+                    data-img="{% if product.image %}{{ product.image.url }}{% else %}/static/images/default-product.jpg{% endif %}">
 
-                    <div class="order-summary">
-                        <img id="summaryImg" src="" alt="">
-                        <div class="summary-info">
-                            <h3 id="summaryName"></h3>
-                            <span id="summaryPrice" class="product-price"></span>
+                    <div class="product-image">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="lazy">
+                        {% else %}
+                        <img src="/static/images/default-product.jpg" alt="{{ product.title }}" loading="lazy">
+                        {% endif %}
+
+                        <!-- Showing badge dynamically if stock is limited -->
+                        {% if product.stock <= 5 and product.stock > 0 %}
+                            <span class="product-badge" style="background: var(--dark-blue); color: var(--orange);">تنها
+                                {{ product.stock }} عدد باقی مانده</span>
+                            {% elif product.stock == 0 %}
+                            <span class="product-badge" style="background: #333;">ناموجود</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="product-body">
+                        <h3 class="product-name">{{ product.title }}</h3>
+                        <p class="product-desc">{{ product.description }}</p>
+
+                        <div class="product-footer">
+                            {% if product.stock > 0 %}
+                            <button class="btn-buy" type="button">خرید</button>
+                            {% else %}
+                            <button class="btn-buy" type="button" disabled
+                                style="opacity: 0.5; cursor: not-allowed;">ناموجود</button>
+                            {% endif %}
+                            <span class="product-price">{{ product.price }} <small>T</small></span>
                         </div>
                     </div>
 
-                    <form class="shipping-form" id="shippingForm">
-                        <div class="form-group">
-                            <label for="fullName">نام و نام خانوادگی</label>
-                            <input type="text" id="fullName" value="علی رضایی">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">شماره تماس</label>
-                            <input type="tel" id="phone" value="09121234567">
-                        </div>
-                        <div class="form-group">
-                            <label for="address">آدرس تحویل</label>
-                            <textarea id="address" rows="3">تهران، خیابان ولیعصر، پلاک ۱۲، واحد ۳</textarea>
-                        </div>
-                        <button type="submit" class="btn-pay">ادامه به پرداخت</button>
-                    </form>
-                </div>
+                </article>
+                {% empty %}
+                <p class="empty-state">هیچ محصولی در فروشگاه یافت نشد.</p>
+                {% endfor %}
+
             </div>
         </div>
-    </main>
+    </section>
+
+    <div class="checkout-overlay" id="checkoutOverlay">
+        <div class="checkout-modal" role="dialog" id="checkoutModal" aria-modal="true">
+            <button class="modal-close" id="modalClose" aria-label="بستن" type="button">&times;</button>
+
+            <div class="modal-state" id="stateAuth">
+                <h2 class="modal-title">تکمیل خرید</h2>
+
+                <div class="order-summary">
+                    <img id="summaryImg" src="" alt="">
+                    <div class="summary-info">
+                        <h3 id="summaryName"></h3>
+                        <span id="summaryPrice" class="product-price"></span>
+                    </div>
+                </div>
+
+                <form class="shipping-form" id="shippingForm">
+                    <div class="form-group">
+                        <label for="fullName">نام و نام خانوادگی</label>
+                        <input type="text" id="fullName" placeholder="علی رضایی">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">شماره تماس</label>
+                        <input type="tel" id="phone" placeholder="09121234567">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">آدرس تحویل</label>
+                        <textarea id="address" rows="3" placeholder="تهران، خیابان ولیعصر، پلاک ۱۲، واحد ۳"></textarea>
+                    </div>
+                    <button type="submit" class="btn-pay">ادامه به پرداخت</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
 
 
-  {% endblock %}
+{% endblock %}
 
-  {% block script %}
-  <script src="{% static 'scripts/auth-overlay.js' %}"></script>
-  <script src="{% static 'scripts/product.js' %}"></script>
-  {% endblock %}
+{% block script %}
+<script src="{% static 'scripts/auth-overlay.js' %}"></script>
+<script src="{% static 'scripts/product.js' %}"></script>
+{% endblock %}

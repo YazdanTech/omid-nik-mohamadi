@@ -11,9 +11,8 @@ from .serializers import CheckoutSerializer, OrderSerializer, ProductSerializer
 
 
 def product_page(request):
-    products = Product.objects.filter(stock__gt=0)
-    return render(request, "products.html", {"products": products})
-
+    products = Product.objects.filter(stock__gt=-1) # Or filter as you prefer
+    return render(request, 'products.html', {'products': products})
 
 class ProductCatalogView(ListAPIView):
     permission_classes = [AllowAny]
