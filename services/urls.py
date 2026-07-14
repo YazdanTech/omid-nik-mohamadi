@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import ServiceListView, home_page, grooming_page
 
-app_name = "services_api"
+app_name = "services"
 
 urlpatterns = [
     path('', home_page, name='home'),

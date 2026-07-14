@@ -6,7 +6,7 @@ from .views import (
     LoginView, LogoutView
 )
 
-app_name = "users_api"
+app_name = "users"
 
 urlpatterns = [
     path('login/', sign_in_page, name='login-page'),

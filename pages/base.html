@@ -18,8 +18,8 @@
 
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/footer.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/auth-overlay.css' %}">
     <link rel="stylesheet" href="{% static 'styles/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/auth-overlay.css' %}">
 
     {% block style %}{% endblock %}
 </head>
@@ -34,11 +34,11 @@
             <!-- Middle Navigation (Desktop Only) -->
             <nav class="desktop-nav" aria-label="Primary Desktop Navigation">
                 <ul class="desktop-nav-links">
-                    <li><a href="/#top" class="desktop-nav-link">Home</a></li>
-                    <li><a href="/#craft" class="desktop-nav-link">The Craft</a></li>
-                    <li><a href="/#services" class="desktop-nav-link">Services</a></li>
-                    <li><a href="grooming.html" class="desktop-nav-link">Grooming</a></li>
-                    <li><a href="products.html" class="desktop-nav-link">Products</a></li>
+                    <li><a href="{% url 'services:home' %}#top" class="desktop-nav-link">Home</a></li>
+                    <li><a href="{% url 'services:home' %}#craft" class="desktop-nav-link">The Craft</a></li>
+                    <li><a href="{% url 'services:home' %}#services" class="desktop-nav-link">Services</a></li>
+                    <li><a href="{% url 'services:grooming' %}" class="desktop-nav-link">Grooming</a></li>
+                    <li><a href="{% url 'shop:product_page' %}" class="desktop-nav-link">Products</a></li>
                 </ul>
             </nav>
 
@@ -48,7 +48,7 @@
                 </button>
 
                 <!-- Booking Action Link (Swaps with Menu on Desktop) -->
-                <a href="#contact" class="header-book-btn">
+                <a href="{% url 'services:home' %}#contact" class="header-book-btn">
                     <span lang="fa" dir="rtl">رزرو نوبت</span>
                     <span class="book-btn-en">Book</span>
                 </a>
@@ -76,28 +76,28 @@
 
             <!-- Main Navigation (Pages and Sections combined cleanly) -->
             <ul class="side-nav-links">
-                <li><a href="/#top" class="side-nav-link" data-nav-link><span
+            <li><a href="{% url 'services:home' %}#top" class="side-nav-link" data-nav-link><span
                             class="side-nav-link-index">01</span>Home</a></li>
-                <li><a href="/#craft" class="side-nav-link" data-nav-link><span class="side-nav-link-index">02</span>The
-                        Craft</a></li>
-                <li><a href="/#services" class="side-nav-link" data-nav-link><span
+            <li><a href="{% url 'services:home' %}#craft" class="side-nav-link" data-nav-link><span class="side-nav-link-index">02</span>The
+                Craft</a></li>
+            <li><a href="{% url 'services:home' %}#services" class="side-nav-link" data-nav-link><span
                             class="side-nav-link-index">03</span>Services</a></li>
-                <li><a href="grooming.html" class="side-nav-link" data-nav-link><span
+            <li><a href="{% url 'services:grooming' %}" class="side-nav-link" data-nav-link><span
                             class="side-nav-link-index">04</span>Grooming</a></li>
-                <li><a href="products.html" class="side-nav-link" data-nav-link><span
+            <li><a href="{% url 'shop:product_page' %}" class="side-nav-link" data-nav-link><span
                             class="side-nav-link-index">05</span>Products</a></li>
-                <li><a href="/#contact" class="side-nav-link" data-nav-link><span
+            <li><a href="{% url 'services:home' %}#contact" class="side-nav-link" data-nav-link><span
                             class="side-nav-link-index">06</span>Contact</a></li>
             </ul>
 
 
             <!-- Bottom Actions -->
             <div class="side-nav-bottom">
-                <a href="#contact" class="side-nav-book" data-nav-link>
+                <a href="{% url 'services:home' %}#contact" class="side-nav-book" data-nav-link>
                     <span lang="fa" dir="rtl">رزرو نوبت</span>
                     <span class="side-nav-book-en">Book an Appointment</span>
                 </a>
-                <a href="sign-up.html" class="side-nav-book" data-nav-link>
+                <a href="{% url 'users:register-page' %}" class="side-nav-book" data-nav-link>
                     <span lang="fa" dir="rtl">ساخت حساب / ورود</span>
                     <span class="side-nav-book-en">Log in</span>
                 </a>

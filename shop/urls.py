@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import CheckoutView, OrderPaymentVerifyView, ProductCatalogView, product_page
 
-app_name = "shop_api"
+app_name = "shop"
 
 urlpatterns = [
     path("products/", product_page, name="product_page"),
