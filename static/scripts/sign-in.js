@@ -76,7 +76,7 @@ var signInForm = document.getElementById('signInForm');
             if (errorEl) errorEl.textContent = '';
 
             try {
-                let res = await fetch('/api/login-request-otp/', {
+                let res = await fetch('/api/auth/login-request-otp/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
                     body: JSON.stringify({ phone_number: phone })
@@ -112,7 +112,7 @@ var signInForm = document.getElementById('signInForm');
             if (errorEl) errorEl.textContent = '';
 
             try {
-                let res = await fetch('/api/verify-otp/', {
+                let res = await fetch('/api/auth/verify-otp/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
                     body: JSON.stringify({ phone_number: phone, code: code })
@@ -157,7 +157,7 @@ var signInForm = document.getElementById('signInForm');
                     return;
                 }
 
-                fetch('/api/login-request-otp/', {
+                fetch('/api/auth/login-request-otp/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
                     body: JSON.stringify({ phone_number: phone })

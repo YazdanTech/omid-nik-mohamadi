@@ -4,10 +4,10 @@ from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("users.urls")),
     path("", include("services.urls")),
-    path("", include("bookings.urls")),
-    path("", include("shop.urls")),
+    path("api/auth/", include("users.urls")),
+    path("api/booking/", include("bookings.urls")),
+    path("shop/", include("shop.urls")),
 ]
 
 # if settings.DEBUG:

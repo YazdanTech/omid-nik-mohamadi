@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 
 from django.db import transaction
 from django.shortcuts import get_object_or_404
@@ -29,13 +29,43 @@ class AvailableSlotsView(APIView):
         except ValueError:
             return Response({"detail": "پارامترها نامعتبر است"}, status=status.HTTP_400_BAD_REQUEST)
 
+        # 1. Define shop hours (09:00 to 23:00 in 30-minute steps)
+        start_hour = 9
+        end_hour = 23
+        step_minutes = 30
+
+        # 2. Get existing booked times for this date from the database
+        booked_times = set(
+            BookingSlot.objects.filter(date=target_date, is_booked=True)
+            .values_list("start_time", flat=True)
+        )
+
+        # 3. Dynamically build in-memory BookingSlot objects for the full day
+        virtual_slots = []
+        current_time = datetime.combine(target_date, time(hour=start_hour))
+        end_time = datetime.combine(target_date, time(hour=end_hour))
+
+        while current_time < end_time:
+            slot_time = current_time.time()
+            # If this time exists as booked in DB, mark it as booked. Otherwise, it is free.
+            is_booked = slot_time in booked_times
+            
+            # We mock the class instance structure so your sliding window logic doesn't break
+            virtual_slots.append(
+                BookingSlot(
+                    date=target_date,
+                    start_time=slot_time,
+                    is_booked=is_booked
+                )
+            )
+            current_time += timedelta(minutes=step_minutes)
+
+        # 4. Apply your contiguous sliding-window logic
         required_slots = max(1, -(-duration // 30))
-
-        slots = list(BookingSlot.objects.filter(date=target_date).order_by("start_time"))
-
         available_starts = []
-        for i in range(len(slots) - required_slots + 1):
-            window = slots[i : i + required_slots]
+
+        for i in range(len(virtual_slots) - required_slots + 1):
+            window = virtual_slots[i : i + required_slots]
 
             contiguous = True
             for j in range(1, len(window)):
@@ -49,11 +79,13 @@ class AvailableSlotsView(APIView):
                 available_starts.append(window[0].start_time)
 
         return Response(
-            {"date": date_param, "duration": duration, "available_slots": available_starts},
+            {
+                "date": date_param,
+                "duration": duration,
+                "available_slots": available_starts,
+            },
             status=status.HTTP_200_OK,
         )
-
-
 class CreateBookingView(APIView):
     permission_classes = [IsAuthenticated]
 

@@ -59,7 +59,7 @@
                     {{ request.user.full_name|default:request.user.username }}</a>
 
                 {% else %}
-                    <a href="{% url 'users:login-page' %}" style="color: var(--accent)">ورود</a>
+                <a href="{% url 'users:login-page' %}" style="color: var(--accent)">ورود</a>
                 {% endif%}
 
                 <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">
@@ -119,7 +119,7 @@
                 </a>
 
                 {% if request.user %}
-                <a href="" class="side-nav-book logout-trigger"data-nav-link>
+                <a href="" class="side-nav-book logout-trigger" data-nav-link>
                     <span class="side-nav-book-en">Log out</span>
                     <span lang="fa" dir="rtl">{{ request.user.full_name|default:request.user.username }}</span>
                 </a>
@@ -131,8 +131,10 @@
                 {% endif%}
 
                 <div class="side-nav-bottom-social">
-                    <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank" rel="noopener">Instagram | </a>
-                    <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank" rel="noopener">Whatsapp</a>
+                    <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank"
+                        rel="noopener">Instagram | </a>
+                    <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank"
+                        rel="noopener">Whatsapp</a>
                 </div>
             </div>
 
@@ -376,13 +378,15 @@
                             <h3 class="service-category-title">خدمات عادی</h3>
                             <ul class="service-list" id="normalServiceList">
                                 {% for service in global_normal_services %}
-                                <li class="service-item" data-service-id="svc-{{ service.id }}" data-category="normal">
-                                    <input type="checkbox" class="service-select" id="sel-svc-{{ service.id }}" />
-                                    <label for="sel-svc-{{ service.id }}" class="service-info">
-                                        <span class="service-name">{{ service.title }}</span>
-                                        <span class="service-duration">{{ service.duration_minutes }}M</span>
-                                        <span class="service-price">{{ service.price }} T</span>
-                                    </label>
+                                <li class="service-item" data-service-id="svc-{{ service.id }}"
+                                    data-duration="{{ service.duration_minutes }}" data-price="{{ service.price }}"
+                                    data-name="{{ service.title }}" data-category="normal">
+                                <input type="checkbox" class="service-select" id="sel-svc-{{ service.id }}" />
+                                <label for="sel-svc-{{ service.id }}" class="service-info">
+                                    <span class="service-name">{{ service.title }}</span>
+                                    <span class="service-duration">{{ service.duration_minutes }}M</span>
+                                    <span class="service-price">{{ service.price }} T</span>
+                                </label>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -394,13 +398,14 @@
                             <ul class="service-list" id="groomingServiceList">
                                 {% for service in global_grooming_services %}
                                 <li class="service-item" data-service-id="svc-{{ service.id }}"
-                                    data-category="grooming">
-                                    <input type="radio" name="groomingSelect" class="service-select"
-                                        id="sel-svc-{{ service.id }}" />
-                                    <label for="sel-svc-{{ service.id }}" class="service-info">
-                                        <span class="service-name">{{ service.title }}</span>
-                                        <span class="service-price">{{ service.price }} T</span>
-                                    </label>
+                                    data-duration="{{ service.duration_minutes }}" data-price="{{ service.price }}"
+                                    data-name="{{ service.title }}" data-category="normal">
+                                <input type="radio" name="groomingSelect" class="service-select"
+                                    id="sel-svc-{{ service.id }}" />
+                                <label for="sel-svc-{{ service.id }}" class="service-info">
+                                    <span class="service-name">{{ service.title }}</span>
+                                    <span class="service-price">{{ service.price }} T</span>
+                                </label>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -464,6 +469,12 @@
                                 <span class="deposit-label">بیعانه</span>
                                 <span class="deposit-amount">500 T</span>
                             </div>
+                        </div>
+                        <div class="bypass-wrapper" style="margin-top: 20px;">
+                            <label for="bypassCode" style="display: block; margin-bottom: 8px; font-size: 14px;">کد عبور
+                                (در صورت داشتن کتبی):</label>
+                            <input type="text" id="bypassCode" placeholder="مثال: VIP100"
+                                style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: white;" />
                         </div>
                     </div>
                 </section>

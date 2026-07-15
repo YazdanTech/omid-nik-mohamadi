@@ -58,7 +58,7 @@ function getCSRFToken() {
             if (errorEl) errorEl.textContent = '';
 
             try {
-                let res = await fetch('/api/login-request-otp/', {
+                let res = await fetch('/api/auth/login-request-otp/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
                     body: JSON.stringify({ phone_number: payload.phone_number })
@@ -133,7 +133,7 @@ function getCSRFToken() {
             if (errorEl) errorEl.textContent = '';
 
             try {
-                let res = await fetch('/api/verify-otp/', {
+                let res = await fetch('/api/auth/verify-otp/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
                     body: JSON.stringify({ phone_number: phone, code: code })
@@ -210,7 +210,7 @@ function getCSRFToken() {
                     return;
                 }
 
-                fetch('/api/login-request-otp/', {
+                fetch('/api/auth/login-request-otp/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
                     body: JSON.stringify({ phone_number: phone })

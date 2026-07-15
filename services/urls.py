@@ -6,6 +6,6 @@ app_name = "services"
 
 urlpatterns = [
     path('', home_page, name='home'),
-    path('grooming/', grooming_page, name='grooming'),
-    path("api/list/", ServiceListView.as_view(), name="service-list"),
+    path('services/grooming/', grooming_page, name='grooming'),
+    path("services/api/list/", ServiceListView.as_view(), name="service-list"),
 ]

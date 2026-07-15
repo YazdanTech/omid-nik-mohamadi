@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
         confirmBtn.addEventListener('click', async function () {
             confirmBtn.disabled = true;
             try {
-                let res = await fetch("/api/logout/", {
+                let res = await fetch("/api/auth/logout/", {
                     method: 'POST',
                     headers: {
                         'X-CSRFToken': getCSRFToken()
