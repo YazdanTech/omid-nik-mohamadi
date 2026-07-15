@@ -14,6 +14,7 @@ from .serializers import BookingSerializer, CreateBookingSerializer
 
 
 class AvailableSlotsView(APIView):
+
     permission_classes = [AllowAny]
 
     def get(self, request):
@@ -86,6 +87,7 @@ class AvailableSlotsView(APIView):
             },
             status=status.HTTP_200_OK,
         )
+
 class CreateBookingView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -97,27 +99,39 @@ class CreateBookingView(APIView):
         service = get_object_or_404(Service, id=data["service_id"], is_active=True)
         required_slots = max(1, -(-service.duration_minutes // 30))
 
+        # Calculate the actual times that need to be locked
+        target_date = data["date"]
+        start_time_dt = datetime.combine(target_date, data["start_time"])
+        required_times = [
+            (start_time_dt + timedelta(minutes=30 * i)).time()
+            for i in range(required_slots)
+        ]
+
         with transaction.atomic():
-            slots = list(
-                BookingSlot.objects.select_for_update()
-                .filter(date=data["date"], start_time__gte=data["start_time"])
-                .order_by("start_time")[:required_slots]
+            # 1. Check if any of these slots are ALREADY created and marked is_booked in the DB
+            existing_booked_slots = BookingSlot.objects.select_for_update().filter(
+                date=target_date,
+                start_time__in=required_times,
+                is_booked=True
             )
 
-            if len(slots) != required_slots or any(s.is_booked for s in slots):
+            if existing_booked_slots.exists():
                 return Response({"detail": "بازه زمانی در دسترس نیست"}, status=status.HTTP_409_CONFLICT)
 
-            for i in range(1, len(slots)):
-                prev_dt = datetime.combine(data["date"], slots[i - 1].start_time)
-                curr_dt = datetime.combine(data["date"], slots[i].start_time)
-                if curr_dt - prev_dt != timedelta(minutes=30):
-                    return Response({"detail": "بازه زمانی پیوسته نیست"}, status=status.HTTP_409_CONFLICT)
+            # 2. Safely get-or-create these slots in the database and mark them as booked
+            slots = []
+            for slot_time in required_times:
+                slot, created = BookingSlot.objects.get_or_create(
+                    date=target_date,
+                    start_time=slot_time,
+                    defaults={"is_booked": True}
+                )
+                if not created and not slot.is_booked:
+                    slot.is_booked = True
+                    slot.save()
+                slots.append(slot)
 
             primary_slot = slots[0]
-            for s in slots:
-                s.is_booked = True
-            BookingSlot.objects.bulk_update(slots, ["is_booked"])
-
             bypass_code_obj = data.get("bypass_code_obj")
 
             booking = Booking.objects.create(
@@ -129,7 +143,19 @@ class CreateBookingView(APIView):
                 status=Booking.Status.CONFIRMED if bypass_code_obj else Booking.Status.PENDING,
             )
 
-        return Response(BookingSerializer(booking).data, status=status.HTTP_201_CREATED)
+            payment = None
+            if not bypass_code_obj:
+                service_price = getattr(service, "price", 0) or getattr(service, "deposit_amount", 0)
+                # Ensure create_payment returns the created Payment instance
+                payment = booking.create_payment(amount=service_price)
+
+            return Response({
+                "id": booking.id,
+                "status": booking.status,
+                "payment_id": payment.id if payment else None,
+                "detail": "رزرو با موفقیت انجام شد"
+            }, status=status.HTTP_201_CREATED)
+
 
 
 class PaymentVerifyView(APIView):

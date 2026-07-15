@@ -314,7 +314,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
 (function () {
     'use strict';
 
@@ -354,11 +353,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                if (res.ok) {
+                // If successful (200 OK) or already logged out / expired (403/401), clean up and redirect
+                if (res.ok || res.status === 403 || res.status === 401) {
                     window.location.href = '/';
+                } else {
+                    console.warn('Logout returned unexpected status:', res.status);
+                    window.location.href = '/'; // Fallback redirect anyway
                 }
             } catch (err) {
                 console.error('Logout request failed:', err);
+                window.location.href = '/'; // Fallback redirect on network failure
             } finally {
                 confirmBtn.disabled = false;
             }

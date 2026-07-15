@@ -83,7 +83,7 @@ class LoginRequestOTPView(APIView):
         return Response({"detail": "کد تایید ارسال شد"}, status=status.HTTP_200_OK)
 
 class LogoutView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def post(self, request):
         logout(request)

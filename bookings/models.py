@@ -69,3 +69,21 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.slot}"
+
+
+    def create_payment(self, amount):
+        """Creates a pending payment ledger record linked to this booking."""
+        from django.contrib.contenttypes.models import ContentType
+        from payments.models import Payment
+
+        return Payment.objects.create(
+            amount=amount,
+            content_type=ContentType.objects.get_for_model(self),
+            object_id=str(self.id)
+        )
+
+    def mark_as_paid(self):
+        """Callback invoked by the payment engine upon verified successful transaction."""
+        self.deposit_paid = True
+        self.status = self.Status.CONFIRMED
+        self.save(update_fields=["deposit_paid", "status"])

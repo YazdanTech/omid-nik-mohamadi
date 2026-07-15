@@ -54,6 +54,7 @@
 
             if (input.checked) {
                 bookingData.serviceId = item.dataset.serviceId;
+                bookingData.servicePk = item.dataset.servicePk;
                 bookingData.serviceDuration = parseInt(item.dataset.duration) || 30;
                 bookingData.serviceName = item.dataset.name;
                 bookingData.servicePrice = item.dataset.price;
@@ -67,30 +68,30 @@
 
 
     // --- Step 2: Slot Fetch & Grid Population ---
-async function fetchAvailableSlots(date, duration) {
-    // 1. Double check your correct path here (with or without /api/)
-    const url = `api/booking/available-slots/?date=${date}&duration=${duration}`;
-    console.log("Fetching from URL:", url);
+    async function fetchAvailableSlots(date, duration) {
+        // 1. Double check your correct path here (with or without /api/)
+        const url = `api/booking/available-slots/?date=${date}&duration=${duration}`;
+        console.log("Fetching from URL:", url);
 
-    try {
-        const response = await fetch(url);
-        console.log("Response status:", response.status);
-        
-        if (!response.ok) {
-            const errText = await response.text();
-            console.error("Backend returned error:", errText);
-            throw new Error();
+        try {
+            const response = await fetch(url);
+            console.log("Response status:", response.status);
+
+            if (!response.ok) {
+                const errText = await response.text();
+                console.error("Backend returned error:", errText);
+                throw new Error();
+            }
+
+            const data = await response.json();
+            console.log("Raw data from backend:", data); // Check if this list is empty!
+
+            return data.available_slots.map(time => time.slice(0, 5));
+        } catch (err) {
+            console.error("Error in fetchAvailableSlots:", err);
+            return [];
         }
-        
-        const data = await response.json();
-        console.log("Raw data from backend:", data); // Check if this list is empty!
-        
-        return data.available_slots.map(time => time.slice(0, 5));
-    } catch (err) {
-        console.error("Error in fetchAvailableSlots:", err);
-        return [];
     }
-}
 
     function buildRow(time, isAvailable) {
         const row = document.createElement("div");
@@ -147,9 +148,9 @@ async function fetchAvailableSlots(date, duration) {
         if (bookingData.date) {
             wrapper.classList.remove("is-disabled");
             grid.innerHTML = '<div style="text-align:center; padding:20px; color:white;">در حال بارگذاری...</div>';
-            
+
             const availableStarts = await fetchAvailableSlots(bookingData.date, bookingData.serviceDuration);
-            
+
             grid.innerHTML = "";
             const rows = [];
             let hour = 9, minute = 0;
@@ -212,18 +213,19 @@ async function fetchAvailableSlots(date, duration) {
         continueBtn.textContent = "در حال ثبت...";
 
         const payload = {
-            service_id: bookingData.serviceId,
+            service_id: bookingData.servicePk,
             date: bookingData.date,
             start_time: bookingData.time,
             bypass_code: bypassInput.value.trim()
         };
 
         try {
+            // 1. Submit the booking request
             const response = await fetch("/api/booking/create/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "X-CSRFToken": getCSRFToken() // Ensure getCSRFToken is globally accessible
+                    "X-CSRFToken": getCSRFToken()
                 },
                 body: JSON.stringify(payload)
             });
@@ -236,12 +238,38 @@ async function fetchAvailableSlots(date, duration) {
 
             const booking = await response.json();
 
-            // Check if backend bypassed deposit and directly confirmed
+            // 2. If bypassed, go straight to success page
             if (booking.status === "CONFIRMED") {
-                window.location.href = "/booking/success/"; // Redirect to success page
+                window.location.href = "/booking/success/";
+                return;
+            }
+
+            // 3. Otherwise, get the ZarinPal payment gateway URL
+            if (booking.payment_id) {
+                const payResponse = await fetch("/api/payments/request/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": getCSRFToken()
+                    },
+                    body: JSON.stringify({ payment_id: booking.payment_id })
+                });
+
+                if (!payResponse.ok) {
+                    const payData = await payResponse.json();
+                    alert(payData.detail || "خطا در اتصال به درگاه پرداخت.");
+                    return;
+                }
+
+                const payData = await payResponse.json();
+                if (payData.payment_url) {
+                    // Redirect directly to ZarinPal
+                    window.location.href = payData.payment_url;
+                } else {
+                    alert("آدرس درگاه پرداخت دریافت نشد.");
+                }
             } else {
-                // Otherwise initiate payment gateway redirect
-                window.location.href = `/api/payment/pay/?booking_id=${booking.id}`; 
+                alert("شناسه پرداخت یافت نشد.");
             }
 
         } catch (err) {

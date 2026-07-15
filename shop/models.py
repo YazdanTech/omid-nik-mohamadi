@@ -39,6 +39,23 @@ class Order(models.Model):
     shipping_phone = models.CharField(_("شماره تماس گیرنده"), max_length=15)
     shipping_address = models.TextField(_("آدرس"))
 
+    def create_payment(self):
+        """Creates a pending payment ledger record linked to this order."""
+        from django.contrib.contenttypes.models import ContentType
+        from payments.models import Payment
+
+        return Payment.objects.create(
+            amount=int(self.total_amount),
+            content_type=ContentType.objects.get_for_model(self),
+            object_id=str(self.id)
+        )
+
+    def mark_as_paid(self):
+        """Callback invoked by the payment engine upon verified successful transaction."""
+        self.is_paid = True
+        self.status = self.Status.PAID
+        self.save(update_fields=["is_paid", "status"])
+
     class Meta:
         verbose_name = _("سفارش")
         verbose_name_plural = _("سفارش‌ها")

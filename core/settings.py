@@ -20,7 +20,13 @@ INSTALLED_APPS = [
     'services',
     'bookings',
     'shop',
+    'payments',
 ]
+
+
+ZARINPAL_SANDBOX = True
+ZARINPAL_MERCHANT_ID = "00000000-0000-0000-0000-000000000000"
+ZARINPAL_CALLBACK_URL = "http://127.0.0.1:8000/api/payments/verify/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

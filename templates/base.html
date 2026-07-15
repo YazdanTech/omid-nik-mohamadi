@@ -54,9 +54,9 @@
                 <button data-open-booking class="header-book-btn">
                     <span lang="fa" dir="rtl">رزرو نوبت</span>
                 </button>
-                {% if request.user %}
+                {% if request.user.is_authenticated %}
                 <a href="#" class="logout-trigger" style="color: var(--accent)">
-                    {{ request.user.full_name|default:request.user.username }}</a>
+                    {{ request.user.full_name|default:"کاربر" }}</a>
 
                 {% else %}
                 <a href="{% url 'users:login-page' %}" style="color: var(--accent)">ورود</a>
@@ -118,7 +118,7 @@
                     <span lang="fa" dir="rtl">رزرو نوبت</span>
                 </a>
 
-                {% if request.user %}
+                {% if request.user.is_authenticated %}
                 <a href="" class="side-nav-book logout-trigger" data-nav-link>
                     <span class="side-nav-book-en">Log out</span>
                     <span lang="fa" dir="rtl">{{ request.user.full_name|default:request.user.username }}</span>
@@ -378,7 +378,7 @@
                             <h3 class="service-category-title">خدمات عادی</h3>
                             <ul class="service-list" id="normalServiceList">
                                 {% for service in global_normal_services %}
-                                <li class="service-item" data-service-id="svc-{{ service.id }}"
+                                <li class="service-item" data-service-id="svc-{{ service.id }}" data-service-pk="{{ service.id}}"
                                     data-duration="{{ service.duration_minutes }}" data-price="{{ service.price }}"
                                     data-name="{{ service.title }}" data-category="normal">
                                 <input type="checkbox" class="service-select" id="sel-svc-{{ service.id }}" />
