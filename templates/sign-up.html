@@ -99,12 +99,7 @@ Create Account — Omid Nik Mohammadi
           <div class="auth__stage" data-stage="3" hidden>
             <p class="auth__subtitle">کد شش رقمی ارسال شده به تلفن خود را وارد کنید.</p>
             <div class="auth__otp" data-otp>
-              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 1" required>
-              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2" required>
-              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3" required>
-              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4" required>
-              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5" required>
-              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6" required>
+              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="6" aria-label="OTP Digits" required>
             </div>
             <button class="auth__resend" type="button" data-action="resend">ارسال مجدد کد</button>
             <div class="auth__nav-buttons">
@@ -117,7 +112,7 @@ Create Account — Omid Nik Mohammadi
 
         </form>
 
-        <p class="auth__footer-note" data-reveal>آیا قبلاً حساب دارید؟ <a class="auth__link" href="sign-in.html">وارد شوید</a></p>
+        <p class="auth__footer-note" data-reveal>آیا قبلاً حساب دارید؟ <a class="auth__link" href="{% url 'users:login-page' %}">وارد شوید</a></p>
 
       </div>
     </section>
@@ -128,5 +123,5 @@ Create Account — Omid Nik Mohammadi
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'scripts/sign-in-up.js' %}"></script>
+    <script src="{% static 'scripts/sign-up.js' %}"></script>
 {% endblock %}

@@ -55,44 +55,32 @@
         </div>
 
        <form class="auth__form" id="signInForm" novalidate data-reveal>
+<div class="auth__stage" data-stage="1">
+  <div class="auth__field" data-field="mobile">
+    <label class="auth__label" for="signInMobile">شماره موبایل</label>
+    <input class="auth__input" type="tel" id="signInMobile" name="phone_number" autocomplete="tel" placeholder="+98 912 000 0000" required>
+  </div>
+  <button class="auth__button auth__button--primary" type="button" data-action="send-otp">دریافت کد تایید</button>
+</div>
 
-          <div class="auth__field" data-field="email" hidden style="display: none;">
-            <label class="auth__label" for="signInEmail">آدرس ایمیل</label>
-            <input class="auth__input" type="email" id="signInEmail" name="email" autocomplete="email" placeholder="you@example.com" required>
-          </div>
+<div class="auth__stage" data-stage="2" style="display: none;">
+  <div class="auth__field">
+    <label class="auth__label">کد تایید</label>
+    <div class="auth__otp" data-otp>
+      <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="6" aria-label="OTP Digits" required>
+    </div>
+  </div>
+  <button class="auth__resend" type="button" data-action="resend">ارسال مجدد کد</button>
+  <div class="auth__nav-buttons">
+    <button class="auth__button auth__button--ghost" type="button" data-action="back">بازگشت</button>
+    <button class="auth__button auth__button--primary" type="submit">ورود</button>
+  </div>
+</div>
 
-          <div class="auth__field" data-field="mobile">
-            <label class="auth__label" for="signInMobile">شماره موبایل</label>
-            <input class="auth__input" type="tel" id="signInMobile" name="phone_number" autocomplete="tel" placeholder="+98 912 000 0000">
-          </div>
+<p class="auth__error" id="signInError" role="alert" aria-live="polite"></p>
 
-          <div class="auth__field">
-            <label class="auth__label" for="signInPassword">رمز عبور</label>
-            <div class="auth__input-group">
-              <input class="auth__input" type="password" id="signInPassword" name="password" autocomplete="current-password" placeholder="••••••••" required>
-              <button class="auth__visibility-toggle" type="button" data-toggle-password="signInPassword" aria-label="نمایش رمز عبور">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
-                  <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <p class="auth__error" id="signInError" role="alert" aria-live="polite"></p>
-
-          <div class="auth__field-row">
-            <label class="auth__checkbox">
-              <input type="checkbox" name="remember">
-              <span>مرا به خاطر بسپار</span>
-            </label>
-            <!-- <a class="auth__link" href="#">Forgot password?</a> -->
-          </div>
-
-          <button class="auth__button auth__button--primary" type="submit">ورود</button>
-
- 
-
+        </form>
+        
         <p class="auth__footer-note" data-reveal>تازه‌وارد هستید؟ <a class="auth__link" href="{% url 'users:register-page' %}">ساخت حساب کاربری</a></p>
 
       </div>
@@ -104,5 +92,5 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'scripts/sign-in-up.js' %}"></script>
+    <script src="{% static 'scripts/sign-in.js' %}"></script>
 {% endblock %}
