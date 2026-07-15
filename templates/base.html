@@ -6,6 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
     <title>{% block title %}{% endblock %}</title>
 
     {% block meta %}{% endblock %}
@@ -52,8 +54,13 @@
                 <button data-open-booking class="header-book-btn">
                     <span lang="fa" dir="rtl">رزرو نوبت</span>
                 </button>
+                {% if request.user %}
+                <a href="#" class="logout-trigger" style="color: var(--accent)">
+                    {{ request.user.full_name|default:request.user.username }}</a>
 
-                <a href="{% url 'users:login-page' %}" style="color: var(--accent)">ورود</a>
+                {% else %}
+                    <a href="{% url 'users:login-page' %}" style="color: var(--accent)">ورود</a>
+                {% endif%}
 
                 <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">
                     <span class="menu-toggle-line"></span>
@@ -62,6 +69,17 @@
             </div>
         </div>
     </header>
+
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h3>آیا می‌خواهید از حساب خود خارج شوید؟</h3>
+            <p>می‌توانید به راحتی و با شماره خود دوباره وارد شوید.</p>
+            <div class="modal-actions">
+                <button id="confirmLogout" class="btn-confirm">خروج</button>
+                <button id="cancelLogout" class="btn-cancel">انصراف</button>
+            </div>
+        </div>
+    </div>
 
     <div class="side-nav" id="sideNav">
         <div class="side-nav-overlay" id="sideNavOverlay"></div>
@@ -96,19 +114,25 @@
             <!-- Bottom Actions -->
             <div class="side-nav-bottom">
                 <a data-open-booking class="side-nav-book" data-nav-link>
-                    <span lang="fa" dir="rtl">رزرو نوبت</span>
                     <span class="side-nav-book-en">Book an Appointment</span>
+                    <span lang="fa" dir="rtl">رزرو نوبت</span>
                 </a>
-                <a href="{% url 'users:register-page' %}" class="side-nav-book" data-nav-link>
-                    <span lang="fa" dir="rtl">ساخت حساب / ورود</span>
-                    <span class="side-nav-book-en">Log in</span>
-                </a>
-                <div class="side-nav-bottom-social">
-                    <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank"
-                        rel="noopener">Instagram | </a>
-                    <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank"
-                        rel="noopener">Whatsapp</a>
 
+                {% if request.user %}
+                <a href="" class="side-nav-book logout-trigger"data-nav-link>
+                    <span class="side-nav-book-en">Log out</span>
+                    <span lang="fa" dir="rtl">{{ request.user.full_name|default:request.user.username }}</span>
+                </a>
+                {% else %}
+                <a href="{% url 'users:register-page' %}" class="side-nav-book" data-nav-link>
+                    <span class="side-nav-book-en">Log in</span>
+                    <span lang="fa" dir="rtl">ساخت حساب / ورود</span>
+                </a>
+                {% endif%}
+
+                <div class="side-nav-bottom-social">
+                    <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank" rel="noopener">Instagram | </a>
+                    <a href="https://instagram.com/omidnikmohamadi" class="side-nav-social" target="_blank" rel="noopener">Whatsapp</a>
                 </div>
             </div>
 

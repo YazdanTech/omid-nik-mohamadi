@@ -1,3 +1,8 @@
+function getCSRFToken() {
+    return document.cookie.split('; ').find(row => row.startsWith('csrftoken='))?.split('=')[1] || '';
+}
+
+
 (function () {
     'use strict';
 
@@ -27,9 +32,6 @@
     if (heroTextInner) {
         heroTextInner.dataset.current = heroTextInner.textContent.trim();
     }
-
-
-    // 3. Header State Functionality
 
     // 6. Hero Text Animations & Intersection Logic
 
@@ -312,3 +314,54 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+(function () {
+    'use strict';
+
+    // Select all elements with the class 'logout-trigger'
+    var triggers = document.querySelectorAll('.logout-trigger');
+    var modal = document.getElementById('logoutModal');
+    var confirmBtn = document.getElementById('confirmLogout');
+    var cancelBtn = document.getElementById('cancelLogout');
+
+    if (triggers.length > 0 && modal) {
+        // Bind the click event to every trigger found on the page
+        triggers.forEach(function (trigger) {
+            trigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+        });
+
+        cancelBtn.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside of the content box
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        confirmBtn.addEventListener('click', async function () {
+            confirmBtn.disabled = true;
+            try {
+                let res = await fetch("/api/logout/", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCSRFToken()
+                    }
+                });
+
+                if (res.ok) {
+                    window.location.href = '/';
+                }
+            } catch (err) {
+                console.error('Logout request failed:', err);
+            } finally {
+                confirmBtn.disabled = false;
+            }
+        });
+    }
+})();
