@@ -3,7 +3,8 @@ from django.urls import path
 from .views import (
     sign_in_page, sign_up_page,
     SignUpView, VerifyOTPView, 
-    LoginView, LogoutView
+    LoginRequestOTPView,  # 1. Changed import
+    LogoutView
 )
 
 app_name = "users"
@@ -14,6 +15,6 @@ urlpatterns = [
 
     path("api/signup/", SignUpView.as_view(), name="signup"),
     path("api/verify-otp/", VerifyOTPView.as_view(), name="verify-otp"),
-    path("api/login/", LoginView.as_view(), name="login"),
+    path("api/login-request-otp/", LoginRequestOTPView.as_view(), name="login-request-otp"),  # 2. Updated API endpoint
     path("api/logout/", LogoutView.as_view(), name="logout"),
-]
+] 

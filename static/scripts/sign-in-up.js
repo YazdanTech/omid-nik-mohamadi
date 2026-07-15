@@ -1,105 +1,11 @@
+function getCSRFToken() {
+    return document.cookie.split('; ').find(row => row.startsWith('csrftoken='))?.split('=')[1] || '';
+}
+
 (function () {
     'use strict';
 
-    var header = document.getElementById('siteHeader');
-    var themeToggle = document.getElementById('themeToggle');
-    var sideNav = document.getElementById('sideNav');
-    var menuToggle = document.getElementById('menuToggle');
-    var sideNavOverlay = document.getElementById('sideNavOverlay');
-    var sideNavClose = document.getElementById('sideNavClose');
-    var navLinks = document.querySelectorAll('[data-nav-link]');
-
-      // ==========================================
-    // 3. Header State Functionality
-    // ==========================================
-    function updateHeaderState() {
-        if (window.scrollY > 40) {
-            header.classList.add('is-scrolled');
-        } else {
-            header.classList.remove('is-scrolled');
-        }
-    }
-    window.addEventListener('scroll', updateHeaderState, { passive: true });
-    updateHeaderState();
-
-    // ==========================================
-    // 4. Theme Toggle Functionality
-    // ==========================================
-    var storedTheme = null;
-    try {
-        storedTheme = localStorage.getItem('omid-theme');
-    } catch (err) {
-        storedTheme = null;
-    }
-    if (storedTheme === 'light') {
-        document.body.setAttribute('data-theme', 'light');
-    }
-    themeToggle.addEventListener('click', function () {
-        var isLight = document.body.getAttribute('data-theme') === 'light';
-        if (isLight) {
-            document.body.removeAttribute('data-theme');
-            try { localStorage.setItem('omid-theme', 'dark'); } catch (err) {}
-        } else {
-            document.body.setAttribute('data-theme', 'light');
-            try { localStorage.setItem('omid-theme', 'light'); } catch (err) {}
-        }
-    });
-
-    // ==========================================
-    // 5. Side Navigation Functionality
-    // ==========================================
-    function openNav() {
-        sideNav.classList.add('active');
-        menuToggle.classList.add('is-active');
-        menuToggle.setAttribute('aria-expanded', 'true');
-        document.body.classList.add('no-scroll');
-    }
-
-    function closeNav() {
-        sideNav.classList.remove('active');
-        menuToggle.classList.remove('is-active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('no-scroll');
-    }
-
-    menuToggle.addEventListener('click', function () {
-        if (sideNav.classList.contains('active')) {
-            closeNav();
-        } else {
-            openNav();
-        }
-    });
-    sideNavOverlay.addEventListener('click', closeNav);
-    sideNavClose.addEventListener('click', closeNav);
-    navLinks.forEach(function (link) {
-        link.addEventListener('click', closeNav);
-    });
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && sideNav.classList.contains('active')) {
-            closeNav();
-        }
-    });
-
-
-    var revealEls = document.querySelectorAll('[data-reveal]');
-    if ('IntersectionObserver' in window && revealEls.length) {
-        var revealObserver = new IntersectionObserver(function (entries, obs) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    obs.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15 });
-        revealEls.forEach(function (el) {
-            revealObserver.observe(el);
-        });
-    } else {
-        revealEls.forEach(function (el) {
-            el.classList.add('is-visible');
-        });
-    }
-
+    // ۱. مدیریت نمایش رمز عبور
     document.querySelectorAll('[data-toggle-password]').forEach(function (btn) {
         btn.addEventListener('click', function () {
             var targetId = btn.getAttribute('data-toggle-password');
@@ -112,6 +18,7 @@
         });
     });
 
+    // ۲. مدیریت تب‌های ورود
     var authTabs = document.querySelectorAll('.auth__tab');
     if (authTabs.length) {
         authTabs.forEach(function (tab) {
@@ -136,31 +43,45 @@
         });
     }
 
+    // ۳. فرم ورود (ارسال درخواست پیامک ورود)
     var signInForm = document.getElementById('signInForm');
     if (signInForm) {
-        signInForm.addEventListener('submit', function (e) {
+        signInForm.addEventListener('submit', async function (e) {
             e.preventDefault();
             var errorEl = document.getElementById('signInError');
-            var visibleField = signInForm.querySelector('.auth__field:not([style*="display: none"]) .auth__input');
-            if (visibleField && !visibleField.value.trim()) {
-                if (errorEl) {
-                    errorEl.textContent = visibleField.type === 'email'
-                        ? 'Please enter your email address.'
-                        : 'Please enter your mobile number.';
-                }
-                return;
-            }
-            var passwordField = document.getElementById('signInPassword');
-            if (passwordField && !passwordField.value.trim()) {
-                if (errorEl) errorEl.textContent = 'Please enter your password.';
-                return;
-            }
-            if (errorEl) errorEl.textContent = '';
             var submitButton = signInForm.querySelector('.auth__button--primary');
-            if (submitButton) submitButton.textContent = 'Signed in';
+            var payload = Object.fromEntries(new FormData(signInForm).entries());
+
+            if (!payload.phone_number) {
+                if (errorEl) errorEl.textContent = 'لطفا شماره موبایل خود را وارد کنید';
+                return;
+            }
+
+            submitButton.disabled = true;
+            if (errorEl) errorEl.textContent = '';
+
+            try {
+                let res = await fetch('/api/login-request-otp/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
+                    body: JSON.stringify({ phone_number: payload.phone_number })
+                });
+
+                if (res.ok) {
+                    if (errorEl) errorEl.textContent = 'کد تایید ارسال شد.';
+                } else {
+                    let data = await res.json();
+                    if (errorEl) errorEl.textContent = data.non_field_errors || Object.values(data)[0];
+                }
+            } catch (err) {
+                if (errorEl) errorEl.textContent = 'Network error.';
+            } finally {
+                submitButton.disabled = false;
+            }
         });
     }
 
+    // ۴. فرم ثبت‌نام چند مرحله‌ای
     var signUpForm = document.getElementById('signUpForm');
     if (signUpForm) {
         var stages = Array.prototype.slice.call(signUpForm.querySelectorAll('.auth__stage'));
@@ -189,6 +110,7 @@
 
         function validateStage(stageNumber) {
             var stage = stages[stageNumber - 1];
+            if (!stage) return false;
             var requiredInputs = stage.querySelectorAll('input[required]');
             for (var i = 0; i < requiredInputs.length; i++) {
                 if (!requiredInputs[i].value.trim()) {
@@ -198,6 +120,7 @@
             return true;
         }
 
+        // مدیریت دکمه‌های ناوبری (Next / Back / Resend)
         signUpForm.addEventListener('click', function (e) {
             var action = e.target.closest('[data-action]');
             if (!action) return;
@@ -206,11 +129,40 @@
 
             if (type === 'next') {
                 if (!validateStage(currentStage)) {
-                    if (errorEl) errorEl.textContent = 'Please complete all required fields before continuing.';
+                    if (errorEl) errorEl.textContent = 'لطفا تمام کادر های اجباری را برای ادامه پر کنید.';
                     return;
                 }
-                if (errorEl) errorEl.textContent = '';
-                showStage(Math.min(currentStage + 1, stages.length));
+
+                // مرحله اول: انتقال مستقیم به مرحله دوم بدون ارسال درخواست به سرور
+                if (currentStage === 1) {
+                    if (errorEl) errorEl.textContent = '';
+                    showStage(2);
+                    return;
+                }
+
+                // مرحله دوم: ارسال اطلاعات ثبت‌نام و دریافت کد تایید پیامکی
+                if (currentStage === 2) {
+                    var payload = Object.fromEntries(new FormData(signUpForm).entries());
+                    action.disabled = true;
+
+                    fetch('/api/signup/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
+                        body: JSON.stringify(payload)
+                    }).then(async res => {
+                        if (res.ok) {
+                            if (errorEl) errorEl.textContent = '';
+                            showStage(3);
+                        } else {
+                            let data = await res.json();
+                            if (errorEl) errorEl.textContent = Object.values(data)[0] || 'مشکل در ساخت اکانت';
+                        }
+                    }).catch(() => {
+                        if (errorEl) errorEl.textContent = 'Network error.';
+                    }).finally(() => {
+                        action.disabled = false;
+                    });
+                }
             }
 
             if (type === 'back') {
@@ -221,25 +173,74 @@
             if (type === 'resend') {
                 action.disabled = true;
                 var originalText = action.textContent;
-                action.textContent = 'Code sent';
-                setTimeout(function () {
+                var phone = new FormData(signUpForm).get('phone_number');
+
+                if (!phone) {
+                    alert('شماره تلفن یافت نشد.');
+                    action.disabled = false;
+                    return;
+                }
+
+                fetch('/api/login-request-otp/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
+                    body: JSON.stringify({ phone_number: phone })
+                }).then(res => {
+                    if (res.ok) {
+                        action.textContent = 'کد ارسال شد';
+                    } else {
+                        action.textContent = 'خطا در ارسال';
+                    }
+                    setTimeout(function () {
+                        action.disabled = false;
+                        action.textContent = originalText;
+                    }, 5000);
+                }).catch(() => {
                     action.disabled = false;
                     action.textContent = originalText;
-                }, 4000);
+                });
             }
         });
 
-        signUpForm.addEventListener('submit', function (e) {
+        // ارسال نهایی کد تایید پیامکی (مرحله ۳)
+        signUpForm.addEventListener('submit', async function (e) {
             e.preventDefault();
+            if (currentStage !== 3) return; // جلوگیری از تداخل سابمیت در مراحل قبلی
+
+            var errorEl = document.getElementById('signUpError');
             if (!validateStage(currentStage)) {
-                var errorEl = document.getElementById('signUpError');
-                if (errorEl) errorEl.textContent = 'Please enter the full verification code.';
+                if (errorEl) errorEl.textContent = 'لطفا کد تایید را کامل وارد کنید.';
                 return;
             }
+
+            var otpInputs = Array.prototype.slice.call(signUpForm.querySelectorAll('.auth__otp-input'));
+            var code = otpInputs.map(input => input.value).join('');
+            var phone = new FormData(signUpForm).get('phone_number');
+
             var button = signUpForm.querySelector('.auth__stage--current .auth__button--primary');
-            if (button) button.textContent = 'Account created';
+            if (button) button.disabled = true;
+
+            try {
+                let res = await fetch('/api/verify-otp/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
+                    body: JSON.stringify({ phone_number: phone, code: code })
+                });
+
+                if (res.ok) {
+                    window.location.reload();
+                } else {
+                    let data = await res.json();
+                    if (errorEl) errorEl.textContent = data.non_field_errors || Object.values(data)[0];
+                }
+            } catch (err) {
+                if (errorEl) errorEl.textContent = 'Network error.';
+            } finally {
+                if (button) button.disabled = false;
+            }
         });
 
+        // مدیریت رفتاری کادرهای وارد کردن کد OTP
         var otpInputs = Array.prototype.slice.call(signUpForm.querySelectorAll('.auth__otp-input'));
         otpInputs.forEach(function (input, index) {
             input.addEventListener('input', function () {

@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
     is_verified = models.BooleanField(_("تایید شده"), default=False)
 
     USERNAME_FIELD = "phone_number"
-    REQUIRED_FIELDS = ["username"]
+    REQUIRED_FIELDS = [] 
 
     class Meta:
         verbose_name = _("کاربر")
@@ -29,8 +29,8 @@ class SMSVerification(models.Model):
         verbose_name=_("کاربر"),
     )
     code = models.CharField(_("کد"), max_length=6)
-    created_at = models.DateTimeField(_("زمان ایجاد"), auto_now_add=True)
-    is_used = models.BooleanField(_("استفاده شده"), default=False)
+    created_at = models.DateTimeField(_("زمان ایجاد"), auto_now_add=True, db_index=True)
+    is_used = models.BooleanField(_("استفاده شده"), default=False, db_index=True)
 
     class Meta:
         verbose_name = _("کد تایید پیامکی")

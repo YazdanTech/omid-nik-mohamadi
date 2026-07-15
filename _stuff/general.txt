@@ -1,3 +1,21 @@
+sign in sign up
+ product buy process
+ payment integraiton
+ sms integration
+ js logic and stuff
+ final redesign
+ final content replacement
+ picture and image replacement
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -238,6 +238,7 @@
 .auth__visibility-toggle {
     position: absolute;
     inset-inline-end: 0.75rem;
+    direction: ltr;
     inset-block-start: 50%;
     transform: translateY(-50%);
     inline-size: 1.75rem;
@@ -419,6 +420,7 @@
 .auth__otp {
     display: flex;
     gap: 0.6rem;
+    direction:ltr;
     justify-content: center;
 }
 

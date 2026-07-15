@@ -22,6 +22,7 @@
 
 
   <div class="auth__layout">
+    {% csrf_token %}
 
     <section class="auth__visual" aria-hidden="true">
       <img class="auth__visual-image" src="https://picsum.photos/seed/omid-barber-chair/1200/1600" alt="">
@@ -62,7 +63,7 @@
 
           <div class="auth__field" data-field="mobile">
             <label class="auth__label" for="signInMobile">شماره موبایل</label>
-            <input class="auth__input" type="tel" id="signInMobile" name="mobile" autocomplete="tel" placeholder="+98 912 000 0000">
+            <input class="auth__input" type="tel" id="signInMobile" name="phone_number" autocomplete="tel" placeholder="+98 912 000 0000">
           </div>
 
           <div class="auth__field">

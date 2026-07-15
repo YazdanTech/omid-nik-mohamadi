@@ -18,6 +18,7 @@ Create Account — Omid Nik Mohammadi
 <div class="auth" data-page="sign-up" dir="rtl">
 
   <div class="auth__layout">
+      {% csrf_token %}
 
     <section class="auth__visual" aria-hidden="true">
       <img class="auth__visual-image" src="https://picsum.photos/seed/omid-portrait-two/1200/1600" alt="">
@@ -67,11 +68,11 @@ Create Account — Omid Nik Mohammadi
             <div class="auth__stage-grid">
               <div class="auth__field">
                 <label class="auth__label" for="fullName">نام کامل</label>
-                <input class="auth__input" type="text" id="fullName" name="fullName" autocomplete="name" placeholder="نام کامل" required>
+                <input class="auth__input" type="text" id="fullName" name="full_name" autocomplete="name" placeholder="نام کامل" required>
               </div>
               <div class="auth__field">
                 <label class="auth__label" for="birthDate">تاریخ تولد</label>
-                <input class="auth__input" type="date" id="birthDate" name="birthDate" required>
+                <input class="auth__input" type="date" id="birthDate" name="birth_date" required>
               </div>
             </div>
             <div class="auth__nav-buttons">
@@ -83,11 +84,11 @@ Create Account — Omid Nik Mohammadi
           <div class="auth__stage" data-stage="2" hidden>
             <div class="auth__field">
               <label class="auth__label" for="phoneNumber">شماره تلفن</label>
-              <input class="auth__input" type="tel" id="phoneNumber" name="phoneNumber" autocomplete="tel" placeholder="+98 912 000 0000" required>
+              <input class="auth__input" type="tel" id="phoneNumber" name="phone_number" autocomplete="tel" placeholder="+98 912 000 0000" required>
             </div>
             <div class="auth__field">
               <label class="auth__label" for="emailOptional">ایمیل <span class="auth__optional">(اختیاری)</span></label>
-              <input class="auth__input" type="email" id="emailOptional" name="emailOptional" autocomplete="email" placeholder="you@نمونه.com">
+              <input class="auth__input" type="email" id="emailOptional" name="email" autocomplete="email" placeholder="you@نمونه.com">
             </div>
             <div class="auth__nav-buttons">
               <button class="auth__button auth__button--ghost" type="button" data-action="back">بازگشت</button>
@@ -127,5 +128,5 @@ Create Account — Omid Nik Mohammadi
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'scripts/auth-overlay.js' %}"></script>
+    <script src="{% static 'scripts/sign-in-up.js' %}"></script>
 {% endblock %}
