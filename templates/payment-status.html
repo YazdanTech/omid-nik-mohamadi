@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وضعیت پرداخت</title>
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/payment-status.css' %}">
+</head>
+<body class="bg-main text-main">
+
+    <div class="status-container">
+        
+        <!-- 1. SUCCESS CARD -->
+        {% if state == "success" or request.resolver_match.url_name == "payment_success" or request.GET.type and not request.GET.reason %}
+        <div class="status-card success-border">
+            <div class="icon-wrapper success-accent">
+                <!-- Checkmark Icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            
+            <h1 class="status-title">پرداخت با موفقیت انجام شد</h1>
+            
+            <!-- Dynamic Message based on Type -->
+            {% if request.GET.type == "booking" or type == "booking" %}
+                <p class="status-message">نوبت شما با موفقیت ثبت گردید. جزئیات نوبت برای شما رزرو شده است.</p>
+            {% elif request.GET.type == "product" or request.GET.type == "order" or type == "product" or type == "order" %}
+                <p class="status-message">سفارش شما با موفقیت ثبت شد و به زودی وارد مراحل بسته‌بندی و ارسال خواهد شد.</p>
+            {% else %}
+                <p class="status-message">تراکنش شما با موفقیت به پایان رسید.</p>
+            {% endif %}
+            
+            <!-- Dynamic Reference ID from context or GET request -->
+            {% if request.GET.ref_id or ref_id %}
+            <div class="info-box accent-transparent">
+                <span class="info-label">کد پیگیری تراکنش:</span>
+                <span class="info-value font-mono">{{ request.GET.ref_id|default:ref_id }}</span>
+            </div>
+            {% endif %}
+
+            <div class="action-wrapper">
+                <a href="/" class="btn-primary accent">بازگشت به صفحه اصلی</a>
+            </div>
+        </div>
+
+
+        <!-- 2. FAILURE / CANCEL CARD -->
+        {% else %}
+        <div class="status-card failure-border">
+            <div class="icon-wrapper failure-accent">
+                <!-- Cross/Error Icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </div>
+            
+            <h1 class="status-title">خطا در پرداخت</h1>
+            
+            <!-- Dynamic Failure Reason -->
+            {% if request.GET.reason == "canceled" or reason == "canceled" %}
+                <p class="status-message">تراکنش توسط کاربر لغو شد.</p>
+            {% else %}
+                <p class="status-message">پرداخت انجام نشد. در صورت کسر وجه از حساب شما، مبلغ طی ۷۲ ساعت آینده به صورت خودکار به حسابتان بازگردانده خواهد شد.</p>
+            {% endif %}
+
+            <div class="action-wrapper split">
+                <!-- Dynamic "Try Again" links based on type -->
+                {% if request.GET.type == "booking" or type == "booking" %}
+                    <a href="/booking/" class="btn-primary accent">تلاش مجدد</a>
+                {% elif request.GET.type == "product" or request.GET.type == "order" or type == "product" or type == "order" %}
+                    <a href="/shop/" class="btn-primary accent">تلاش مجدد</a>
+                {% else %}
+                    <a href="/" class="btn-primary accent">تلاش مجدد</a>
+                {% endif %}
+                
+                <a href="/" class="btn-secondary">صفحه اصلی</a>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>

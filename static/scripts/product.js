@@ -8,10 +8,28 @@ const summaryName = document.getElementById('summaryName');
 const summaryPrice = document.getElementById('summaryPrice');
 const shippingForm = document.getElementById('shippingForm');
 
+// Keep track of the currently selected product
+let activeProduct = null;
+
+// Helper to get CSRF token for Django requests
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
 function openCheckoutModal(product) {
   // Read auth status dynamically from AuthModule window namespace
-  // const authenticated = window.AuthModule ? window.AuthModule.isAuthenticated : false;
-  const authenticated = true;
+  const authenticated = window.AuthModule ? window.AuthModule.isAuthenticated : false;
 
   if (!authenticated) {
     closeCheckoutModal();
@@ -22,6 +40,9 @@ function openCheckoutModal(product) {
     }
     return;
   }
+
+  // Store the active product data globally in this scope
+  activeProduct = product;
 
   if (checkoutOverlay) {
     checkoutOverlay.classList.add('active');
@@ -54,6 +75,7 @@ function closeCheckoutModal() {
     }
   }, 1000);
   document.body.style.overflow = '';
+  activeProduct = null;
 }
 
 document.querySelectorAll('.btn-buy').forEach(btn => {
@@ -86,9 +108,82 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// Handle Shipping Form Submit & Gateway Redirection
 if (shippingForm) {
-  shippingForm.addEventListener('submit', (e) => {
+  shippingForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    console.log('proceed to payment');
+
+    if (!activeProduct) {
+      alert("خطایی رخ داده است. لطفا مجددا تلاش کنید.");
+      return;
+    }
+
+    const submitBtn = shippingForm.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.innerHTML : "پرداخت";
+
+    // Show loading state & disable button
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = "در حال انتقال به درگاه پرداخت...";
+    }
+
+    const formData = new FormData(shippingForm);
+    const orderData = {
+      product_id: activeProduct.id,
+      address: formData.get('address'),
+      postal_code: formData.get('postal_code'),
+      // Add other relevant checkout fields here
+    };
+
+    try {
+      const csrfToken = getCookie('csrftoken');
+
+      // Step 1: Create the Booking/Order to get a payment ID from your Django backend
+      // (Adjust '/api/bookings/' to your specific order/booking creation endpoint)
+      const orderResponse = await fetch('/api/bookings/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken,
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      if (!orderResponse.ok) {
+        throw new Error("خطا در ایجاد سفارش");
+      }
+
+      const orderResult = await orderResponse.json();
+      const paymentId = orderResult.payment_id; // Your endpoint must return this ID
+
+      // Step 2: Request the ZarinPal payment URL using the retrieved payment_id
+      const paymentResponse = await fetch('/api/payment/request/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken,
+        },
+        body: JSON.stringify({ payment_id: paymentId })
+      });
+
+      const paymentResult = await paymentResponse.json();
+
+      if (paymentResponse.ok && paymentResult.payment_url) {
+        // Step 3: Redirect the browser directly to the ZarinPal payment gateway
+        window.location.href = paymentResult.payment_url;
+      } else {
+        throw new Error(paymentResult.detail || "خطا در اتصال به درگاه پرداخت");
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert(error.message || "بروز خطا در برقراری ارتباط با سرور");
+      
+      // Restore button state on failure
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }
+    }
   });
 }

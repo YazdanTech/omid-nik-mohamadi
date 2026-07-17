@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 
 from services.models import Service
@@ -81,9 +81,21 @@ class Booking(models.Model):
             content_type=ContentType.objects.get_for_model(self),
             object_id=str(self.id)
         )
-
+        
     def mark_as_paid(self):
-        """Callback invoked by the payment engine upon verified successful transaction."""
-        self.deposit_paid = True
-        self.status = self.Status.CONFIRMED
-        self.save(update_fields=["deposit_paid", "status"])
+        """Called automatically on successful payment verification"""
+        with transaction.atomic():
+            self.deposit_paid = True
+            self.status = self.Status.CONFIRMED
+            self.save(update_fields=["deposit_paid", "status"])
+
+    def mark_as_failed(self):
+        """Called automatically when payment fails or is cancelled"""
+        with transaction.atomic():
+            self.status = self.Status.CANCELLED
+            self.save(update_fields=["status"])
+            
+            # Release the slot reservation
+            if hasattr(self, 'slot') and self.slot:
+                self.slot.is_booked = False
+                self.slot.save(update_fields=["is_booked"])

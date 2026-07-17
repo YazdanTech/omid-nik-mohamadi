@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, time
 
 from django.db import transaction
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -185,9 +185,3 @@ class PaymentVerifyView(APIView):
                 booking.slot.save(update_fields=["is_booked"])
 
         return Response(BookingSerializer(booking).data, status=status.HTTP_200_OK)
-    
-def booking_success(request):
-    return render(request, "booking_success.html", {"state": "success"})
-
-def booking_failed(request):
-    return render(request, "booking_failed.html", {"state": "failed"})

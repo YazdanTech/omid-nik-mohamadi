@@ -70,7 +70,7 @@
     // --- Step 2: Slot Fetch & Grid Population ---
     async function fetchAvailableSlots(date, duration) {
         // 1. Double check your correct path here (with or without /api/)
-        const url = `api/booking/available-slots/?date=${date}&duration=${duration}`;
+        const url = `/api/booking/available-slots/?date=${date}&duration=${duration}`;
         console.log("Fetching from URL:", url);
 
         try {
@@ -246,7 +246,7 @@
 
             // 3. Otherwise, get the ZarinPal payment gateway URL
             if (booking.payment_id) {
-                const payResponse = await fetch("/api/payments/request/", {
+                const payResponse = await fetch("/api/payment/request/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

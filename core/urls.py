@@ -8,7 +8,7 @@ urlpatterns = [
     path("api/auth/", include("users.urls")),
     path("api/booking/", include("bookings.urls")),
     path("shop/", include("shop.urls")),
-    path("api/payments/", include("payments.urls", namespace="payments")),
+    path("api/payment/", include("payments.urls", namespace="payments")),
 ]
 
 # if settings.DEBUG:

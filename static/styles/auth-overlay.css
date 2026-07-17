@@ -33,13 +33,13 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 150%;
+    width: 250%;
     /* Intentionally larger to cover corners while rotating */
-    height: 150%;
+    height: 250%;
     background: conic-gradient(var(--dark-blue),
             var(--orange-transparent),
             var(--orange-less-transparent),
-            var(--orange-transparent),
+            var(--dark-blue),
             var(--dark-blue));
     animation: border-rotate 8s infinite linear;
     z-index: -2;

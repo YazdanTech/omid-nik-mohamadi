@@ -1,7 +1,7 @@
 import requests
 
 from django.conf import settings
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -24,6 +24,19 @@ def get_zarinpal_urls():
         "verify": "https://api.zarinpal.com/pg/v4/payment/verify.json",
     }
 
+def payment_success(request):
+    return render(request, "payment-status.html", {
+        "state": "success",
+        "type": request.GET.get("type", "booking"),  # Fallback to booking
+        "ref_id": request.GET.get("ref_id"),
+    })
+
+def payment_failed(request):
+    return render(request, "payment-status.html", {
+        "state": "failed",
+        "type": request.GET.get("type", "booking"),
+        "reason": request.GET.get("reason"),
+    })
 
 class PaymentRequestView(APIView):
     permission_classes = [IsAuthenticated]
@@ -62,12 +75,19 @@ class PaymentVerifyView(APIView):
         authority = request.GET.get("Authority")
 
         payment = get_object_or_404(Payment, authority=authority)
+        pay_type = payment.content_type.model 
+        content_obj = payment.content_object
 
         # 1. Handle Cancelled Payment
         if status_param != "OK":
             payment.status = Payment.Status.CANCELED
             payment.save(update_fields=["status"])
-            return redirect(f"/api/booking/failed/?payment_id={payment.id}&reason=canceled")
+            
+            # Hook for failure/cancellation
+            if hasattr(content_obj, 'mark_as_failed'):
+                content_obj.mark_as_failed()
+                
+            return redirect(f"/api/payment/failed/?type={pay_type}&payment_id={payment.id}&reason=canceled")
 
         urls = get_zarinpal_urls()
         payload = {
@@ -83,7 +103,11 @@ class PaymentVerifyView(APIView):
         except ValueError:
             payment.status = Payment.Status.FAILED
             payment.save(update_fields=["status"])
-            return redirect(f"/api/booking/failed/?payment_id={payment.id}&reason=invalid_gateway_response")
+            
+            if hasattr(content_obj, 'mark_as_failed'):
+                content_obj.mark_as_failed()
+                
+            return redirect(f"/api/payment/failed/?type={pay_type}&payment_id={payment.id}&reason=invalid_gateway_response")
 
         # 2. Handle Successful Verification
         if res_data.get("data") and res_data["data"].get("code") in [100, 101]:
@@ -91,13 +115,17 @@ class PaymentVerifyView(APIView):
             payment.ref_id = res_data["data"]["ref_id"]
             payment.save(update_fields=["status", "ref_id"])
 
-            if hasattr(payment.content_object, 'mark_as_paid'):
-                payment.content_object.mark_as_paid()
+            # Hook for success
+            if hasattr(content_obj, 'mark_as_paid'):
+                content_obj.mark_as_paid()
 
-            # Redirect to user-friendly success template with transaction reference
-            return redirect(f"/api/booking/success/?ref_id={payment.ref_id}")
+            return redirect(f"/api/payment/success/?type={pay_type}&ref_id={payment.ref_id}")
 
         # 3. Handle Failed Verification
         payment.status = Payment.Status.FAILED
         payment.save(update_fields=["status"])
-        return redirect(f"/api/booking/failed/?payment_id={payment.id}&reason=verification_failed")
+        
+        if hasattr(content_obj, 'mark_as_failed'):
+            content_obj.mark_as_failed()
+            
+        return redirect(f"/api/payment/failed/?type={pay_type}&payment_id={payment.id}&reason=verification_failed")
