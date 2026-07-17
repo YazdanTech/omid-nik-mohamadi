@@ -28,19 +28,6 @@ function getCookie(name) {
 }
 
 function openCheckoutModal(product) {
-  // Read auth status dynamically from AuthModule window namespace
-  const authenticated = window.AuthModule ? window.AuthModule.isAuthenticated : false;
-
-  if (!authenticated) {
-    closeCheckoutModal();
-    if (window.AuthModule && typeof window.AuthModule.open === 'function') {
-      window.AuthModule.open();
-    } else {
-      console.error("AuthModule.open is not available.");
-    }
-    return;
-  }
-
   // Store the active product data globally in this scope
   activeProduct = product;
 
@@ -57,6 +44,7 @@ function openCheckoutModal(product) {
 
   if (stateAuth) stateAuth.classList.add('active');
   if (stateUnauth) stateUnauth.classList.remove('active');
+  
   if (summaryImg) {
     summaryImg.src = product.img;
     summaryImg.alt = product.name;
@@ -88,7 +76,7 @@ document.querySelectorAll('.btn-buy').forEach(btn => {
       price: card.dataset.price,
       img: card.dataset.img
     };
-    openCheckoutModal(product);
+    enforceAuth(() => openCheckoutModal(product));
   });
 });
 
@@ -137,10 +125,7 @@ if (shippingForm) {
 
     try {
       const csrfToken = getCookie('csrftoken');
-
-      // Step 1: Create the Booking/Order to get a payment ID from your Django backend
-      // (Adjust '/api/bookings/' to your specific order/booking creation endpoint)
-      const orderResponse = await fetch('/api/bookings/', {
+      const orderResponse = await fetch('/api/payment/request/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

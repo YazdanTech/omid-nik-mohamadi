@@ -38,7 +38,9 @@ function bindTriggers() {
     const trigger = e.target.closest('[data-open-booking]');
     if (!trigger) return;
     const serviceId = trigger.getAttribute('data-service-id');
-    openModal(serviceId);
+
+    enforceAuth(() => openModal(serviceId));
+
   });
 }
 

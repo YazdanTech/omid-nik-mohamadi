@@ -8,8 +8,6 @@
 }
 
 .auth__panel-inner {
-    inline-size: 100%;
-    max-inline-size: 26rem;
     background: var(--nav-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -507,17 +505,17 @@
     --sb-border-color: var(--border-color);
 }
 
-/* ==========================================================================
+/* api/payment
    Modern Standards (Firefox & Future Engines)
-   ========================================================================== */
+   api/payment */
 .auth__panel-inner {
     scrollbar-width: thin;
     scrollbar-color: var(--sb-thumb-bg) var(--sb-track-bg);
 }
 
-/* ==========================================================================
+/* api/payment
    Webkit Engines (Chrome, Safari, Edge, Opera)
-   ========================================================================== */
+   api/payment */
 .auth__panel-inner::-webkit-scrollbar {
     width: 8px;
     height: 8px;

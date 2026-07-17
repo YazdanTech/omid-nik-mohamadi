@@ -82,10 +82,8 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
 
-    /* 1. Define the border width and style first */
     border: 1.5px solid transparent; 
 
-    /* 2. Apply your gradient border-image on top of it */
     border-image: linear-gradient(
         to top left, 
         var(--dark-blue) 0%, 
@@ -106,6 +104,48 @@
     20px 20px 20px color-mix(in srgb, var(--orange-transparent) 30%, transparent 70%),
     -20px -20px 20px var(--dark-blue-transparent);
 }
+
+/* The true border glow layer */
+.auth__panel-inner::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250%;
+    /* Intentionally larger to cover corners while rotating */
+    height: 250%;
+    background: conic-gradient(var(--dark-blue),
+            var(--orange-transparent),
+            var(--dark-blue),
+            var(--dark-blue),
+            var(--dark-blue));
+    animation: border-rotate 8s infinite linear;
+    z-index: -2;
+}
+
+/* The inner body mask to make it look like a fine border */
+.auth__panel-inner::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    /* The thickness of your border (e.g., 1px or 2px) */
+    background: var(--bg-main);
+    /* Must match container body color */
+    z-index: -1;
+}
+
+
+@keyframes border-rotate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+
 
 .auth__header {
     display: flex;
@@ -504,19 +544,41 @@
     }
 }
 
-/* Media Query - Reduced Motion */
-/* @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-    }
-} */
+.auth__panel-inner::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
 
-/* .auth__theme-toggle:focus-visible,
-.auth__tab:focus-visible,
-.auth__button:focus-visible,
-.auth__input:focus-visible,
-.auth__otp-input:focus-visible,
-a:focus-visible,
-button:focus-visible {
-} */
+/* The structural background track of the scrollbar */
+.auth__panel-inner::-webkit-scrollbar-track {
+    background: var(--sb-track-bg);
+    border-left: 1px solid var(--sb-border-color);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8);
+}
+
+/* The draggable scroll handle/thumb */
+.auth__panel-inner::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--sb-thumb-bg), #d34200);
+    border-radius: 20px;
+    border: 2px solid var(--sb-track-bg); /* Padding effect within track */
+    box-shadow: 0 0 12px var(--sb-thumb-glow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: background 0.3s ease;
+}
+
+/* Hover effects */
+.auth__panel-inner::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #ff8c40, var(--sb-thumb-bg));
+    box-shadow: 0 0 20px var(--sb-thumb-bg),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Active/Drag state */
+.auth__panel-inner::-webkit-scrollbar-thumb:active {
+    background: #ffaa66;
+}
+
+/* Top & bottom intersection points */
+.auth__panel-inner::-webkit-scrollbar-corner {
+    background: var(--sb-track-bg);
+}

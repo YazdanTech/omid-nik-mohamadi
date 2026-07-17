@@ -378,15 +378,16 @@
                             <h3 class="service-category-title">خدمات عادی</h3>
                             <ul class="service-list" id="normalServiceList">
                                 {% for service in global_normal_services %}
-                                <li class="service-item" data-service-id="svc-{{ service.id }}" data-service-pk="{{ service.id}}"
-                                    data-duration="{{ service.duration_minutes }}" data-price="{{ service.price }}"
-                                    data-name="{{ service.title }}" data-category="normal">
-                                <input type="checkbox" class="service-select" id="sel-svc-{{ service.id }}" />
-                                <label for="sel-svc-{{ service.id }}" class="service-info">
-                                    <span class="service-name">{{ service.title }}</span>
-                                    <span class="service-duration">{{ service.duration_minutes }}M</span>
-                                    <span class="service-price">{{ service.price }} T</span>
-                                </label>
+                                <li class="service-item" data-service-id="svc-{{ service.id }}"
+                                    data-service-pk="{{ service.id}}" data-duration="{{ service.duration_minutes }}"
+                                    data-price="{{ service.price }}" data-name="{{ service.title }}"
+                                    data-category="normal">
+                                    <input type="checkbox" class="service-select" id="sel-svc-{{ service.id }}" />
+                                    <label for="sel-svc-{{ service.id }}" class="service-info">
+                                        <span class="service-name">{{ service.title }}</span>
+                                        <span class="service-duration">{{ service.duration_minutes }}M</span>
+                                        <span class="service-price">{{ service.price }} T</span>
+                                    </label>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -400,12 +401,12 @@
                                 <li class="service-item" data-service-id="svc-{{ service.id }}"
                                     data-duration="{{ service.duration_minutes }}" data-price="{{ service.price }}"
                                     data-name="{{ service.title }}" data-category="normal">
-                                <input type="radio" name="groomingSelect" class="service-select"
-                                    id="sel-svc-{{ service.id }}" />
-                                <label for="sel-svc-{{ service.id }}" class="service-info">
-                                    <span class="service-name">{{ service.title }}</span>
-                                    <span class="service-price">{{ service.price }} T</span>
-                                </label>
+                                    <input type="radio" name="groomingSelect" class="service-select"
+                                        id="sel-svc-{{ service.id }}" />
+                                    <label for="sel-svc-{{ service.id }}" class="service-info">
+                                        <span class="service-name">{{ service.title }}</span>
+                                        <span class="service-price">{{ service.price }} T</span>
+                                    </label>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -488,11 +489,18 @@
     </div>
 
 
+    <script src="{% static 'scripts/auth-enforce.js' %}"></script>
     <script src="{% static 'scripts/main.js' %}"></script>
     <script src="{% static 'scripts/nav.js' %}"></script>
     <script src="{% static 'scripts/book.js' %}"></script>
     <script src="{% static 'scripts/grid-slot.js' %}"></script>
+
+
     {% block script %}{% endblock %}
+
+    <script>
+        window.isUserAuthenticated = {{ request.user.is_authenticated|yesno:"true,false" }};
+    </script>
 
 </body>
 
