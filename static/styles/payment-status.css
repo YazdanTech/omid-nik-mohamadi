@@ -1,0 +1,189 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Layout */
+.status-container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.status-card {
+    border: 1px solid transparent;
+    background-color: var(--bg-main);
+    border-radius: 0 !important;
+    /* Strict sharp edges */
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0px 0px 30px #000000;
+    /* Pure black hard shadow */
+}
+
+/* Conditional Border Statuses */
+.success-border {
+    border-color: var(--border-color);
+    box-shadow: 0px 0px 30px #000000;
+    animation: alternate 2s infinite successBorder;
+    /* Pure black hard shadow */
+}
+
+
+@keyframes successBorder {
+    from {
+        border-color: rgb(68, 185, 68);
+        box-shadow: 0px 0px 60px #000000;
+    }
+
+    to {
+        border-color: var(--border-color);
+        box-shadow: 0px 0px 30px #000000;
+    }
+}
+
+@keyframes failureBorder {
+    from {
+        border-color: rgb(167, 27, 27);
+        box-shadow: 0px 0px 60px #000000;
+    }
+
+    to {
+        border-color: var(--border-color);
+        box-shadow: 0px 0px 30px #000000;
+    }
+}
+
+.failure-border {
+    border-color: red;
+    box-shadow: 0px 0px 30px #000000;
+    /* Pure black hard shadow */
+
+}
+
+/* Icons */
+.icon-wrapper {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 24px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--text-main);
+    border-radius: 0 !important;
+}
+
+.icon-wrapper svg {
+    width: 35px;
+    height: 35px;
+}
+
+.success-accent {
+    background-color: var(--bg-main);
+    color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0px 0px 30px black;
+}
+
+.failure-accent {
+    background-color: var(--bg-main);
+    color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0px 0px 30px black;
+}
+
+/* Typography */
+.status-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 12px 0;
+}
+
+.status-message {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 24px 0;
+    opacity: 0.85;
+}
+
+/* Info Box for Tracking Code */
+.info-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border: 1px solid var(--accent);
+    background-color: var(--bg-main);
+    border-radius: 0 !important;
+    margin-bottom: 30px;
+}
+
+.info-label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.info-value {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.font-mono {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Actions & Buttons */
+.action-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.action-wrapper.split {
+    flex-direction: row;
+}
+
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid var(--bg-main);
+    border-radius: 0 !important;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--accent);
+    color: var(--bg-main);
+    box-shadow: 4px 4px 0px 0px var(--accent-transparent);
+}
+
+.btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px #000000;
+}
+
+.btn-secondary {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.btn-secondary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px #000000;
+}

@@ -174,7 +174,7 @@ function getCSRFToken() {
                     var payload = Object.fromEntries(new FormData(signUpForm).entries());
                     action.disabled = true;
 
-                    fetch('/api/signup/', {
+                    fetch('/api/auth/signup/', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
                         body: JSON.stringify(payload)

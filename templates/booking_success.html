@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وضعیت پرداخت</title>
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/payment-status.css' %}">
+</head>
+<body class="bg-main text-main">
+
+    <!-- 1. SUCCESS PAGE TEMPLATE -->
+    <!-- Save this file as: templates/booking_success.html -->
+    {% if state == "success" or request.resolver_match.url_name == "booking_success" %}
+    <div class="status-container">
+        <div class="status-card success-border">
+            <div class="icon-wrapper success-accent">
+                <!-- Checkmark Icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            
+            <h1 class="status-title">پرداخت با موفقیت انجام شد</h1>
+            <p class="status-message">نوبت شما با موفقیت ثبت گردید. جزئیات نوبت برای شما رزرو شده است.</p>
+            
+            {% if request.GET.ref_id %}
+            <div class="info-box accent-transparent">
+                <span class="info-label">کد پیگیری تراکنش:</span>
+                <span class="info-value font-mono">{{ request.GET.ref_id }}</span>
+            </div>
+            {% endif %}
+
+            <div class="action-wrapper">
+                <a href="/" class="btn-primary accent">بازگشت به صفحه اصلی</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+
+</body>
+</html>
