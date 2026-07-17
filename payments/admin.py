@@ -49,7 +49,7 @@ class PaymentAdmin(admin.ModelAdmin):
         color = colors.get(obj.status, '#000000')
         label = labels.get(obj.status, obj.status)
         return format_html(
-            '<span style="background-color: {}; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 11px;">{}</span>',
+            '<span style="background-color: {}; color: white; padding: 6px 12px; font-weight: bold; font-size: 11px;">{}</span>',
             color, label
         )
     status_badge.short_description = "وضعیت"
