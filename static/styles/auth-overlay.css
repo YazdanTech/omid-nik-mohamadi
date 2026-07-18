@@ -376,18 +376,18 @@
     justify-content: center;
 }
 
+
 .auth__otp-input {
-    inline-size: 2.8rem;
-    block-size: 3.2rem;
     text-align: center;
+    max-width: 150px;
+    padding: 0.5rem ;
+    color: var(--accent);
     font-size: 1.2rem;
     font-family: var(--font-mono);
     background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
-    transition: border-color var(--transition-default), transform var(--transition-default), box-shadow var(--transition-default);
+    transition: all 1s var(--transition-default);
 }
 
 .auth__otp-input:focus {

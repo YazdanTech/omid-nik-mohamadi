@@ -1,3 +1,7 @@
+function getCSRFToken() {
+    return document.cookie.split('; ').find(row => row.startsWith('csrftoken='))?.split('=')[1] || '';
+}
+
 (function () {
     'use strict';
 
@@ -7,15 +11,14 @@
     const signInAccountBtn = document.getElementById('signInAccountBtn');
     const signInFormContainer = document.getElementById('signInFormContainer');
     const signUpFormContainer = document.getElementById('signUpFormContainer');
-    
-    // Auth status flag accessible to other modules
+
     let isUserAuthenticated = false;
 
+    // --- Overlay UI Controls ---
     function openAuthOverlay() {
-        console.log('open auth overlay');
         if (!authGlobalOverlay) return;
         authGlobalOverlay.style.display = 'flex';
-        authGlobalOverlay.offsetHeight;
+        authGlobalOverlay.offsetHeight; // Force reflow
         authGlobalOverlay.classList.add('is-visible');
         document.body.style.overflow = 'hidden';
     }
@@ -36,9 +39,7 @@
 
     if (authGlobalOverlay) {
         authGlobalOverlay.addEventListener('click', (e) => {
-            if (e.target === authGlobalOverlay) {
-                closeAuthOverlay();
-            }
+            if (e.target === authGlobalOverlay) closeAuthOverlay();
         });
     }
 
@@ -48,6 +49,7 @@
         }
     });
 
+    // --- Form Toggling Rules ---
     function switchForm(formToHide, formToShow) {
         formToHide.style.transition = 'opacity 0.5s ease';
         formToShow.style.transition = 'opacity 0.5s ease';
@@ -62,28 +64,8 @@
         }, 500);
     }
 
-    function signUp() {
-        switchForm(signInFormContainer, signUpFormContainer);
-    }
-
-    function signIn() {
-        switchForm(signUpFormContainer, signInFormContainer);
-    }
-
-    if (createAccountBtn) createAccountBtn.addEventListener('click', signUp);
-    if (signInAccountBtn) signInAccountBtn.addEventListener('click', signIn);
-
-    document.querySelectorAll('[data-toggle-password]').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            var targetId = btn.getAttribute('data-toggle-password');
-            var input = document.getElementById(targetId);
-            if (!input) return;
-            var isHidden = input.type === 'password';
-            input.type = isHidden ? 'text' : 'password';
-            btn.classList.toggle('is-active', isHidden);
-            btn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
-        });
-    });
+    if (createAccountBtn) createAccountBtn.addEventListener('click', () => switchForm(signInFormContainer, signUpFormContainer));
+    if (signInAccountBtn) signInAccountBtn.addEventListener('click', () => switchForm(signUpFormContainer, signInFormContainer));
 
     var authTabs = document.querySelectorAll('.auth__tab');
     if (authTabs.length) {
@@ -101,42 +83,133 @@
                     var matches = field.getAttribute('data-field') === target;
                     field.style.display = matches ? '' : 'none';
                     var input = field.querySelector('.auth__input');
-                    if (input) {
-                        input.required = matches;
-                    }
+                    if (input) input.required = matches;
                 });
             });
         });
     }
 
+    // --- Async Sign In Pipeline ---
     var signInForm = document.getElementById('signInForm');
     if (signInForm) {
-        signInForm.addEventListener('submit', function (e) {
+        let loginOtpRequested = false;
+        var signInOtpInput = signInForm.querySelector('.auth__otp-input');
+        var signInPhoneInput = signInForm.querySelector('[name="phone_number"]');
+        var signInOtpContainer = signInOtpInput ? signInOtpInput.closest('.auth__field') : null;
+
+        // Hide OTP input row by default until requested successfully
+        if (signInOtpContainer) {
+            signInOtpContainer.style.display = 'none';
+        }
+
+        async function submitSignInOTP() {
+            var errorEl = document.getElementById('signInError');
+            var submitButton = signInForm.querySelector('.auth__button--primary');
+            var code = signInOtpInput ? signInOtpInput.value.trim().replace(/[^0-9]/g, '') : '';
+            var phone = signInPhoneInput ? signInPhoneInput.value.trim() : '';
+
+            if (code.length !== 6) return;
+
+            if (submitButton) submitButton.disabled = true;
+            if (errorEl) errorEl.textContent = '';
+
+            try {
+                let res = await fetch('/api/auth/verify-otp/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
+                    body: JSON.stringify({ phone_number: phone, code: code })
+                });
+
+                if (res.ok) {
+                    window.location.reload();
+                } else {
+                    let data = await res.json();
+                    if (errorEl) errorEl.textContent = data.non_field_errors || Object.values(data)[0];
+                }
+            } catch (err) {
+                if (errorEl) errorEl.textContent = 'Network error.';
+            } finally {
+                if (submitButton) submitButton.disabled = false;
+            }
+        }
+
+        signInForm.addEventListener('submit', async function (e) {
             e.preventDefault();
             var errorEl = document.getElementById('signInError');
-            var visibleField = signInForm.querySelector('.auth__field:not([style*="display: none"]) .auth__input');
-            if (visibleField && !visibleField.value.trim()) {
-                if (errorEl) {
-                    errorEl.textContent = visibleField.type === 'email'
-                        ? 'Please enter your email address.'
-                        : 'Please enter your mobile number.';
-                }
-                return;
-            }
-            var passwordField = document.getElementById('signInPassword');
-            if (passwordField && !passwordField.value.trim()) {
-                if (errorEl) errorEl.textContent = 'Please enter your password.';
-                return;
-            }
-            if (errorEl) errorEl.textContent = '';
             var submitButton = signInForm.querySelector('.auth__button--primary');
-            if (submitButton) {
-                submitButton.textContent = 'Signed in';
-                isUserAuthenticated = true; // Update internal auth state
+            var phone = signInPhoneInput ? signInPhoneInput.value.trim() : '';
+
+            if (!phone) {
+                if (errorEl) errorEl.textContent = 'لطفا شماره موبایل خود را وارد کنید';
+                return;
+            }
+
+            // Fallback explicitly processing execution on standard submit click after generation
+            if (loginOtpRequested) {
+                submitSignInOTP();
+                return;
+            }
+
+            if (submitButton) submitButton.disabled = true;
+            if (errorEl) errorEl.textContent = '';
+
+            try {
+                let res = await fetch('/api/auth/login-request-otp/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
+                    body: JSON.stringify({ phone_number: phone })
+                });
+
+                if (res.ok) {
+                    if (errorEl) errorEl.textContent = 'ککد تایید ارسال شد.';
+                    loginOtpRequested = true;
+
+                    if (signInOtpContainer) {
+                        signInOtpContainer.style.display = 'block';
+                    }
+                    if (signInPhoneInput) {
+                        signInPhoneInput.disabled = true;
+                    }
+                    if (signInOtpInput) {
+                        signInOtpInput.required = true;
+                        signInOtpInput.focus();
+                    }
+                    if (submitButton) {
+                        submitButton.textContent = 'تایید و ورود';
+                    }
+                } else {
+                    let data = await res.json();
+                    if (errorEl) errorEl.textContent = data.non_field_errors || Object.values(data)[0];
+                }
+            } catch (err) {
+                if (errorEl) errorEl.textContent = 'Network error.';
+            } finally {
+                if (submitButton) submitButton.disabled = false;
             }
         });
+
+        // Watch inputs on the singular Sign-In input to capture completion quickly
+        if (signInOtpInput) {
+            signInOtpInput.addEventListener('input', function () {
+                signInOtpInput.value = signInOtpInput.value.replace(/[^0-9]/g, '').slice(0, 6);
+                if (signInOtpInput.value.length === 6) {
+                    submitSignInOTP();
+                }
+            });
+
+            signInOtpInput.addEventListener('paste', function (e) {
+                var clipboard = e.clipboardData || window.clipboardData;
+                var pasted = clipboard.getData('text').replace(/[^0-9]/g, '');
+                signInOtpInput.value = pasted.slice(0, 6);
+                e.preventDefault();
+                if (signInOtpInput.value.length === 6) {
+                    submitSignInOTP();
+                }
+            });
+        }
     }
 
+    // --- Async Multi-Stage Registration Pipeline ---
     var signUpForm = document.getElementById('signUpForm');
     if (signUpForm) {
         var stages = Array.prototype.slice.call(signUpForm.querySelectorAll('.auth__stage'));
@@ -158,20 +231,58 @@
             currentStage = stageNumber;
             var activeStage = stages[stageNumber - 1];
             var firstInput = activeStage ? activeStage.querySelector('input') : null;
-            if (firstInput) {
-                firstInput.focus();
-            }
+            if (firstInput) firstInput.focus();
         }
 
         function validateStage(stageNumber) {
             var stage = stages[stageNumber - 1];
+            if (!stage) return false;
             var requiredInputs = stage.querySelectorAll('input[required]');
             for (var i = 0; i < requiredInputs.length; i++) {
-                if (!requiredInputs[i].value.trim()) {
-                    return false;
-                }
+                if (!requiredInputs[i].value.trim()) return false;
             }
             return true;
+        }
+
+        // Extracted OTP calculation engine for a single input
+        function getVerificationCode() {
+            var otpInput = signUpForm.querySelector('.auth__otp-input');
+            return otpInput ? otpInput.value.trim().replace(/[^0-9]/g, '') : '';
+        }
+
+        async function submitOTP() {
+            var errorEl = document.getElementById('signUpError');
+            var code = getVerificationCode();
+
+            if (code.length !== 6) {
+                if (errorEl) errorEl.textContent = 'لطفا کد تایید ۶ رقمی را به طور کامل وارد کنید.';
+                return;
+            }
+
+            var phone = new FormData(signUpForm).get('phone_number');
+            var button = signUpForm.querySelector('.auth__stage--current .auth__button--primary');
+
+            if (button) button.disabled = true;
+            if (errorEl) errorEl.textContent = '';
+
+            try {
+                let res = await fetch('/api/auth/verify-otp/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
+                    body: JSON.stringify({ phone_number: phone, code: code })
+                });
+
+                if (res.ok) {
+                    window.location.reload();
+                } else {
+                    let data = await res.json();
+                    if (errorEl) errorEl.textContent = data.non_field_errors || Object.values(data)[0];
+                }
+            } catch (err) {
+                if (errorEl) errorEl.textContent = 'Network error.';
+            } finally {
+                if (button) button.disabled = false;
+            }
         }
 
         signUpForm.addEventListener('click', function (e) {
@@ -182,11 +293,38 @@
 
             if (type === 'next') {
                 if (!validateStage(currentStage)) {
-                    if (errorEl) errorEl.textContent = 'Please complete all required fields before continuing.';
+                    if (errorEl) errorEl.textContent = 'لطفا تمام کادر های اجباری را پر کنید.';
                     return;
                 }
-                if (errorEl) errorEl.textContent = '';
-                showStage(Math.min(currentStage + 1, stages.length));
+
+                if (currentStage === 1) {
+                    if (errorEl) errorEl.textContent = '';
+                    showStage(2);
+                    return;
+                }
+
+                if (currentStage === 2) {
+                    var payload = Object.fromEntries(new FormData(signUpForm).entries());
+                    action.disabled = true;
+
+                    fetch('/api/auth/signup/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
+                        body: JSON.stringify(payload)
+                    }).then(async res => {
+                        if (res.ok) {
+                            if (errorEl) errorEl.textContent = '';
+                            showStage(3);
+                        } else {
+                            let data = await res.json();
+                            if (errorEl) errorEl.textContent = Object.values(data)[0] || 'مشکل در ساخت اکانت';
+                        }
+                    }).catch(() => {
+                        if (errorEl) errorEl.textContent = 'Network error.';
+                    }).finally(() => {
+                        action.disabled = false;
+                    });
+                }
             }
 
             if (type === 'back') {
@@ -197,61 +335,61 @@
             if (type === 'resend') {
                 action.disabled = true;
                 var originalText = action.textContent;
-                action.textContent = 'Code sent';
-                setTimeout(function () {
+                var phone = new FormData(signUpForm).get('phone_number');
+
+                if (!phone) {
+                    if (errorEl) errorEl.textContent = 'شماره تلفن یافت نشد.';
+                    action.disabled = false;
+                    return;
+                }
+
+                fetch('/api/auth/login-request-otp/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRFToken() },
+                    body: JSON.stringify({ phone_number: phone })
+                }).then(res => {
+                    action.textContent = res.ok ? 'کد ارسال شد' : 'خطا در ارسال';
+                    setTimeout(function () {
+                        action.disabled = false;
+                        action.textContent = originalText;
+                    }, 5000);
+                }).catch(() => {
                     action.disabled = false;
                     action.textContent = originalText;
-                }, 4000);
+                });
             }
         });
 
         signUpForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            if (!validateStage(currentStage)) {
-                var errorEl = document.getElementById('signUpError');
-                if (errorEl) errorEl.textContent = 'Please enter the full verification code.';
-                return;
-            }
-            var button = signUpForm.querySelector('.auth__stage--current .auth__button--primary');
-            if (button) {
-                button.textContent = 'Account created';
-                isUserAuthenticated = true; // Update internal auth state
-            }
+            if (currentStage !== 3) return;
+            submitOTP();
         });
 
-        var otpInputs = Array.prototype.slice.call(signUpForm.querySelectorAll('.auth__otp-input'));
-        otpInputs.forEach(function (input, index) {
-            input.addEventListener('input', function () {
-                input.value = input.value.replace(/[^0-9]/g, '').slice(0, 1);
-                if (input.value && otpInputs[index + 1]) {
-                    otpInputs[index + 1].focus();
+        // Cleaned single OTP field event binding for Auto-Submit
+        var singleOtpInput = signUpForm.querySelector('.auth__otp-input');
+        if (singleOtpInput) {
+            singleOtpInput.addEventListener('input', function () {
+                singleOtpInput.value = singleOtpInput.value.replace(/[^0-9]/g, '').slice(0, 6);
+                if (singleOtpInput.value.length === 6) {
+                    submitOTP();
                 }
             });
-            input.addEventListener('keydown', function (e) {
-                if (e.key === 'Backspace' && !input.value && otpInputs[index - 1]) {
-                    otpInputs[index - 1].focus();
-                }
-            });
-            input.addEventListener('paste', function (e) {
+
+            singleOtpInput.addEventListener('paste', function (e) {
                 var clipboard = e.clipboardData || window.clipboardData;
                 var pasted = clipboard.getData('text').replace(/[^0-9]/g, '');
-                if (!pasted) return;
+                singleOtpInput.value = pasted.slice(0, 6);
                 e.preventDefault();
-                pasted.split('').forEach(function (char, i) {
-                    if (otpInputs[i]) {
-                        otpInputs[i].value = char;
-                    }
-                });
-                var nextIndex = Math.min(pasted.length, otpInputs.length - 1);
-                if (otpInputs[nextIndex]) {
-                    otpInputs[nextIndex].focus();
+                if (singleOtpInput.value.length === 6) {
+                    submitOTP();
                 }
             });
-        });
+        }
 
         showStage(1);
     }
-
+    // --- Public Module Interface API Hooks ---
     window.AuthModule = {
         open: openAuthOverlay,
         close: closeAuthOverlay,

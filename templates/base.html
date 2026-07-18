@@ -183,164 +183,142 @@
         <div class="auth-global-modal">
             <button type="button" class="auth-global-close" id="authGlobalClose">×</button>
             <div id="authFormsPlaceholder">
+
                 <div id="signUpFormContainer">
-                    <div class="auth__panel-inner">
-                        <header class="auth__header" data-reveal>
-                            <span class="auth__eyebrow">New Client</span>
-                            <h1 class="auth__title">Create your account</h1>
-                            <p class="auth__subtitle">Three short steps and you're booked in.</p>
-                        </header>
+      <div class="auth__panel-inner">
 
-                        <ol class="auth__steps" aria-label="Sign up progress" data-reveal>
-                            <li class="auth__step auth__step--active" data-step="1">
-                                <span class="auth__step-index">01</span>
-                                <span class="auth__step-label">Details</span>
-                            </li>
-                            <span class="auth__step-line" aria-hidden="true"></span>
-                            <li class="auth__step" data-step="2">
-                                <span class="auth__step-index">02</span>
-                                <span class="auth__step-label">Contact</span>
-                            </li>
-                            <span class="auth__step-line" aria-hidden="true"></span>
-                            <li class="auth__step" data-step="3">
-                                <span class="auth__step-index">03</span>
-                                <span class="auth__step-label">Verify</span>
-                            </li>
-                        </ol>
+        <header class="auth__header" data-reveal>
+          <span class="auth__eyebrow">مشتری جدید</span>
+          <h1 class="auth__title">حساب خود را بسازید</h1>
+          <p class="auth__subtitle">سه مرحله کوتاه و وقت شما رزرو می‌شود.</p>
+        </header>
 
-                        <form class="auth__wizard" id="signUpForm" novalidate data-reveal>
+        <ol class="auth__steps" aria-label="پیشرفت ثبت نام" data-reveal>
+          <li class="auth__step auth__step--active" data-step="1">
+            <span class="auth__step-index">01</span>
+            <span class="auth__step-label">مشخصات</span>
+          </li>
+          <span class="auth__step-line" aria-hidden="true"></span>
+          <li class="auth__step" data-step="2">
+            <span class="auth__step-index">02</span>
+            <span class="auth__step-label">تماس</span>
+          </li>
+          <span class="auth__step-line" aria-hidden="true"></span>
+          <li class="auth__step" data-step="3">
+            <span class="auth__step-index">03</span>
+            <span class="auth__step-label">تایید</span>
+          </li>
+        </ol>
 
-                            <div class="auth__stage auth__stage--current" data-stage="1">
-                                <div class="auth__stage-grid">
-                                    <div class="auth__field">
-                                        <label class="auth__label" for="fullName">Full name</label>
-                                        <input class="auth__input" type="text" id="fullName" name="fullName"
-                                            autocomplete="name" placeholder="Full name" required>
-                                    </div>
-                                    <div class="auth__field">
-                                        <label class="auth__label" for="birthDate">Birth date</label>
-                                        <input class="auth__input" type="date" id="birthDate" name="birthDate" required>
-                                    </div>
-                                </div>
-                                <div class="auth__nav-buttons">
-                                    <span></span>
-                                    <button class="auth__button auth__button--primary" type="button"
-                                        data-action="next">Continue</button>
-                                </div>
-                            </div>
+        <form class="auth__wizard" id="signUpForm" novalidate data-reveal>
 
-                            <div class="auth__stage" data-stage="2" hidden>
-                                <div class="auth__field">
-                                    <label class="auth__label" for="phoneNumber">Phone number</label>
-                                    <input class="auth__input" type="tel" id="phoneNumber" name="phoneNumber"
-                                        autocomplete="tel" placeholder="+1 555 000 0000" required>
-                                </div>
-                                <div class="auth__field">
-                                    <label class="auth__label" for="emailOptional">Email <span
-                                            class="auth__optional">(optional)</span></label>
-                                    <input class="auth__input" type="email" id="emailOptional" name="emailOptional"
-                                        autocomplete="email" placeholder="you@example.com">
-                                </div>
-                                <div class="auth__nav-buttons">
-                                    <button class="auth__button auth__button--ghost" type="button"
-                                        data-action="back">Back</button>
-                                    <button class="auth__button auth__button--primary" type="button"
-                                        data-action="next">Send
-                                        code</button>
-                                </div>
-                            </div>
+          <div class="auth__stage auth__stage--current" data-stage="1">
+            <div class="auth__stage-grid">
+              <div class="auth__field">
+                <label class="auth__label" for="fullName">نام کامل</label>
+                <input class="auth__input" type="text" id="fullName" name="full_name" autocomplete="name" placeholder="نام کامل" required>
+              </div>
+              <div class="auth__field">
+                <label class="auth__label" for="birthDate">تاریخ تولد</label>
+                <input class="auth__input" type="date" id="birthDate" name="birth_date" required>
+              </div>
+            </div>
+            <div class="auth__nav-buttons">
+              <span></span>
+              <button class="auth__button auth__button--primary" type="button" data-action="next">ادامه</button>
+            </div>
+          </div>
 
-                            <div class="auth__stage" data-stage="3" hidden>
-                                <p class="auth__subtitle">Enter the 6-digit code sent to your phone.</p>
-                                <div class="auth__otp" data-otp>
-                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
-                                        aria-label="Digit 1" required>
-                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
-                                        aria-label="Digit 2" required>
-                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
-                                        aria-label="Digit 3" required>
-                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
-                                        aria-label="Digit 4" required>
-                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
-                                        aria-label="Digit 5" required>
-                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="1"
-                                        aria-label="Digit 6" required>
-                                </div>
-                                <button class="auth__resend" type="button" data-action="resend">Resend
-                                    code</button>
-                                <div class="auth__nav-buttons">
-                                    <button class="auth__button auth__button--ghost" type="button"
-                                        data-action="back">Back</button>
-                                    <button class="auth__button auth__button--primary" type="submit">Verify
-                                        &amp; create account</button>
-                                </div>
-                            </div>
+          <div class="auth__stage" data-stage="2" hidden>
+            <div class="auth__field">
+              <label class="auth__label" for="phoneNumber">شماره تلفن</label>
+              <input class="auth__input" type="tel" id="phoneNumber" name="phone_number" autocomplete="tel" placeholder="+98 912 000 0000" required>
+            </div>
+            <div class="auth__field">
+              <label class="auth__label" for="emailOptional">ایمیل <span class="auth__optional">(اختیاری)</span></label>
+              <input class="auth__input" type="email" id="emailOptional" name="email" autocomplete="email" placeholder="you@نمونه.com">
+            </div>
+            <div class="auth__nav-buttons">
+              <button class="auth__button auth__button--ghost" type="button" data-action="back">بازگشت</button>
+              <button class="auth__button auth__button--primary" type="button" data-action="next">ارسال کد</button>
+            </div>
+          </div>
 
-                            <p class="auth__error" id="signUpError" role="alert" aria-live="polite"></p>
+          <div class="auth__stage" data-stage="3" hidden>
+            <p class="auth__subtitle">کد شش رقمی ارسال شده به تلفن خود را وارد کنید.</p>
+            <div class="auth__otp" data-otp>
+              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="6" aria-label="OTP Digits" required>
+            </div>
+            <button class="auth__resend" type="button" data-action="resend">ارسال مجدد کد</button>
+            <div class="auth__nav-buttons">
+              <button class="auth__button auth__button--ghost" type="button" data-action="back">بازگشت</button>
+              <button class="auth__button auth__button--primary" type="submit">تایید و ایجاد حساب کاربری</button>
+            </div>
+          </div>
 
-                        </form>
+          <p class="auth__error" id="signUpError" role="alert" aria-live="polite"></p>
 
-                        <p class="auth__footer-note" data-reveal>Already have an account? <a class="auth__link" href="#"
-                                id="signInAccountBtn">Sign in</a></p>
+        </form>
 
+        <p class="auth__footer-note" data-reveal>آیا قبلاً حساب دارید؟ <span class="auth__link" id="signInAccountBtn">وارد شوید</span></p>
 
-                    </div>
+      </div>
                 </div>
+
                 <div id="signInFormContainer" style="display: none;">
 
                     <div class="auth__panel-inner">
+
                         <header class="auth__header" data-reveal>
-                            <span class="auth__eyebrow">Sign in</span>
-                            <h1 class="auth__title">Sign in to your account</h1>
-                            <p class="auth__subtitle">Welcome back! Please enter your details.</p>
+                            <span class="auth__eyebrow">دسترسی مشتری</span>
+                            <h1 class="auth__title">ورود</h1>
+                            <p class="auth__subtitle">رزرو نوبت بعدی و مدیریت مراجعات شما.</p>
                         </header>
+
+                        <div class="auth__tabs" role="tablist" aria-label="Sign in method" data-reveal
+                            style="display: none;">
+                            <button class="auth__tab " type="button" role="tab" aria-selected="true" id="tab-email"
+                                data-tab-target="email">ایمیل</button>
+                            <button class="auth__tab auth__tab--active" type="button" role="tab" aria-selected="false"
+                                id="tab-mobile" data-tab-target="mobile">موبایل</button>
+                        </div>
+
                         <form class="auth__form" id="signInForm" novalidate data-reveal>
-
-                            <div class="auth__field" data-field="email" hidden style="display: none;">
-                                <label class="auth__label" for="signInEmail">Email address</label>
-                                <input class="auth__input" type="email" id="signInEmail" name="email"
-                                    autocomplete="email" placeholder="you@example.com" required>
+                            <div class="auth__stage" data-stage="1">
+                                <div class="auth__field" data-field="mobile">
+                                    <label class="auth__label" for="signInMobile">شماره موبایل</label>
+                                    <input class="auth__input" type="tel" id="signInMobile" name="phone_number"
+                                        autocomplete="tel" placeholder="+98 912 000 0000" required>
+                                </div>
+                                <button class="auth__button auth__button--primary" type="button"
+                                    data-action="send-otp">دریافت کد تایید</button>
                             </div>
 
-                            <div class="auth__field" data-field="mobile">
-                                <label class="auth__label" for="signInMobile">Mobile number</label>
-                                <input class="auth__input" type="tel" id="signInMobile" name="mobile" autocomplete="tel"
-                                    placeholder="+1 555 000 0000">
-                            </div>
-
-                            <div class="auth__field">
-                                <label class="auth__label" for="signInPassword">Password</label>
-                                <div class="auth__input-group">
-                                    <input class="auth__input" type="password" id="signInPassword" name="password"
-                                        autocomplete="current-password" placeholder="••••••••" required>
-                                    <button class="auth__visibility-toggle" type="button"
-                                        data-toggle-password="signInPassword" aria-label="Show password">
-                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
-                                            stroke="currentColor" stroke-width="1.6">
-                                            <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z" />
-                                            <circle cx="12" cy="12" r="3" />
-                                        </svg>
-                                    </button>
+                            <div class="auth__stage" data-stage="2">
+                                <div class="auth__field">
+                                    <label class="auth__label">کد تایید</label>
+                                    <div class="auth__otp" data-otp>
+                                        <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="6"
+                                            aria-label="OTP Digits" required>
+                                    </div>
+                                </div>
+                                <button class="auth__resend" type="button" data-action="resend">ارسال مجدد کد</button>
+                                <div class="auth__nav-buttons">
+                                    <button class="auth__button auth__button--ghost" type="button"
+                                        data-action="back">بازگشت</button>
+                                    <button class="auth__button auth__button--primary" type="submit">ورود</button>
                                 </div>
                             </div>
 
                             <p class="auth__error" id="signInError" role="alert" aria-live="polite"></p>
 
-                            <div class="auth__field-row">
-                                <label class="auth__checkbox">
-                                    <input type="checkbox" name="remember">
-                                    <span>Remember me</span>
-                                </label>
-                                <!-- <a class="auth__link" href="#">Forgot password?</a> -->
-                            </div>
-
-                            <button class="auth__button auth__button--primary" type="submit">Sign
-                                in</button>
                         </form>
-                        <p class="auth__footer-note" data-reveal>New here? <a class="auth__link" href="#"
-                                id="createAccountBtn">Create an account</a></p>
+
+                        <p class="auth__footer-note" data-reveal>تازه‌وارد هستید؟ <span class="auth__link" id="createAccountBtn">ساخت حساب کاربری</span></p>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -494,6 +472,7 @@
     <script src="{% static 'scripts/nav.js' %}"></script>
     <script src="{% static 'scripts/book.js' %}"></script>
     <script src="{% static 'scripts/grid-slot.js' %}"></script>
+    <script src="{% static 'scripts/sign-in.js' %}"></script>
 
 
     {% block script %}{% endblock %}
