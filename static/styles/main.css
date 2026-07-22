@@ -114,7 +114,7 @@ button {
 }
 
 .section-title {
-    font-family: var(--font-display);
+    font-family: var(--font-english);
     font-weight: 400;
     font-size: clamp(2rem, 4vw, 3.2rem);
     margin: 0;
@@ -256,7 +256,7 @@ button {
 }
 
 .hero-text {
-    font-family: var(--font-display);
+    font-family: var(--font-english);
     font-weight: 300;
     font-size: 3rem;
     line-height: 1.15;

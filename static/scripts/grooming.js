@@ -141,11 +141,11 @@
     document.querySelectorAll('.grooming-package-card__cta').forEach(function (button) {
         button.addEventListener('click', function () {
             var packageName = button.getAttribute('data-package') || 'this package';
-            button.textContent = 'Reserved';
+            button.textContent = 'رزرو شد';
             button.classList.add('grooming-package-card__cta--confirmed');
             button.disabled = true;
             window.setTimeout(function () {
-                button.textContent = 'Reserve';
+                button.textContent = 'رزرو';
                 button.classList.remove('grooming-package-card__cta--confirmed');
                 button.disabled = false;
             }, 2600);
