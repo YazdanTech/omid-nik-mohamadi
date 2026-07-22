@@ -42,8 +42,8 @@ class Booking(models.Model):
     user = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name="bookings", verbose_name=_("کاربر")
     )
-    service = models.ForeignKey(
-        Service, on_delete=models.PROTECT, related_name="bookings", verbose_name=_("خدمت")
+    services = models.ManyToManyField(
+        Service, related_name="bookings", verbose_name=_("خدمات")
     )
     slot = models.OneToOneField(
         BookingSlot, on_delete=models.PROTECT, related_name="booking", verbose_name=_("اسلات")

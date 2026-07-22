@@ -1,19 +1,24 @@
+function getCSRFToken() {
+    return document.cookie.split("; ")
+        .find(row => row.startsWith("csrftoken="))
+        ?.split("=")[1] || "";
+}
+
 (function () {
     "use strict";
 
     // --- State ---
     let currentStep = 1;
+    // WITH THIS:
     let bookingData = {
-        serviceId: null,
-        serviceDuration: 0,
-        serviceName: "",
-        servicePrice: 0,
+        services: [], // Holds all selected service objects
+        totalDuration: 0,
+        totalPrice: 0,
         date: "",
         time: "",
         note: "",
         bypassCode: ""
     };
-
     // --- Elements ---
     const modalSteps = document.querySelectorAll(".modal-step");
     const progressSteps = document.querySelectorAll(".progress-step");
@@ -42,28 +47,38 @@
 
 
     // --- Step 1: Service Selection ---
-    serviceItems.forEach(item => {
-        const input = item.querySelector(".service-select");
-        input.addEventListener("change", () => {
-            // Since booking expects one primary service slot: uncheck/unselect others
-            serviceItems.forEach(other => {
-                if (other !== item) {
-                    other.querySelector(".service-select").checked = false;
-                }
-            });
+    function updateSelectedServices() {
+        bookingData.services = [];
+        let totalDuration = 0;
+        let totalPrice = 0;
 
+        serviceItems.forEach(item => {
+            const input = item.querySelector(".service-select");
             if (input.checked) {
-                bookingData.serviceId = item.dataset.serviceId;
-                bookingData.servicePk = item.dataset.servicePk;
-                bookingData.serviceDuration = parseInt(item.dataset.duration) || 30;
-                bookingData.serviceName = item.dataset.name;
-                bookingData.servicePrice = item.dataset.price;
-                continueBtn.disabled = false;
-            } else {
-                bookingData.serviceId = null;
-                continueBtn.disabled = true;
+                const duration = parseInt(item.dataset.duration) || 30;
+                const price = parseFloat(item.dataset.price) || 0;
+
+                bookingData.services.push({
+                    id: item.dataset.serviceId,
+                    pk: item.dataset.servicePk,
+                    name: item.dataset.name,
+                    duration: duration,
+                    price: price
+                });
+
+                totalDuration += duration;
+                totalPrice += price;
             }
         });
+
+        bookingData.totalDuration = totalDuration;
+        bookingData.totalPrice = totalPrice;
+        continueBtn.disabled = bookingData.services.length === 0;
+    }
+
+    serviceItems.forEach(item => {
+        const input = item.querySelector(".service-select");
+        input.addEventListener("change", updateSelectedServices);
     });
 
 
@@ -149,7 +164,7 @@
             wrapper.classList.remove("is-disabled");
             grid.innerHTML = '<div style="text-align:center; padding:20px; color:white;">در حال بارگذاری...</div>';
 
-            const availableStarts = await fetchAvailableSlots(bookingData.date, bookingData.serviceDuration);
+            const availableStarts = await fetchAvailableSlots(bookingData.date, bookingData.totalDuration);
 
             grid.innerHTML = "";
             const rows = [];
@@ -200,7 +215,8 @@
 
     // --- Step 3: Populate & Booking Execution ---
     function renderSummary() {
-        summaryServicesList.textContent = `${bookingData.serviceName} (${bookingData.serviceDuration} دقیقه)`;
+        const serviceNames = bookingData.services.map(s => s.name).join(" + ");
+        summaryServicesList.textContent = `${serviceNames} (${bookingData.totalDuration} دقیقه)`;
         summaryDate.textContent = bookingData.date;
         summaryTime.textContent = bookingData.time;
         summaryNote.textContent = noteInput.value || "—";
@@ -213,7 +229,7 @@
         continueBtn.textContent = "در حال ثبت...";
 
         const payload = {
-            service_id: bookingData.servicePk,
+            service_ids: bookingData.services.map(s => s.pk), // Send array of selected service PKs
             date: bookingData.date,
             start_time: bookingData.time,
             bypass_code: bypassInput.value.trim()
@@ -299,7 +315,7 @@
 
         // Navigation state lock verification
         if (currentStep === 1) {
-            continueBtn.disabled = !bookingData.serviceId;
+            continueBtn.disabled = bookingData.services.length === 0;
         } else if (currentStep === 2) {
             continueBtn.disabled = !bookingData.time;
         } else if (currentStep === 3) {

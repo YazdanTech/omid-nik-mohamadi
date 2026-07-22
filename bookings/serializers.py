@@ -6,15 +6,18 @@ from .models import Booking, BypassCode
 
 
 class CreateBookingSerializer(serializers.Serializer):
-    service_id = serializers.IntegerField()
+    service_ids = serializers.ListField(
+        child=serializers.IntegerField(), allow_empty=False
+    )
     date = serializers.DateField()
     start_time = serializers.TimeField()
     bypass_code = serializers.CharField(required=False, allow_blank=True)
 
-    def validate_service_id(self, value):
-        if not Service.objects.filter(id=value, is_active=True).exists():
-            raise serializers.ValidationError("خدمت یافت نشد")
-        return value
+def validate_service_ids(self, value):
+    existing_count = Service.objects.filter(id__in=value, is_active=True).count()
+    if existing_count != len(set(value)):
+        raise serializers.ValidationError("یک یا چند خدمت یافت نشد یا غیرفعال است")
+    return value
 
     def validate(self, attrs):
         bypass_code = attrs.get("bypass_code")
@@ -29,4 +32,4 @@ class CreateBookingSerializer(serializers.Serializer):
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fields = ["id", "service", "slot", "deposit_paid", "status", "created_at"]
+        fields = ["id", "services", "slot", "deposit_paid", "status", "created_at"]

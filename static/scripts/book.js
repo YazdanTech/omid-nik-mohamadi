@@ -86,6 +86,10 @@ function preselectService(serviceId) {
   if (!target) return;
   const input = target.querySelector('.service-select');
   if (!input) return;
+
+  // Clear all selections first when preselecting via button
+  document.querySelectorAll('.service-select').forEach(i => i.checked = false);
+
   input.checked = true;
   input.dispatchEvent(new Event('change', { bubbles: true }));
 }
@@ -95,6 +99,22 @@ function bindExclusivity() {
   const groomingList = document.getElementById('groomingServiceList');
   if (!normalList || !groomingList) return;
 
+// WITH THIS:
+[normalList, groomingList].forEach(list => {
+  list.addEventListener('click', function (e) {
+    // Ignore clicks directly on or inside label/input to prevent double-toggling
+    if (e.target.closest('label') || e.target.classList.contains('service-select')) return;
+
+    const item = e.target.closest('.service-item');
+    if (!item) return;
+    const checkbox = item.querySelector('.service-select');
+    if (checkbox) {
+      checkbox.checked = !checkbox.checked;
+      checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
+});
+  // Normal services: allows multiple choices, clears grooming list
   normalList.addEventListener('change', function (e) {
     if (!e.target.classList.contains('service-select')) return;
     if (e.target.checked) {
@@ -103,14 +123,21 @@ function bindExclusivity() {
     updateContinueState();
   });
 
+  // Grooming services: allows ONLY ONE choice, clears normal list
   groomingList.addEventListener('change', function (e) {
     if (!e.target.classList.contains('service-select')) return;
     if (e.target.checked) {
       clearCategory(normalList);
+      groomingList.querySelectorAll('.service-select').forEach(function (input) {
+        if (input !== e.target) {
+          input.checked = false;
+        }
+      });
     }
     updateContinueState();
   });
 }
+
 
 function clearCategory(listEl) {
   listEl.querySelectorAll('.service-select').forEach(function (input) {
@@ -239,10 +266,17 @@ function populateSummary() {
   const noteEl = document.getElementById('summaryNote');
 
   servicesList.innerHTML = '';
+  
+  let totalPrice = 0; // Tracks sum of selected services
+
   document.querySelectorAll('.service-select:checked').forEach(function (input) {
     const item = input.closest('.service-item');
     const name = item.querySelector('.service-name').textContent;
-    const price = item.querySelector('.service-price').textContent;
+    const priceText = item.querySelector('.service-price').textContent;
+
+    // Parse numeric value from price text for calculation if needed
+    const rawPrice = parseInt(priceText.replace(/[^\d]/g, ''), 10) || 0;
+    totalPrice += rawPrice;
 
     const row = document.createElement('div');
     row.className = 'summary-service-item';
@@ -253,12 +287,18 @@ function populateSummary() {
 
     const priceEl = document.createElement('span');
     priceEl.className = 'price';
-    priceEl.textContent = price;
+    priceEl.textContent = priceText;
 
     row.appendChild(nameEl);
     row.appendChild(priceEl);
     servicesList.appendChild(row);
   });
+
+  // Optional: Update total price element if you have one in HTML (e.g., id="summaryTotalPrice")
+  const totalPriceEl = document.getElementById('summaryTotalPrice');
+  if (totalPriceEl) {
+    totalPriceEl.textContent = `${totalPrice.toLocaleString()} تومان`;
+  }
 
   const dateInput = document.getElementById('bookingDate');
   const timeInput = document.getElementById('bookingTime');
@@ -268,7 +308,6 @@ function populateSummary() {
   timeEl.textContent = timeInput.value || '—';
   noteEl.textContent = noteInput.value.trim() || '—';
 }
-
 function submitBooking() {
   const overlay = document.getElementById('bookingModalOverlay');
   overlay.dispatchEvent(new CustomEvent('booking:pay', { bubbles: true }));

@@ -33,9 +33,13 @@ class BypassCodeAdmin(admin.ModelAdmin):
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ["user", "service", "slot", "status", "deposit_paid", "created_at"]
-    list_filter = ["status", "deposit_paid", "service"]
+    list_display = ["user", "get_services", "slot", "status", "deposit_paid", "created_at"]
+    list_filter = ["status", "deposit_paid", "services"]
     search_fields = ["user__phone_number", "user__full_name"]
-    autocomplete_fields = ["user", "service"]
+    autocomplete_fields = ["user", "services"]
     raw_id_fields = ["slot"]
     date_hierarchy = "created_at"
+
+    @admin.display(description=_("خدمات"))
+    def get_services(self, obj):
+        return ", ".join([str(s) for s in obj.services.all()])

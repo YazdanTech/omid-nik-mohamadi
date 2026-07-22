@@ -185,84 +185,96 @@
             <div id="authFormsPlaceholder">
 
                 <div id="signUpFormContainer">
-      <div class="auth__panel-inner">
+                    <div class="auth__panel-inner">
 
-        <header class="auth__header" data-reveal>
-          <span class="auth__eyebrow">مشتری جدید</span>
-          <h1 class="auth__title">حساب خود را بسازید</h1>
-          <p class="auth__subtitle">سه مرحله کوتاه و وقت شما رزرو می‌شود.</p>
-        </header>
+                        <header class="auth__header" data-reveal>
+                            <span class="auth__eyebrow">مشتری جدید</span>
+                            <h1 class="auth__title">حساب خود را بسازید</h1>
+                            <p class="auth__subtitle">سه مرحله کوتاه و وقت شما رزرو می‌شود.</p>
+                        </header>
 
-        <ol class="auth__steps" aria-label="پیشرفت ثبت نام" data-reveal>
-          <li class="auth__step auth__step--active" data-step="1">
-            <span class="auth__step-index">01</span>
-            <span class="auth__step-label">مشخصات</span>
-          </li>
-          <span class="auth__step-line" aria-hidden="true"></span>
-          <li class="auth__step" data-step="2">
-            <span class="auth__step-index">02</span>
-            <span class="auth__step-label">تماس</span>
-          </li>
-          <span class="auth__step-line" aria-hidden="true"></span>
-          <li class="auth__step" data-step="3">
-            <span class="auth__step-index">03</span>
-            <span class="auth__step-label">تایید</span>
-          </li>
-        </ol>
+                        <ol class="auth__steps" aria-label="پیشرفت ثبت نام" data-reveal>
+                            <li class="auth__step auth__step--active" data-step="1">
+                                <span class="auth__step-index">01</span>
+                                <span class="auth__step-label">مشخصات</span>
+                            </li>
+                            <span class="auth__step-line" aria-hidden="true"></span>
+                            <li class="auth__step" data-step="2">
+                                <span class="auth__step-index">02</span>
+                                <span class="auth__step-label">تماس</span>
+                            </li>
+                            <span class="auth__step-line" aria-hidden="true"></span>
+                            <li class="auth__step" data-step="3">
+                                <span class="auth__step-index">03</span>
+                                <span class="auth__step-label">تایید</span>
+                            </li>
+                        </ol>
 
-        <form class="auth__wizard" id="signUpForm" novalidate data-reveal>
+                        <form class="auth__wizard" id="signUpForm" novalidate data-reveal>
 
-          <div class="auth__stage auth__stage--current" data-stage="1">
-            <div class="auth__stage-grid">
-              <div class="auth__field">
-                <label class="auth__label" for="fullName">نام کامل</label>
-                <input class="auth__input" type="text" id="fullName" name="full_name" autocomplete="name" placeholder="نام کامل" required>
-              </div>
-              <div class="auth__field">
-                <label class="auth__label" for="birthDate">تاریخ تولد</label>
-                <input class="auth__input" type="date" id="birthDate" name="birth_date" required>
-              </div>
-            </div>
-            <div class="auth__nav-buttons">
-              <span></span>
-              <button class="auth__button auth__button--primary" type="button" data-action="next">ادامه</button>
-            </div>
-          </div>
+                            <div class="auth__stage auth__stage--current" data-stage="1">
+                                <div class="auth__stage-grid">
+                                    <div class="auth__field">
+                                        <label class="auth__label" for="fullName">نام کامل</label>
+                                        <input class="auth__input" type="text" id="fullName" name="full_name"
+                                            autocomplete="name" placeholder="نام کامل" required>
+                                    </div>
+                                    <div class="auth__field">
+                                        <label class="auth__label" for="birthDate">تاریخ تولد</label>
+                                        <input class="auth__input" type="date" id="birthDate" name="birth_date"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="auth__nav-buttons">
+                                    <span></span>
+                                    <button class="auth__button auth__button--primary" type="button"
+                                        data-action="next">ادامه</button>
+                                </div>
+                            </div>
 
-          <div class="auth__stage" data-stage="2" hidden>
-            <div class="auth__field">
-              <label class="auth__label" for="phoneNumber">شماره تلفن</label>
-              <input class="auth__input" type="tel" id="phoneNumber" name="phone_number" autocomplete="tel" placeholder="+98 912 000 0000" required>
-            </div>
-            <div class="auth__field">
-              <label class="auth__label" for="emailOptional">ایمیل <span class="auth__optional">(اختیاری)</span></label>
-              <input class="auth__input" type="email" id="emailOptional" name="email" autocomplete="email" placeholder="you@نمونه.com">
-            </div>
-            <div class="auth__nav-buttons">
-              <button class="auth__button auth__button--ghost" type="button" data-action="back">بازگشت</button>
-              <button class="auth__button auth__button--primary" type="button" data-action="next">ارسال کد</button>
-            </div>
-          </div>
+                            <div class="auth__stage" data-stage="2" hidden>
+                                <div class="auth__field">
+                                    <label class="auth__label" for="phoneNumber">شماره تلفن</label>
+                                    <input class="auth__input" type="tel" id="phoneNumber" name="phone_number"
+                                        autocomplete="tel" placeholder="+98 912 000 0000" required>
+                                </div>
+                                <div class="auth__field">
+                                    <label class="auth__label" for="emailOptional">ایمیل <span
+                                            class="auth__optional">(اختیاری)</span></label>
+                                    <input class="auth__input" type="email" id="emailOptional" name="email"
+                                        autocomplete="email" placeholder="you@نمونه.com">
+                                </div>
+                                <div class="auth__nav-buttons">
+                                    <button class="auth__button auth__button--ghost" type="button"
+                                        data-action="back">بازگشت</button>
+                                    <button class="auth__button auth__button--primary" type="button"
+                                        data-action="next">ارسال کد</button>
+                                </div>
+                            </div>
 
-          <div class="auth__stage" data-stage="3" hidden>
-            <p class="auth__subtitle">کد شش رقمی ارسال شده به تلفن خود را وارد کنید.</p>
-            <div class="auth__otp" data-otp>
-              <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="6" aria-label="OTP Digits" required>
-            </div>
-            <button class="auth__resend" type="button" data-action="resend">ارسال مجدد کد</button>
-            <div class="auth__nav-buttons">
-              <button class="auth__button auth__button--ghost" type="button" data-action="back">بازگشت</button>
-              <button class="auth__button auth__button--primary" type="submit">تایید و ایجاد حساب کاربری</button>
-            </div>
-          </div>
+                            <div class="auth__stage" data-stage="3" hidden>
+                                <p class="auth__subtitle">کد شش رقمی ارسال شده به تلفن خود را وارد کنید.</p>
+                                <div class="auth__otp" data-otp>
+                                    <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="6"
+                                        aria-label="OTP Digits" required>
+                                </div>
+                                <button class="auth__resend" type="button" data-action="resend">ارسال مجدد کد</button>
+                                <div class="auth__nav-buttons">
+                                    <button class="auth__button auth__button--ghost" type="button"
+                                        data-action="back">بازگشت</button>
+                                    <button class="auth__button auth__button--primary" type="submit">تایید و ایجاد حساب
+                                        کاربری</button>
+                                </div>
+                            </div>
 
-          <p class="auth__error" id="signUpError" role="alert" aria-live="polite"></p>
+                            <p class="auth__error" id="signUpError" role="alert" aria-live="polite"></p>
 
-        </form>
+                        </form>
 
-        <p class="auth__footer-note" data-reveal>آیا قبلاً حساب دارید؟ <span class="auth__link" id="signInAccountBtn">وارد شوید</span></p>
+                        <p class="auth__footer-note" data-reveal>آیا قبلاً حساب دارید؟ <span class="auth__link"
+                                id="signInAccountBtn">وارد شوید</span></p>
 
-      </div>
+                    </div>
                 </div>
 
                 <div id="signInFormContainer" style="display: none;">
@@ -314,7 +326,8 @@
 
                         </form>
 
-                        <p class="auth__footer-note" data-reveal>تازه‌وارد هستید؟ <span class="auth__link" id="createAccountBtn">ساخت حساب کاربری</span></p>
+                        <p class="auth__footer-note" data-reveal>تازه‌وارد هستید؟ <span class="auth__link"
+                                id="createAccountBtn">ساخت حساب کاربری</span></p>
 
                     </div>
                 </div>
@@ -376,12 +389,12 @@
                             <h3 class="service-category-title">خدمات داماد</h3>
                             <ul class="service-list" id="groomingServiceList">
                                 {% for service in global_grooming_services %}
-                                <li class="service-item" data-service-id="svc-{{ service.id }}"
+                                <li class="service-item" data-service-id="svc-grooming-{{ service.id }}"
                                     data-duration="{{ service.duration_minutes }}" data-price="{{ service.price }}"
-                                    data-name="{{ service.title }}" data-category="normal">
-                                    <input type="radio" name="groomingSelect" class="service-select"
-                                        id="sel-svc-{{ service.id }}" />
-                                    <label for="sel-svc-{{ service.id }}" class="service-info">
+                                    data-name="{{ service.title }}" data-category="grooming">
+                                    <input type="checkbox" class="service-select"
+                                        id="sel-svc-grooming-{{ service.id }}" />
+                                    <label for="sel-svc-grooming-{{ service.id }}" class="service-info">
                                         <span class="service-name">{{ service.title }}</span>
                                         <span class="service-price">{{ service.price }} T</span>
                                     </label>
@@ -437,7 +450,7 @@
                                 <span class="summary-label">ساعت</span>
                                 <span class="summary-value" id="summaryTime">—</span>
                             </div>
-                            <div class="summary-row">
+                            <div class="summary-row" style="border-bottom: none;">
                                 <span class="summary-label">توضیحات</span>
                                 <span class="summary-value" id="summaryNote">—</span>
                             </div>

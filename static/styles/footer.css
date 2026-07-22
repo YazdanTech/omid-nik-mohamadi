@@ -83,7 +83,7 @@
     border-radius: var(--radius-sm);
     color: var(--white);
     backdrop-filter: blur(15px);
-    box-shadow: 0px 0px 20px black;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
     transition: background var(--transition-default), color var(--transition-default);
 }
 

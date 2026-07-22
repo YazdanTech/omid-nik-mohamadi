@@ -96,8 +96,9 @@ class CreateBookingView(APIView):
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
-        service = get_object_or_404(Service, id=data["service_id"], is_active=True)
-        required_slots = max(1, -(-service.duration_minutes // 30))
+        services = list(Service.objects.filter(id__in=data["service_ids"], is_active=True))
+        total_duration = sum(s.duration_minutes for s in services)
+        required_slots = max(1, -(-total_duration // 30))
 
         # Calculate the actual times that need to be locked
         target_date = data["date"]
@@ -136,18 +137,21 @@ class CreateBookingView(APIView):
 
             booking = Booking.objects.create(
                 user=request.user,
-                service=service,
                 slot=primary_slot,
                 deposit_paid=bool(bypass_code_obj),
                 bypass_code_used=bypass_code_obj,
                 status=Booking.Status.CONFIRMED if bypass_code_obj else Booking.Status.PENDING,
             )
-
+            booking.services.set(services)
+            
             payment = None
+            
             if not bypass_code_obj:
-                service_price = getattr(service, "price", 0) or getattr(service, "deposit_amount", 0)
-                # Ensure create_payment returns the created Payment instance
-                payment = booking.create_payment(amount=service_price)
+                total_price = sum(
+                    getattr(s, "price", 0) or getattr(s, "deposit_amount", 0)
+                    for s in services
+                )
+                payment = booking.create_payment(amount=total_price)
 
             return Response({
                 "id": booking.id,

@@ -402,9 +402,9 @@
   outline: none;
   border-color: var(--accent-transparent);
   transform: translateY(-5px);
-  box-shadow: 0px 10px 20px black;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
   transition: var(--transition-default) all;
-  background: black;
+  background: rgba(0, 0, 0, 0.13);
 }
 
 .booking-summary-wrapper {
@@ -422,6 +422,10 @@
   border: 1px solid var(--border-color);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.288);
   animation: SummaryBreath 3s ease infinite alternate;
+}
+
+.summary-details:last-child {
+  border-bottom: none;
 }
 
 
@@ -578,7 +582,7 @@
 
 .btn-continue:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 14px 36px -8px var(--accent-less-transparent);
+  box-shadow: 0px 14px 36px var(--accent-transparent);
 }
 
 .btn-continue:disabled {
@@ -626,7 +630,7 @@
     display: flex;
     flex-direction: column;
     border: 2px solid var(--border-color);
-    box-shadow: 0px 0px 20px black;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
     transition: 1s ease all;
   }
 
