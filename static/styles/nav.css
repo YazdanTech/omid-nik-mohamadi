@@ -12,20 +12,18 @@
 }
 
 .site-header.is-scrolled {
+    border: 1px solid var(--accent-transparent);
     background: var(--nav-bg);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     padding: .8rem 0rem;
     margin: .9rem .9rem;
-    border: 1px solid var(--border-color);
-    backdrop-filter: blur(6px);
-    border-image: linear-gradient(to right, var(--orange-transparent) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange-transparent) 100%) 1;
     transition: 1s all ease;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.678);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.315);
 }
 
 .site-header.is-scrolled:hover {
-    border-image: linear-gradient(to right, var(--dark-blue) 0%, var(--orange-less-transparent) 40%, var(--orange-less-transparent) 60%, var(--dark-blue) 100%) 1;
+    border: 1px solid var(--accent);
     transition: 0.4s all ease;
 }
 
@@ -263,6 +261,8 @@
     text-align: center;
 }
 
+
+
 /* Auth Links Styling inside Side Nav */
 .side-nav-auth {
     display: flex;
@@ -307,12 +307,31 @@
         display: flex !important;
     }
 
+    .site-header .desktop-nav-links a {
+        color:var(--white);
+    }
+    .site-header.is-scrolled .desktop-nav-links a {
+        color:var(--text-main);
+    }
+
+
+    .logout-trigger {
+        color: var(--white);
+        transition: 1s all ease;
+        border-bottom:solid 2px var(--accent);
+    }
+
+    .site-header.is-scrolled .logout-trigger {
+        color:var(--text-main);
+    }
+
     .site-header {
         left: 50%;
         transform: translateX(-50%);
         width: 100%;
         max-width: 1200px;
     }
+
 
 
     .site-header.is-scrolled {
@@ -403,7 +422,7 @@
         padding: 0.55rem 1.4rem;
         border: 1px solid var(--accent);
         background: var(--accent-transparent);
-        color: var(--text-main);
+        color: var(--white);
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.08em;
@@ -423,3 +442,6 @@
         box-shadow: 0px 0px 15px var(--accent-transparent);
     }
 }
+
+
+

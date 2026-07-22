@@ -33,7 +33,7 @@ html {
     --text-muted: var(--gray);
     --accent: var(--orange);
     --accent-transparent: var(--orange-transparent);
-    --nav-bg: rgba(10, 10, 10, 0.699);
+    --nav-bg: rgba(10, 10, 10, 0.397);
     --border-color: rgba(255, 255, 255, 0.05);
 
     --font-display: 'Fraunces', Georgia, serif;
@@ -48,7 +48,7 @@ html {
     --text-main-reverse: var(--white);
     --accent: var(--dark-blue);
     --accent-transparent: var(--dark-blue-transparent);
-    --nav-bg: rgba(248, 249, 250, 0.699);
+    --nav-bg: rgba(248, 249, 250, 0.342);
     --border-color: rgba(0, 0, 0, 0.329);
 }
 
@@ -134,12 +134,10 @@ button {
 
 
 /* side social */
-
 .side-social {
     position: fixed;
     left: 1.75rem;
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 3.5rem;
     z-index: 500;
     display: flex;
     flex-direction: column;
@@ -148,25 +146,25 @@ button {
     background: var(--nav-bg);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border: 1px solid transparent;
-    border-image: linear-gradient(to bottom, var(--orange-transparent) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange-transparent) 100%) 1;
+    border: 1px solid var(--border-color);
     box-shadow: 0px 0px 15px var(--dark-blue);
-    transition: 1s border-image ease, 0.8s transform cubic-bezier(0.16, 1, 0.3, 1), 0.8s opacity ease;
+    transition: 1s ease all;
 }
 
 .side-social.is-idle {
-    transform: translateY(-50%) translateX(-80%); 
-    opacity: 0.3; 
+    transform: translateX(-80%);
+    opacity: 0.3;
+    transition: 3s ease all;
 }
 
 .side-social.is-idle:hover {
-    transform: translateY(-50%) translateX(0);
+    transform: translateX(0);
     opacity: 1;
 }
 
 .side-social:hover {
-    border-image: linear-gradient(to bottom, var(--orange) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange) 100%) 1;
-    transition: 0.4s all ease;
+    transition: 0.5s all ease;
+    border: 1px solid var(--accent-transparent);
 }
 
 .social-item {
@@ -189,8 +187,8 @@ button {
 
 .social-item:hover {
     border-color: var(--accent);
-    color: var(--accent);
     transform: scale(1.05);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.151);
 }
 
 .social-item:hover svg {
@@ -204,7 +202,7 @@ button {
         padding: 1rem 0.5rem;
         gap: 1rem;
     }
-    
+
     .social-item {
         width: 2.2rem;
         height: 2.2rem;
@@ -213,7 +211,7 @@ button {
 
 .hero-scroll-sequence {
     position: relative;
-    height: 400vh;
+    height: 500vh;
 }
 
 .hero-background-video {
@@ -304,7 +302,7 @@ button {
     margin-top: 0.3rem;
     min-height: 1.5rem;
     font-size: 1.2rem;
-    color: var(--text-muted);
+    color: var(--white);
 }
 
 .hero-text-meta-inner {
@@ -332,7 +330,7 @@ button {
     font-family: var(--font-mono);
     font-size: 0.7rem;
     letter-spacing: 0.2em;
-    color: var(--text-muted);
+    color: var(--orange);
     text-transform: uppercase;
     transition: opacity 0.6s ease;
     opacity: 1;
@@ -360,6 +358,7 @@ button {
 
 .portrait-panel {
     height: 100vh;
+    margin-bottom: 100vh;
     position: relative;
 }
 
@@ -412,28 +411,31 @@ button {
 
 .craft-card {
     position: relative;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
     aspect-ratio: 9 / 16;
     overflow: hidden;
     cursor: pointer;
-    transition: all var(--transition-default);
-    will-change: transform;
-    border: 1px solid transparent;
-    border-image: linear-gradient(to bottom right, var(--orange-transparent) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange-transparent) 100%) 1;
-    box-shadow: 0px 15px 10px var(--orange-transparent);
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.678);
+    transition: transform var(--transition-default), opacity var(--transition-default), border-color var(--transition-default), box-shadow var(--transition-default), background-color var(--transition-default);
+    will-change: transform, opacity;
+    border-radius: 10px;
+    border: 1px solid var(--accent-transparent);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.432);
 }
 
 .craft-card:hover {
+    border: 1px solid var(--accent);
     transform: translateY(-0.3rem);
-    border-image: linear-gradient(to bottom right, var(--orange) 0%, var(--dark-blue) 40%, var(--dark-blue) 60%, var(--orange) 100%) 1;
-    box-shadow: 0px 15px 15px black;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.575);
 }
 
 .craft-video {
     width: 100%;
-    filter: grayscale(1) brightness(40%);
+    filter: brightness(70%);
+    border-radius: 10px;
     height: 100%;
-    transition: all var(--transition-default);
+    transition: filter var(--transition-default);
     display: block;
 }
 
@@ -458,11 +460,15 @@ button {
 
 .craft-card:hover .craft-play {
     transform: translate(-50%, -50%) scale(1.08);
-    background: var(--orange-transparent);
+    background: var(--accent-transparent);
+}
+
+.craft-card:hover {
+    background-color: var(--dark-blue);
 }
 
 .craft-card:hover .craft-video {
-    filter: grayscale(0) brightness(100%);
+    filter: brightness(100%);
 }
 
 .craft-card-label {
@@ -487,9 +493,23 @@ button {
     height: 82vh;
     aspect-ratio: auto;
     z-index: 10001;
-    border: 1px solid var(--orange);
-    border-radius: 0;
+    border: 1px solid var(--border-color);
     box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.65);
+    animation: craftCardExpand 1s ease-out forwards;
+}
+
+@keyframes craftCardExpand {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.88);
+        filter: grayscale(1);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        filter: grayscale(0) brightness(100%);
+    }
 }
 
 .craft-card.is-expanded .craft-play,
@@ -548,6 +568,10 @@ button {
     background-color: var(--bg-main);
 }
 
+.signature-services .container {
+    max-width: 800px;
+}
+
 .services-list {
     border-top: 1px solid var(--border-color);
 }
@@ -595,6 +619,7 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .hero-text-first,
     .hero-text-second,
     .hero-text-meta-inner {
@@ -668,6 +693,7 @@ button {
     }
 
 }
+
 /* 
 .menu-toggle:focus-visible,
 .theme-toggle:focus-visible,

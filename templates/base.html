@@ -55,7 +55,7 @@
                     <span lang="fa" dir="rtl">رزرو نوبت</span>
                 </button>
                 {% if request.user.is_authenticated %}
-                <a href="#" class="logout-trigger" style="color: var(--accent)">
+                <a href="#" class="logout-trigger">
                     {{ request.user.full_name|default:"کاربر" }}</a>
 
                 {% else %}
@@ -145,7 +145,7 @@
 
     <footer class="site-footer" id="contact" dir="rtl">
         <video class="footer-video" autoplay loop muted playsinline>
-            <source src="./assets/videos/yeaa.mp4" type="video/mp4">
+            <source src="./static/assets/videos/yeaa.mp4" type="video/mp4">
         </video>
         <div class="footer-overlay"></div>
         <div class="container footer-inner">
