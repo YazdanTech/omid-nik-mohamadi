@@ -35,10 +35,6 @@ html {
     --accent-transparent: var(--orange-transparent);
     --nav-bg: rgba(10, 10, 10, 0.397);
     --border-color: rgba(255, 255, 255, 0.05);
-
-    --font-display: 'Fraunces', Georgia, serif;
-    --font-body: 'Manrope', -apple-system, sans-serif;
-    --font-mono: 'Space Mono', monospace;
 }
 
 [data-theme="light"] {
@@ -286,6 +282,7 @@ button {
 .hero-text-second {
     opacity: 0;
     transform: translateY(0.8rem);
+    font-family: var(--font-calligraphic);
 }
 
 .hero-text-second.is-visible {
@@ -764,4 +761,28 @@ button:focus-visible {
     padding: 10px 20px;
     border-radius: 6px;
     cursor: pointer;
+}
+
+:root {
+    --font-display: 'Scheherazade New', Outfit, system-ui, arial;
+    --font-body: Vazirmatn, Outfit, system-ui, -apple-system, arial;
+    --font-mono: 'Space Mono', Vazirmatn, monospace;
+    --font-calligraphic: 'Gulzar', 'Scheherazade New', serif;
+    --font-english: 'Outfit', -apple-system, BlinkMacSystemFont, arial;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6, .display-text {
+  font-family: var(--font-display);
+}
+
+code, pre, kbd, .mono-text {
+  font-family: var(--font-mono);
+}
+
+blockquote, .poetic-text {
+  font-family: var(--font-calligraphic);
 }

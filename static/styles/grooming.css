@@ -411,7 +411,6 @@
 .grooming-signoff__text {
     font-family: var(--font-display);
     font-weight: 300;
-    font-style: italic;
     font-size: clamp(1.6rem, 5vw, 2.8rem);
     line-height: 1.35;
     max-inline-size: 42rem;
