@@ -133,7 +133,7 @@ button {
 .side-social {
     position: fixed;
     left: 1.75rem;
-    bottom: 3.5rem;
+    bottom: 1rem;
     z-index: 500;
     display: flex;
     flex-direction: column;
@@ -235,6 +235,7 @@ button {
 .hero-text-container {
     position: fixed;
     top: 50%;
+    width: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 0;
@@ -269,6 +270,7 @@ button {
 .hero-text-first,
 .hero-text-second {
     display: block;
+    margin-bottom: 2rem;
     transition: opacity 0.6s ease, transform 0.6s ease;
     opacity: 1;
     transform: translateY(0);
@@ -768,7 +770,7 @@ button:focus-visible {
     --font-body: Vazirmatn, Outfit, system-ui, -apple-system, arial;
     --font-mono: 'Space Mono', Vazirmatn, monospace;
     --font-calligraphic: 'Gulzar', 'Scheherazade New', serif;
-    --font-english: 'Outfit', -apple-system, BlinkMacSystemFont, arial;
+    --font-english: 'Source Serif 4', 'Outfit', -apple-system, BlinkMacSystemFont, arial;
 }
 
 body {
