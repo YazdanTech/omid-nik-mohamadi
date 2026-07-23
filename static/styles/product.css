@@ -173,7 +173,7 @@ orange.products-page {
 }
 
 .btn-buy:hover {
-  background: var(--orange-transparent);
+  background: var(--accent);
 }
 
 .checkout-overlay {

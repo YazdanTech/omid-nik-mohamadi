@@ -40,7 +40,7 @@
 
                         <!-- Showing badge dynamically if stock is limited -->
                         {% if product.stock <= 5 and product.stock > 0 %}
-                            <span class="product-badge" style="background: var(--dark-blue); color: var(--orange);">تنها
+                            <span class="product-badge" style="background: var(--dark-blue); color: var(--white);">تنها
                                 {{ product.stock }} عدد باقی مانده</span>
                             {% elif product.stock == 0 %}
                             <span class="product-badge" style="background: #333;">ناموجود</span>
