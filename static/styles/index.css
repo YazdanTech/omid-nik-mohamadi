@@ -1,0 +1,10 @@
+[data-theme="light"] .brand,
+[data-theme="light"] .desktop-nav-links a {
+    color: var(--white);
+    transition: all ease 1s;
+}
+
+[data-theme="light"] .site-header.is-scrolled .brand,
+[data-theme="light"] .site-header.is-scrolled .desktop-nav-links a{
+    color: var(--black);
+}

@@ -10,9 +10,11 @@ orange.products-page {
   padding: 0 1.25rem;
 }
 
-.section-heading {
+.product-section-heading {
   text-align: center;
+  margin-top: 9rem;
   margin-bottom: 3rem;
+  padding-top: 3rem;
 }
 
 .heading-eyebrow {

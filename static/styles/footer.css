@@ -180,6 +180,7 @@
 
 .footer-bottom span {
     padding: 1rem;
+    font-family: var(--font-clear);
 }
 
 .footer-bottom-mono {

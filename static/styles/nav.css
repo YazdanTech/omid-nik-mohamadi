@@ -168,13 +168,13 @@
 }
 
 .side-nav-brand-name {
-    font-family: var(--font-english);
+    font-family: var(--font-calligraphic);
     color: #fff;
     font-size: 1.1rem;
 }
 
 .side-nav-brand-sub {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     color: var(--orange);
     font-size: 0.75rem;
 }
@@ -308,7 +308,7 @@
     }
 
     .site-header .desktop-nav-links a {
-        color:var(--white);
+        color:var(--text-main);
     }
     .site-header.is-scrolled .desktop-nav-links a {
         color:var(--text-main);

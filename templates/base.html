@@ -14,23 +14,26 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Manrope:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
+
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Gulzar&family=Scheherazade+New:wght@400;500;600;700&family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Changa:wght@200..800&family=Edu+TAS+Beginner:wght@400..700&family=Fredericka+the+Great&family=Gulzar&family=Handjet:wght,ELSH@100..900,2&family=Limelight&family=Outfit:wght@100..900&family=Quintessential&family=Scheherazade+New:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Vazirmatn:wght@100..900&display=swap"
+        rel="stylesheet">
+
+        
+
     <link rel="stylesheet" href="{% static 'styles/footer.css' %}">
     <link rel="stylesheet" href="{% static 'styles/nav.css' %}">
     <link rel="stylesheet" href="{% static 'styles/auth-overlay.css' %}">
     <link rel="stylesheet" href="{% static 'styles/book.css' %}">
     <link rel="stylesheet" href="{% static 'styles/main.css' %}">
-
-    {% block style %}{% endblock %}
+    
+    {% block style %}
+    {% endblock %}
 </head>
 
 <body>
@@ -65,7 +68,7 @@
                     {{ request.user.full_name|default:"کاربر" }}</a>
 
                 {% else %}
-                <a href="{% url 'users:login-page' %}" style="color: var(--accent)">ورود</a>
+                <a href="{% url 'users:login-page' %}" style="color: var(--orange)">ورود</a>
                 {% endif%}
 
                 <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">
@@ -127,7 +130,8 @@
                 {% if request.user.is_authenticated %}
                 <a href="" class="side-nav-book logout-trigger" data-nav-link>
                     <span class="side-nav-book-en">Log out</span>
-                    <span lang="fa" dir="rtl">{{ request.user.full_name|default:request.user.username|truncatechars:8 }}</span>
+                    <span lang="fa" dir="rtl">{{ request.user.full_name|default:request.user.username|truncatechars:8
+                        }}</span>
                 </a>
                 {% else %}
                 <a href="{% url 'users:register-page' %}" class="side-nav-book" data-nav-link>

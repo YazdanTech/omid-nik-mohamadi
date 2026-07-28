@@ -93,6 +93,12 @@ button {
     color: var(--black);
 }
 
+[data-theme="light"] ::selection {
+    background: var(--accent);
+    color: var(--white);
+}
+
+
 .container {
     max-width: var(--container-width);
     margin: 0 auto;
@@ -226,7 +232,7 @@ button {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.303);
     backdrop-filter: grayscale(1) brightness(0.5);
     z-index: -1;
     pointer-events: none;
@@ -257,7 +263,7 @@ button {
 }
 
 .hero-text {
-    font-family: var(--font-english);
+    font-family: var(--font-calligraphic);
     font-weight: 300;
     font-size: 3rem;
     line-height: 1.15;
@@ -374,17 +380,12 @@ button {
     height: 100%;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 0 80px var(--black);
+    box-shadow: 0 0 80px var(--black), 0 0 40px var(--black), 0 0 10px var(--black);
+    border-top: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
 }
 
-.portrait-frame::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, var(--black) 0%, transparent 22%, transparent 78%, var(--black) 100%);
-    z-index: 2;
-    pointer-events: none;
-}
+
 
 .portrait-frame img {
     width: 100%;
@@ -766,11 +767,12 @@ button:focus-visible {
 }
 
 :root {
-    --font-display: 'Scheherazade New', Outfit, system-ui, arial;
-    --font-body: Vazirmatn, Outfit, system-ui, -apple-system, arial;
+    --font-display: 'Changa', Outfit, system-ui, arial;
+    --font-body: Changa, Outfit, system-ui, -apple-system, arial;
     --font-mono: 'Space Mono', Vazirmatn, monospace;
-    --font-calligraphic: 'Gulzar', 'Scheherazade New', serif;
-    --font-english: 'Source Serif 4', 'Outfit', -apple-system, BlinkMacSystemFont, arial;
+    --font-calligraphic: 'Quintessential', 'Changa', serif;
+    --font-english: 'Limelight', 'Outfit', -apple-system, BlinkMacSystemFont, arial;
+    --font-clear: Outfit, arial, monospace;
 }
 
 body {
