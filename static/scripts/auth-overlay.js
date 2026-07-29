@@ -127,7 +127,7 @@ function getCSRFToken() {
                     if (errorEl) errorEl.textContent = data.non_field_errors || Object.values(data)[0];
                 }
             } catch (err) {
-                if (errorEl) errorEl.textContent = 'Network error.';
+                if (errorEl) errorEl.textContent = 'خطا! مشکل در اتصال';
             } finally {
                 if (submitButton) submitButton.disabled = false;
             }
@@ -182,7 +182,7 @@ function getCSRFToken() {
                     if (errorEl) errorEl.textContent = data.non_field_errors || Object.values(data)[0];
                 }
             } catch (err) {
-                if (errorEl) errorEl.textContent = 'Network error.';
+                if (errorEl) errorEl.textContent = 'خطا! مشکل در اتصال';
             } finally {
                 if (submitButton) submitButton.disabled = false;
             }
@@ -279,7 +279,7 @@ function getCSRFToken() {
                     if (errorEl) errorEl.textContent = data.non_field_errors || Object.values(data)[0];
                 }
             } catch (err) {
-                if (errorEl) errorEl.textContent = 'Network error.';
+                if (errorEl) errorEl.textContent = 'خطا! مشکل در اتصال';
             } finally {
                 if (button) button.disabled = false;
             }
@@ -320,7 +320,7 @@ function getCSRFToken() {
                             if (errorEl) errorEl.textContent = Object.values(data)[0] || 'مشکل در ساخت اکانت';
                         }
                     }).catch(() => {
-                        if (errorEl) errorEl.textContent = 'Network error.';
+                        if (errorEl) errorEl.textContent = 'خطا! مشکل در اتصال';
                     }).finally(() => {
                         action.disabled = false;
                     });

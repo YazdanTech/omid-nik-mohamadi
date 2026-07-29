@@ -89,7 +89,7 @@ var signInForm = document.getElementById('signInForm');
                     if (errorEl) errorEl.textContent = data.non_field_errors || Object.values(data)[0];
                 }
             } catch (err) {
-                if (errorEl) errorEl.textContent = 'Network error.';
+                if (errorEl) errorEl.textContent = 'خطا! مشکل در اتصال';
             } finally {
                 if (button) button.disabled = false;
             }
@@ -125,7 +125,7 @@ var signInForm = document.getElementById('signInForm');
                     if (errorEl) errorEl.textContent = data.non_field_errors || Object.values(data)[0];
                 }
             } catch (err) {
-                if (errorEl) errorEl.textContent = 'Network error.';
+                if (errorEl) errorEl.textContent = 'خطا! مشکل در اتصال';
             } finally {
                 if (button) button.disabled = false;
             }

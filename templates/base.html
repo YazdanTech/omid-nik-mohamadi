@@ -24,7 +24,7 @@
         href="https://fonts.googleapis.com/css2?family=Changa:wght@200..800&family=Edu+TAS+Beginner:wght@400..700&family=Fredericka+the+Great&family=Gulzar&family=Handjet:wght,ELSH@100..900,2&family=Limelight&family=Outfit:wght@100..900&family=Quintessential&family=Scheherazade+New:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Vazirmatn:wght@100..900&display=swap"
         rel="stylesheet">
 
-        
+
 
     <link rel="stylesheet" href="{% static 'styles/footer.css' %}">
     <link rel="stylesheet" href="{% static 'styles/nav.css' %}">
@@ -32,6 +32,26 @@
     <link rel="stylesheet" href="{% static 'styles/book.css' %}">
     <link rel="stylesheet" href="{% static 'styles/main.css' %}">
     
+    <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+    <script src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+    
+    <link rel="stylesheet" href="{% static 'styles/jdp-container.css' %}">
+
+    <script>
+        const pickerOptions = {
+            forceFarsiDigits: true,
+            markToday: true,
+            gotoToday: true
+        };
+
+        if (document.getElementById('birthDate')) {
+            kamaDatepicker('birthDate', pickerOptions);
+        }
+        if (document.getElementById('bookingDate')) {
+            kamaDatepicker('bookingDate', pickerOptions);
+        }
+    </script>
+
     {% block style %}
     {% endblock %}
 </head>
@@ -231,7 +251,7 @@
                                     </div>
                                     <div class="auth__field">
                                         <label class="auth__label" for="birthDate">تاریخ تولد</label>
-                                        <input class="auth__input" type="date" id="birthDate" name="birth_date"
+                                        <input class="auth__input" type="text" data-jdp id="birthDate" name="birth_date"
                                             required>
                                     </div>
                                 </div>
@@ -317,7 +337,7 @@
                             </div>
 
                             <div class="auth__stage" data-stage="2">
-                                <div class="auth__field">
+                                <div class="auth__field" display="block">
                                     <label class="auth__label">کد تایید</label>
                                     <div class="auth__otp" data-otp>
                                         <input class="auth__otp-input" type="text" inputmode="numeric" maxlength="6"
@@ -418,9 +438,11 @@
 
                 <section class="modal-step" data-step="2">
                     <div class="booking-fields">
+                        <!-- 3. Booking Date Input -->
                         <div class="field-row">
                             <label for="bookingDate">تاریخ</label>
-                            <input type="date" id="bookingDate" placeholder="0/0/2000" />
+                            <input type="text" id="bookingDate" name="booking_date" data-jdp placeholder="1405/01/01"
+                                autocomplete="off" />
                         </div>
                         <div class="field-row field-row-full">
                             <label for="bookingNote">توضیحات تکمیلی</label>
@@ -501,6 +523,14 @@
 
     <script>
         window.isUserAuthenticated = {{ request.user.is_authenticated|yesno:"true,false" }};
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            jalaliDatepicker.startWatch({
+                hideAfterChange: true
+            });
+        });
     </script>
 
 </body>

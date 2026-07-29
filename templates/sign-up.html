@@ -72,7 +72,7 @@ Create Account — Omid Nik Mohammadi
               </div>
               <div class="auth__field">
                 <label class="auth__label" for="birthDate">تاریخ تولد</label>
-                <input class="auth__input" type="date" id="birthDate" name="birth_date" required>
+                <input class="auth__input" type="text" data-jdp id="birthDate" name="birth_date" required>
               </div>
             </div>
             <div class="auth__nav-buttons">
@@ -124,4 +124,5 @@ Create Account — Omid Nik Mohammadi
 
 {% block script %}
     <script src="{% static 'scripts/sign-up.js' %}"></script>
+
 {% endblock %}

@@ -1,13 +1,17 @@
 from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 
+from django_jalali.db import models as jmodels
+
 from services.models import Service
 from users.models import CustomUser
 
 
 class BookingSlot(models.Model):
-    date = models.DateField(_("تاریخ"))
-    start_time = models.TimeField(_("ساعت شروع"))
+    objects = jmodels.jManager()  # Required for django-jalali queries
+
+    date = jmodels.jDateField(_("تاریخ"))
+    start_time = models.TimeField(_("ساعت شروع"))  # Standard TimeField
     is_booked = models.BooleanField(_("رزرو شده"), default=False)
 
     class Meta:

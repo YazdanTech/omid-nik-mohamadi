@@ -558,7 +558,7 @@ button {
 
 .video-expansion-overlay.active {
     opacity: 1;
-    z-index: 9999;
+    z-index: 999;
     pointer-events: all;
 }
 

@@ -1,0 +1,76 @@
+/* Main Pop-up Container */
+jdp-container {
+z-index: 99999;
+}
+
+/* Header Sections (Years & Months) */
+.jdp-years,
+.jdp-months {
+}
+
+.jdp-year select,
+.jdp-month select {
+}
+
+/* Plus & Minus Icons */
+.jdp-icon-plus,
+.jdp-icon-minus {
+}
+
+.jdp-icon-plus:hover,
+.jdp-icon-minus:hover {
+}
+
+.jdp-icon-plus svg,
+.jdp-icon-minus svg {
+}
+
+/* Weekday Names Header */
+.jdp-days-header {
+}
+
+.jdp-day-name.holiday-day {
+}
+
+/* Days Grid */
+.jdp-days {
+}
+
+.jdp-day {
+}
+
+.jdp-day:hover {
+}
+
+/* Day State Modifiers */
+.jdp-day.not-in-month {
+}
+
+.jdp-day.today {
+}
+
+.jdp-day.selected {
+}
+
+.jdp-day.holiday-day {
+}
+
+/* Footer Buttons */
+.jdp-footer {
+}
+
+.jdp-btn-today,
+.jdp-btn-empty {
+}
+
+.jdp-btn-today {
+}
+
+.jdp-btn-today:hover {
+}
+
+.jdp-btn-empty {
+}
+
+.jdp-btn-empty:hover {
+}

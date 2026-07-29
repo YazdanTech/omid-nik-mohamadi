@@ -1,20 +1,34 @@
 from rest_framework import serializers
+
+from django_jalali.serializers.serializerfield import JDateField
+
 from .models import CustomUser, SMSVerification
 
 
 class SignUpSerializer(serializers.ModelSerializer):
+    birth_date = JDateField(input_formats=["%Y/%m/%d", "%Y-%m-%d"], required=False, allow_null=True)
+    
+    def to_internal_value(self, data):
+        data = data.copy() if hasattr(data, "copy") else dict(data)
+        birth_date = data.get("birth_date")
+
+        if birth_date == "":
+            data["birth_date"] = None
+        elif isinstance(birth_date, str):
+            data["birth_date"] = birth_date.replace("/", "-")
+
+        return super().to_internal_value(data)
+
     class Meta:
         model = CustomUser
-        # Excluded password entirely
         fields = ["id", "full_name", "phone_number", "birth_date", "email"]
 
     def create(self, validated_data):
         user = CustomUser(**validated_data)
         user.username = validated_data["phone_number"]
-        user.set_unusable_password()  # Tells Django this user has no password set
+        user.set_unusable_password()
         user.save()
         return user
-
 
 class RequestOTPLoginSerializer(serializers.Serializer):
     """
@@ -56,8 +70,16 @@ class VerifyOTPSerializer(serializers.Serializer):
         attrs["verification"] = verification
         return attrs
 
-
 class UserSerializer(serializers.ModelSerializer):
+    birth_date = JDateField(input_formats=["%Y/%m/%d", "%Y-%m-%d"], required=False, allow_null=True)
+
     class Meta:
         model = CustomUser
-        fields = ["id", "full_name", "phone_number", "email", "birth_date", "is_verified"]
+        fields = [
+            "id",
+            "full_name",
+            "phone_number",
+            "email",
+            "birth_date",
+            "is_verified",
+        ]

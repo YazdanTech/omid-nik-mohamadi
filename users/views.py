@@ -33,7 +33,14 @@ class SignUpView(APIView):
 
     def post(self, request):
         serializer = SignUpSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        
+        # ADD THIS BLOCK
+        if not serializer.is_valid():
+            print("\n" + "="*40)
+            print("❌ INCOMING PAYLOAD:", request.data)
+            print("❌ SERIALIZER ERRORS:", serializer.errors)
+            print("="*40 + "\n")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         user = serializer.save()
 
         # Generate, save, and dispatch OTP via Kavenegar
