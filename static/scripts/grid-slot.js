@@ -84,22 +84,23 @@ function getCSRFToken() {
 
     // --- Step 2: Slot Fetch & Grid Population ---
     async function fetchAvailableSlots(date, duration) {
-        // 1. Double check your correct path here (with or without /api/)
         const url = `/api/booking/available-slots/?date=${date}&duration=${duration}`;
         console.log("Fetching from URL:", url);
 
         try {
             const response = await fetch(url);
-            console.log("Response status:", response.status);
-
             if (!response.ok) {
-                const errText = await response.text();
-                console.error("Backend returned error:", errText);
-                throw new Error();
+                console.error("Backend error status:", response.status);
+                return [];
             }
 
             const data = await response.json();
-            console.log("Raw data from backend:", data); // Check if this list is empty!
+            console.log("Raw data from backend:", data);
+
+            if (!data || !Array.isArray(data.available_slots)) {
+                console.error("Expected 'available_slots' array but got:", data);
+                return [];
+            }
 
             return data.available_slots.map(time => time.slice(0, 5));
         } catch (err) {
@@ -164,25 +165,36 @@ function getCSRFToken() {
             wrapper.classList.remove("is-disabled");
             grid.innerHTML = '<div style="text-align:center; padding:20px; color:white;">در حال بارگذاری...</div>';
 
-            const availableStarts = await fetchAvailableSlots(bookingData.date, bookingData.totalDuration);
+            try {
+                // Safe date formatting check
+                let gregorianDate = bookingData.date.replaceAll("/", "-");
+                if (typeof moment !== "undefined") {
+                    gregorianDate = moment(bookingData.date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD');
+                }
 
-            grid.innerHTML = "";
-            const rows = [];
-            let hour = 9, minute = 0;
-            while (hour < 23) {
-                const time = String(hour).padStart(2, "0") + ":" + String(minute).padStart(2, "0");
-                const isAvailable = availableStarts.includes(time);
-                const row = buildRow(time, isAvailable);
-                grid.appendChild(row);
-                rows.push(row);
+                const availableStarts = await fetchAvailableSlots(gregorianDate, bookingData.totalDuration);
 
-                minute += 30;
-                if (minute === 60) { minute = 0; hour += 1; }
+                grid.innerHTML = "";
+                const rows = [];
+                let hour = 9, minute = 0;
+                while (hour < 23) {
+                    const time = String(hour).padStart(2, "0") + ":" + String(minute).padStart(2, "0");
+                    const isAvailable = availableStarts.includes(time);
+                    const row = buildRow(time, isAvailable);
+                    grid.appendChild(row);
+                    rows.push(row);
+
+                    minute += 30;
+                    if (minute === 60) { minute = 0; hour += 1; }
+                }
+                markRuns(rows);
+            } catch (err) {
+                console.error("Error rendering slots:", err);
+                grid.innerHTML = '<div style="text-align:center; padding:20px; color:#ff6b6b;">خطا در دریافت زمان‌های خالی</div>';
             }
-            markRuns(rows);
         } else {
             wrapper.classList.add("is-disabled");
-            grid.innerHTML = ""; // Inactive state
+            grid.innerHTML = "";
         }
     }
 
@@ -210,7 +222,14 @@ function getCSRFToken() {
         handleDateChange();
     });
 
-    dateInput.addEventListener("change", handleDateChange);
+    // Initialize jalalidatepicker
+    jalaliDatepicker.startWatch();
+
+    // Listen for date selection (this library fires native "change" events)
+    dateInput.addEventListener("change", function () {
+        bookingData.date = dateInput.value; // Format is YYYY/MM/DD
+        handleDateChange();
+    });
 
 
     // --- Step 3: Populate & Booking Execution ---
@@ -230,7 +249,7 @@ function getCSRFToken() {
 
         const payload = {
             service_ids: bookingData.services.map(s => s.pk), // Send array of selected service PKs
-            date: bookingData.date,
+            date: moment(bookingData.date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
             start_time: bookingData.time,
             bypass_code: bypassInput.value.trim()
         };

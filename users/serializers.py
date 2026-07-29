@@ -21,7 +21,7 @@ class SignUpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ["id", "full_name", "phone_number", "birth_date", "email"]
+        fields = ["id", "full_name", "phone_number", "birth_date"]
 
     def create(self, validated_data):
         user = CustomUser(**validated_data)
@@ -79,7 +79,6 @@ class UserSerializer(serializers.ModelSerializer):
             "id",
             "full_name",
             "phone_number",
-            "email",
             "birth_date",
             "is_verified",
         ]

@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{% static 'styles/book.css' %}">
     <link rel="stylesheet" href="{% static 'styles/main.css' %}">
     
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
     <script src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
     
@@ -268,12 +269,6 @@
                                     <input class="auth__input" type="tel" id="phoneNumber" name="phone_number"
                                         autocomplete="tel" placeholder="+98 912 000 0000" required>
                                 </div>
-                                <div class="auth__field">
-                                    <label class="auth__label" for="emailOptional">ایمیل <span
-                                            class="auth__optional">(اختیاری)</span></label>
-                                    <input class="auth__input" type="email" id="emailOptional" name="email"
-                                        autocomplete="email" placeholder="you@نمونه.com">
-                                </div>
                                 <div class="auth__nav-buttons">
                                     <button class="auth__button auth__button--ghost" type="button"
                                         data-action="back">بازگشت</button>
@@ -316,14 +311,6 @@
                             <h1 class="auth__title">ورود</h1>
                             <p class="auth__subtitle">رزرو نوبت بعدی و مدیریت مراجعات شما.</p>
                         </header>
-
-                        <div class="auth__tabs" role="tablist" aria-label="Sign in method" data-reveal
-                            style="display: none;">
-                            <button class="auth__tab " type="button" role="tab" aria-selected="true" id="tab-email"
-                                data-tab-target="email">ایمیل</button>
-                            <button class="auth__tab auth__tab--active" type="button" role="tab" aria-selected="false"
-                                id="tab-mobile" data-tab-target="mobile">موبایل</button>
-                        </div>
 
                         <form class="auth__form" id="signInForm" novalidate data-reveal>
                             <div class="auth__stage" data-stage="1">
@@ -520,6 +507,8 @@
 
 
     {% block script %}{% endblock %}
+
+    <script src="https://unpkg.com/jalali-moment/dist/jalali-moment.browser.js"></script>
 
     <script>
         window.isUserAuthenticated = {{ request.user.is_authenticated|yesno:"true,false" }};

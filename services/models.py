@@ -18,7 +18,7 @@ class Service(models.Model):
         db_index=True
     )
     
-    price = models.DecimalField(_("قیمت"), max_digits=10, decimal_places=2)
+    price = models.IntegerField(_("قیمت"))
     duration_minutes = models.PositiveIntegerField(_("مدت زمان (دقیقه)"))
     is_active = models.BooleanField(_("فعال"), default=True)
 

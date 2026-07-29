@@ -1,6 +1,7 @@
+from datetime import datetime, timedelta
+
 from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
-
 from django_jalali.db import models as jmodels
 
 from services.models import Service
@@ -49,8 +50,8 @@ class Booking(models.Model):
     services = models.ManyToManyField(
         Service, related_name="bookings", verbose_name=_("خدمات")
     )
-    slot = models.OneToOneField(
-        BookingSlot, on_delete=models.PROTECT, related_name="booking", verbose_name=_("اسلات")
+    slot = models.ForeignKey(
+        BookingSlot, on_delete=models.PROTECT, related_name="bookings", verbose_name=_("اسلات")
     )
     deposit_paid = models.BooleanField(_("پیش‌پرداخت شده"), default=False)
     bypass_code_used = models.ForeignKey(
@@ -74,7 +75,6 @@ class Booking(models.Model):
     def __str__(self):
         return f"{self.user} - {self.slot}"
 
-
     def create_payment(self, amount):
         """Creates a pending payment ledger record linked to this booking."""
         from django.contrib.contenttypes.models import ContentType
@@ -85,7 +85,7 @@ class Booking(models.Model):
             content_type=ContentType.objects.get_for_model(self),
             object_id=str(self.id)
         )
-        
+
     def mark_as_paid(self):
         """Called automatically on successful payment verification"""
         with transaction.atomic():
@@ -98,8 +98,24 @@ class Booking(models.Model):
         with transaction.atomic():
             self.status = self.Status.CANCELLED
             self.save(update_fields=["status"])
-            
-            # Release the slot reservation
-            if hasattr(self, 'slot') and self.slot:
-                self.slot.is_booked = False
-                self.slot.save(update_fields=["is_booked"])
+
+            if hasattr(self, "slot") and self.slot:
+                total_duration = sum(s.duration_minutes for s in self.services.all())
+                required_slots_count = max(1, -(-total_duration // 30))
+
+                slot_date = self.slot.date
+                if hasattr(slot_date, "togregorian"):
+                    greg_date = slot_date.togregorian()
+                else:
+                    greg_date = slot_date
+
+                start_dt = datetime.combine(greg_date, self.slot.start_time)
+                times_to_release = [
+                    (start_dt + timedelta(minutes=30 * i)).time()
+                    for i in range(required_slots_count)
+                ]
+                
+                BookingSlot.objects.filter(
+                    date=self.slot.date,
+                    start_time__in=times_to_release
+                ).update(is_booked=False)

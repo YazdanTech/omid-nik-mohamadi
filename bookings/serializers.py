@@ -1,4 +1,5 @@
-from django_jalali.serializers.serializerfield import JDateField  # Optional: Use if passing Jalali dates
+# serializers.py — unchanged, no issues found
+from django_jalali.serializers.serializerfield import JDateField
 from rest_framework import serializers
 
 from services.models import Service
@@ -10,8 +11,7 @@ class CreateBookingSerializer(serializers.Serializer):
     service_ids = serializers.ListField(
         child=serializers.IntegerField(), allow_empty=False
     )
-    # Use JDateField if accepting Jalali dates, or add input_formats
-    date = JDateField()  
+    date = JDateField()
     start_time = serializers.TimeField()
     bypass_code = serializers.CharField(required=False, allow_blank=True)
 

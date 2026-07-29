@@ -36,7 +36,7 @@ class CustomUser(AbstractUser):
     full_name = models.CharField(_("نام کامل"), max_length=150)
     phone_number = models.CharField(_("شماره موبایل"), max_length=15, unique=True)
     birth_date = jmodels.jDateField(_("تاریخ تولد"), null=True, blank=True)
-    email = models.EmailField(_("ایمیل"), null=True, blank=True)
+    email = None  # Completely removes the inherited email field
     is_verified = models.BooleanField(_("تایید شده"), default=False)
 
     USERNAME_FIELD = "phone_number"

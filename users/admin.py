@@ -6,13 +6,13 @@ from .models import CustomUser, SMSVerification
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
-    list_display = ["phone_number", "full_name", "email", "is_verified", "is_active", "date_joined"]
+    list_display = ["phone_number", "full_name", "is_verified", "is_active", "date_joined"]
     list_filter = ["is_verified", "is_active", "is_staff"]
-    search_fields = ["phone_number", "full_name", "email"]
+    search_fields = ["phone_number", "full_name"]
     ordering = ["-date_joined"]
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        ("اطلاعات شخصی", {"fields": ("full_name", "phone_number", "birth_date", "email")}),
+        ("اطلاعات شخصی", {"fields": ("full_name", "phone_number", "birth_date")}),
         ("دسترسی‌ها", {"fields": ("is_active", "is_verified", "is_staff", "is_superuser", "groups", "user_permissions")}),
         ("تاریخ‌ها", {"fields": ("last_login", "date_joined")}),
     )

@@ -98,7 +98,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-LANGUAGE_CODE = 'fa'  # Updated to Persian locale
+LANGUAGE_CODE = 'fa-ir'  # Updated to Persian locale
 TIME_ZONE = 'Asia/Tehran'
 USE_I18N = True
 USE_TZ = True

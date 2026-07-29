@@ -1,4 +1,7 @@
-from datetime import datetime, timedelta, time
+from datetime import datetime, time, timedelta
+
+import jdatetime
+from django.utils import timezone
 
 from django.db import transaction
 from django.shortcuts import get_object_or_404
@@ -13,8 +16,9 @@ from .models import Booking, BookingSlot
 from .serializers import BookingSerializer, CreateBookingSerializer
 
 
-class AvailableSlotsView(APIView):
 
+
+class AvailableSlotsView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
@@ -22,46 +26,65 @@ class AvailableSlotsView(APIView):
         duration_param = request.query_params.get("duration")
 
         if not date_param or not duration_param:
-            return Response({"detail": "date و duration الزامی است"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"detail": "date و duration الزامی است"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         try:
-            target_date = datetime.strptime(date_param, "%Y-%m-%d").date()
+            # 1. Parse incoming Gregorian string (e.g. "2026-07-30")
+            target_date_greg = datetime.strptime(date_param, "%Y-%m-%d").date()
             duration = int(duration_param)
-        except ValueError:
-            return Response({"detail": "پارامترها نامعتبر است"}, status=status.HTTP_400_BAD_REQUEST)
 
-        # 1. Define shop hours (09:00 to 23:00 in 30-minute steps)
+            # 2. Convert to Jalali date for database filtering if using django_jalali
+            target_date_jalali = jdatetime.date.fromgregorian(
+                date=target_date_greg
+            )
+        except ValueError:
+            return Response(
+                {"detail": "پارامترها نامعتبر است"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         start_hour = 9
         end_hour = 23
         step_minutes = 30
 
-        # 2. Get existing booked times for this date from the database
+        # Query database using target_date_greg (or target_date_jalali depending on model field)
+        # If your model date field is standard DateField, use target_date_greg.
+        # If it's jmodels.jDateField, use target_date_jalali.
         booked_times = set(
-            BookingSlot.objects.filter(date=target_date, is_booked=True)
-            .values_list("start_time", flat=True)
+            BookingSlot.objects.filter(
+                date=target_date_jalali, is_booked=True
+            ).values_list("start_time", flat=True)
         )
 
-        # 3. Dynamically build in-memory BookingSlot objects for the full day
         virtual_slots = []
-        current_time = datetime.combine(target_date, time(hour=start_hour))
-        end_time = datetime.combine(target_date, time(hour=end_hour))
+        current_time = datetime.combine(
+            target_date_greg, time(hour=start_hour)
+        )
+        end_time = datetime.combine(target_date_greg, time(hour=end_hour))
 
         while current_time < end_time:
             slot_time = current_time.time()
-            # If this time exists as booked in DB, mark it as booked. Otherwise, it is free.
             is_booked = slot_time in booked_times
-            
-            # We mock the class instance structure so your sliding window logic doesn't break
+
             virtual_slots.append(
                 BookingSlot(
-                    date=target_date,
+                    date=target_date_greg,
                     start_time=slot_time,
-                    is_booked=is_booked
+                    is_booked=is_booked,
                 )
             )
             current_time += timedelta(minutes=step_minutes)
 
-        # 4. Apply your contiguous sliding-window logic
+        # Filter out past times for today
+        now = timezone.localtime(timezone.now())
+        if target_date_greg == now.date():
+            virtual_slots = [
+                s for s in virtual_slots if s.start_time > now.time()
+            ]
+
         required_slots = max(1, -(-duration // 30))
         available_starts = []
 
@@ -70,8 +93,12 @@ class AvailableSlotsView(APIView):
 
             contiguous = True
             for j in range(1, len(window)):
-                prev_dt = datetime.combine(target_date, window[j - 1].start_time)
-                curr_dt = datetime.combine(target_date, window[j].start_time)
+                prev_dt = datetime.combine(
+                    target_date_greg, window[j - 1].start_time
+                )
+                curr_dt = datetime.combine(
+                    target_date_greg, window[j].start_time
+                )
                 if curr_dt - prev_dt != timedelta(minutes=30):
                     contiguous = False
                     break
@@ -100,36 +127,30 @@ class CreateBookingView(APIView):
         total_duration = sum(s.duration_minutes for s in services)
         required_slots = max(1, -(-total_duration // 30))
 
-        # Calculate the actual times that need to be locked
         target_date = data["date"]
-        start_time_dt = datetime.combine(target_date, data["start_time"])
+        start_time_dt = datetime.combine(target_date.togregorian(), data["start_time"])
         required_times = [
             (start_time_dt + timedelta(minutes=30 * i)).time()
             for i in range(required_slots)
         ]
 
         with transaction.atomic():
-            # 1. Check if any of these slots are ALREADY created and marked is_booked in the DB
-            existing_booked_slots = BookingSlot.objects.select_for_update().filter(
-                date=target_date,
-                start_time__in=required_times,
-                is_booked=True
-            )
-
-            if existing_booked_slots.exists():
-                return Response({"detail": "بازه زمانی در دسترس نیست"}, status=status.HTTP_409_CONFLICT)
-
-            # 2. Safely get-or-create these slots in the database and mark them as booked
             slots = []
             for slot_time in required_times:
-                slot, created = BookingSlot.objects.get_or_create(
+                slot, created = BookingSlot.objects.select_for_update().get_or_create(
                     date=target_date,
                     start_time=slot_time,
                     defaults={"is_booked": True}
                 )
+
+                if not created and slot.is_booked:
+                    transaction.set_rollback(True)
+                    return Response({"detail": "بازه زمانی در دسترس نیست"}, status=status.HTTP_409_CONFLICT)
+
                 if not created and not slot.is_booked:
                     slot.is_booked = True
-                    slot.save()
+                    slot.save(update_fields=["is_booked"])
+
                 slots.append(slot)
 
             primary_slot = slots[0]
@@ -143,9 +164,9 @@ class CreateBookingView(APIView):
                 status=Booking.Status.CONFIRMED if bypass_code_obj else Booking.Status.PENDING,
             )
             booking.services.set(services)
-            
+
             payment = None
-            
+
             if not bypass_code_obj:
                 total_price = sum(
                     getattr(s, "price", 0) or getattr(s, "deposit_amount", 0)
@@ -159,7 +180,6 @@ class CreateBookingView(APIView):
                 "payment_id": payment.id if payment else None,
                 "detail": "رزرو با موفقیت انجام شد"
             }, status=status.HTTP_201_CREATED)
-
 
 
 class PaymentVerifyView(APIView):
@@ -177,15 +197,9 @@ class PaymentVerifyView(APIView):
 
         booking = get_object_or_404(Booking, id=booking_id)
 
-        with transaction.atomic():
-            if str(payment_success).lower() in ("1", "true"):
-                booking.deposit_paid = True
-                booking.status = Booking.Status.CONFIRMED
-                booking.save(update_fields=["deposit_paid", "status"])
-            else:
-                booking.status = Booking.Status.CANCELLED
-                booking.save(update_fields=["status"])
-                booking.slot.is_booked = False
-                booking.slot.save(update_fields=["is_booked"])
+        if str(payment_success).lower() in ("1", "true"):
+            booking.mark_as_paid()
+        else:
+            booking.mark_as_failed()
 
         return Response(BookingSerializer(booking).data, status=status.HTTP_200_OK)
