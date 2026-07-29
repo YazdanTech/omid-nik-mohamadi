@@ -89,11 +89,11 @@
                 <form class="shipping-form" id="shippingForm">
                     <div class="form-group">
                         <label for="fullName">نام و نام خانوادگی</label>
-                        <input type="text" id="fullName" placeholder="علی رضایی">
+                        <input type="text" id="fullName" value="{{ request.user.full_name|default:'' }}" placeholder="علی رضایی">
                     </div>
                     <div class="form-group">
                         <label for="phone">شماره تماس</label>
-                        <input type="tel" id="phone" placeholder="09121234567">
+                        <input type="tel" id="phone" value="{{ request.user.phone_number|default:'' }}" placeholder="09121234567">
                     </div>
                     <div class="form-group">
                         <label for="address">آدرس تحویل</label>
