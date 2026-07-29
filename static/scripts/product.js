@@ -96,7 +96,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Handle Shipping Form Submit & Gateway Redirection
+
 if (shippingForm) {
   shippingForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -109,23 +109,27 @@ if (shippingForm) {
     const submitBtn = shippingForm.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn ? submitBtn.innerHTML : "پرداخت";
 
-    // Show loading state & disable button
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.innerHTML = "در حال انتقال به درگاه پرداخت...";
     }
 
     const formData = new FormData(shippingForm);
+
+    // 1. Build payload to match CheckoutSerializer
     const orderData = {
       product_id: activeProduct.id,
-      address: formData.get('address'),
-      postal_code: formData.get('postal_code'),
-      // Add other relevant checkout fields here
+      quantity: 1, // Set default or pull from a quantity input if you have one
+      shipping_name: formData.get('shipping_name'),
+      shipping_phone: formData.get('shipping_phone'),
+      shipping_address: formData.get('shipping_address')
     };
 
     try {
       const csrfToken = getCookie('csrftoken');
-      const orderResponse = await fetch('/api/payment/request/', {
+
+      // 2. Point Step 1 to your Checkout View URL (e.g. /api/shop/checkout/)
+      const orderResponse = await fetch('/shop/api/product/checkout/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -135,36 +139,38 @@ if (shippingForm) {
       });
 
       if (!orderResponse.ok) {
+        const errData = await orderResponse.json();
+        console.error("Checkout Validation Errors:", errData);
         throw new Error("خطا در ایجاد سفارش");
       }
 
       const orderResult = await orderResponse.json();
-      const paymentId = orderResult.payment_id; // Your endpoint must return this ID
+      
+      // 3. Get order_id from CheckoutView response: { payment_payload: { order_id: ... } }
+      const orderId = orderResult.payment_payload.order_id;
 
-      // Step 2: Request the ZarinPal payment URL using the retrieved payment_id
+      // 4. Request ZarinPal URL using order_id
       const paymentResponse = await fetch('/api/payment/request/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrfToken,
         },
-        body: JSON.stringify({ payment_id: paymentId })
+        body: JSON.stringify({ order_id: orderId })
       });
 
       const paymentResult = await paymentResponse.json();
 
       if (paymentResponse.ok && paymentResult.payment_url) {
-        // Step 3: Redirect the browser directly to the ZarinPal payment gateway
         window.location.href = paymentResult.payment_url;
       } else {
+        console.error("Payment Request Error:", paymentResult);
         throw new Error(paymentResult.detail || "خطا در اتصال به درگاه پرداخت");
       }
 
     } catch (error) {
-      console.error(error);
       alert(error.message || "بروز خطا در برقراری ارتباط با سرور");
       
-      // Restore button state on failure
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;

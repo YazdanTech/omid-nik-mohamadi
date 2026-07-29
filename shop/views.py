@@ -25,8 +25,11 @@ class CheckoutView(APIView):
 
     def post(self, request):
         serializer = CheckoutSerializer(data=request.data)
+        print("Incoming Checkout Data:", request.data)  # <--- Print raw payload
+        
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
+        
 
         with transaction.atomic():
             product = get_object_or_404(Product.objects.select_for_update(), id=data["product_id"])

@@ -8,6 +8,6 @@ urlpatterns = [
     path("products/", product_page, name="product_page"),
     
     path("api/product/list", ProductCatalogView.as_view(), name="product-list"),
-    path("api/checkout/", CheckoutView.as_view(), name="checkout"),
+    path("api/product/checkout/", CheckoutView.as_view(), name="checkout"),
     path("api/product/payment-verify/", OrderPaymentVerifyView.as_view(), name="payment-verify"),
 ]
