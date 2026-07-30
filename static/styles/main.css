@@ -703,10 +703,8 @@ button:focus-visible {
     outline-offset: 3px;
 } */
 
-
-
-.modal {
-    display: none;
+.logout-modal {
+    display: flex;
     position: fixed;
     z-index: 10000000;
     left: 0;
@@ -714,11 +712,23 @@ button:focus-visible {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--dark-blue);
+    backdrop-filter: grayscale(1) brightness(0.5);
     align-items: center;
     justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.5s ease;
 }
 
-.modal-content {
+.logout-modal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.logout-modal-content {
     background-color: var(--bg-main);
     color: var(--text-main);
     padding: 24px;
@@ -727,42 +737,48 @@ button:focus-visible {
     max-width: 400px;
     text-align: center;
     direction: rtl;
-    box-shadow: 0 4px 12px rgb(0, 0, 0);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: translateY(-20px);
+    transition: all 0.5s ease;
 }
 
-.modal-content h3 {
+.logout-modal.active .logout-modal-content {
+    transform: translateY(0);
+}
+
+.logout-modal-content h3 {
     margin-top: 0;
     margin-bottom: 12px;
 }
 
-.modal-content p {
+.logout-modal-content p {
     color: var(--text-main);
     opacity: 0.8;
     font-size: 14px;
     margin-bottom: 24px;
 }
 
-.modal-actions {
+.logout-modal-actions {
     display: flex;
     gap: 12px;
     justify-content: center;
 }
 
-.btn-confirm {
+.logout-btn-confirm {
     background-color: var(--accent);
     color: var(--text-bg);
     border: none;
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 0;
     cursor: pointer;
 }
 
-.btn-cancel {
+.logout-btn-cancel {
     background-color: var(--accent-transparent);
     color: var(--text-main);
     border: 1px solid var(--text-main);
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 0;
     cursor: pointer;
 }
 
@@ -771,7 +787,8 @@ button:focus-visible {
     --font-body: Changa, Outfit, system-ui, -apple-system, arial;
     --font-mono: 'Space Mono', Vazirmatn, monospace;
     --font-calligraphic: 'Quintessential', 'Changa', serif;
-    --font-english: 'Limelight', 'Outfit', -apple-system, BlinkMacSystemFont, arial;
+    --font-english: 'Quintessential', 'Outfit', -apple-system, BlinkMacSystemFont, arial;
+    --font-small: 'Space Mono', 'Outfit', -apple-system, BlinkMacSystemFont, arial;
     --font-clear: Outfit, arial, monospace;
 }
 

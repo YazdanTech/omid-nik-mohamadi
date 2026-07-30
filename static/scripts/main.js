@@ -317,55 +317,61 @@ document.addEventListener('DOMContentLoaded', () => {
 (function () {
     'use strict';
 
-    // Select all elements with the class 'logout-trigger'
     var triggers = document.querySelectorAll('.logout-trigger');
     var modal = document.getElementById('logoutModal');
     var confirmBtn = document.getElementById('confirmLogout');
     var cancelBtn = document.getElementById('cancelLogout');
 
     if (triggers.length > 0 && modal) {
-        // Bind the click event to every trigger found on the page
+        var openModal = function () {
+            modal.classList.add('active');
+        };
+
+        var closeModal = function () {
+            modal.classList.remove('active');
+        };
+
         triggers.forEach(function (trigger) {
             trigger.addEventListener('click', function (e) {
                 e.preventDefault();
-                modal.style.display = 'flex';
+                openModal();
             });
         });
 
-        cancelBtn.addEventListener('click', function () {
-            modal.style.display = 'none';
-        });
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', closeModal);
+        }
 
-        // Close modal when clicking outside of the content box
         modal.addEventListener('click', function (e) {
             if (e.target === modal) {
-                modal.style.display = 'none';
+                closeModal();
             }
         });
 
-        confirmBtn.addEventListener('click', async function () {
-            confirmBtn.disabled = true;
-            try {
-                let res = await fetch("/api/auth/logout/", {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': getCSRFToken()
+        if (confirmBtn) {
+            confirmBtn.addEventListener('click', async function () {
+                confirmBtn.disabled = true;
+                try {
+                    let res = await fetch("/api/auth/logout/", {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': typeof getCSRFToken === 'function' ? getCSRFToken() : ''
+                        }
+                    });
+
+                    if (res.ok || res.status === 403 || res.status === 401) {
+                        window.location.href = '/';
+                    } else {
+                        console.warn('Logout returned unexpected status:', res.status);
+                        window.location.href = '/';
                     }
-                });
-
-                // If successful (200 OK) or already logged out / expired (403/401), clean up and redirect
-                if (res.ok || res.status === 403 || res.status === 401) {
+                } catch (err) {
+                    console.error('Logout request failed:', err);
                     window.location.href = '/';
-                } else {
-                    console.warn('Logout returned unexpected status:', res.status);
-                    window.location.href = '/'; // Fallback redirect anyway
+                } finally {
+                    confirmBtn.disabled = false;
                 }
-            } catch (err) {
-                console.error('Logout request failed:', err);
-                window.location.href = '/'; // Fallback redirect on network failure
-            } finally {
-                confirmBtn.disabled = false;
-            }
-        });
+            });
+        }
     }
 })();
