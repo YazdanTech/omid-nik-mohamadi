@@ -70,7 +70,7 @@
             <div class="action-wrapper split">
                 <!-- Dynamic "Try Again" links based on type -->
                 {% if request.GET.type == "booking" or type == "booking" %}
-                    <a href="/booking/" class="btn-primary accent">تلاش مجدد</a>
+                    <a href="/" class="btn-primary accent">تلاش مجدد</a>
                 {% elif request.GET.type == "product" or request.GET.type == "order" or type == "product" or type == "order" %}
                     <a href="/shop/" class="btn-primary accent">تلاش مجدد</a>
                 {% else %}

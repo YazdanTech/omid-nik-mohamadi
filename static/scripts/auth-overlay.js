@@ -161,7 +161,7 @@ function getCSRFToken() {
                 });
 
                 if (res.ok) {
-                    if (errorEl) errorEl.textContent = 'ککد تایید ارسال شد.';
+                    if (errorEl) errorEl.textContent = 'کد تایید به شماره شما ارسال شد';
                     loginOtpRequested = true;
 
                     if (signInOtpContainer) {

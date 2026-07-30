@@ -373,9 +373,9 @@
 .auth__otp {
     display: flex;
     gap: 0.6rem;
+    direction:ltr;
     justify-content: center;
 }
-
 
 .auth__otp-input {
     text-align: center;
@@ -396,6 +396,7 @@
     transform: translateY(-0.15rem);
     box-shadow: 0 0.5rem 1rem var(--accent-transparent);
 }
+
 
 .auth__resend {
     align-self: center;
@@ -425,11 +426,6 @@
 
     .auth__stage-grid {
         grid-template-columns: 1fr 1fr;
-    }
-
-    .auth__otp-input {
-        inline-size: 3.2rem;
-        block-size: 3.6rem;
     }
 }
 
