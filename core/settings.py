@@ -7,8 +7,6 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "omidnikmohamadi.com",
     "www.omidnikmohamadi.com",
-    "https://www.omidnikmohamadi.com",
-    "http://www.omidnikmohamadi.com",
     "185.10.75.21",
 ]
 
@@ -92,13 +90,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media Storage Configuration
 MEDIA_URL = '/media/'
