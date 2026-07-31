@@ -98,12 +98,12 @@ STATICFILES_DIRS = [
 ]
 
 # for local
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
-# MEDIA_ROOT = BASE_DIR / 'media'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # for server
-STATIC_ROOT = '/home/omidnikmohamadic/public_html/static'
-MEDIA_ROOT = '/home/omidnikmohamadic/public_html/media'
+# STATIC_ROOT = '/home/omidnikmohamadic/public_html/static'
+# MEDIA_ROOT = '/home/omidnikmohamadic/public_html/media'
 
 # Media Storage Configuration
 MEDIA_URL = '/media/'
