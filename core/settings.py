@@ -3,8 +3,14 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-494&!aza0@ei_@+ga6vkjx1w$w!5)&65qd71r_38_%gzw*kyw%'
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = [
+    "omidnikmohamadi.com",
+    "www.omidnikmohamadi.com",
+    "https://www.omidnikmohamadi.com",
+    "http://www.omidnikmohamadi.com",
+    "185.10.75.21",
+]
 
 INSTALLED_APPS = [
     'django_jalali',
@@ -92,7 +98,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Media Storage Configuration
 MEDIA_URL = '/media/'
