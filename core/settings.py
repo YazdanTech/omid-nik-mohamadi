@@ -97,11 +97,16 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# for local
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+# MEDIA_ROOT = BASE_DIR / 'media'
+
+# for server
+STATIC_ROOT = '/home/omidnikmohamadic/public_html/static'
+MEDIA_ROOT = '/home/omidnikmohamadic/public_html/media'
 
 # Media Storage Configuration
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 LANGUAGE_CODE = 'fa-ir'  # Updated to Persian locale
 TIME_ZONE = 'Asia/Tehran'
