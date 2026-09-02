@@ -24,8 +24,9 @@ TODAY
         
 	[x] pointer hover on services in home
 	[x] cursor pointer on  services booking
-	[] seperate display price and actual price
-	[] show actual price
+	[x] seperate display price and actual price
+	[] footer link currection
+	[] general website text currection
 	[] after closing booking modal, the divs must be display block
 	[] some dates be not choosable
 	[] dates before the current date be not choosable

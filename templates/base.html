@@ -393,8 +393,8 @@
                                     <input type="checkbox" class="service-select" id="sel-svc-{{ service.id }}" />
                                     <label for="sel-svc-{{ service.id }}" class="service-info">
                                         <span class="service-name">{{ service.title }}</span>
-                                        <span class="service-duration">{{ service.duration_minutes }}M</span>
-                                        <span class="service-price">{{ service.price }} میلیون تومان</span>
+                                        <span class="service-duration">{{ service.duration_minutes }} دقیقه</span>
+                                        <span class="service-price">{{ service.display_price }} میلیون تومان</span>
                                     </label>
                                 </li>
                                 {% endfor %}
@@ -413,7 +413,7 @@
                                         id="sel-svc-grooming-{{ service.id }}" />
                                     <label for="sel-svc-grooming-{{ service.id }}" class="service-info">
                                         <span class="service-name">{{ service.title }}</span>
-                                        <span class="service-price">{{ service.price }} T</span>
+                                        <span class="service-price">{{ service.display_price }} T</span>
                                     </label>
                                 </li>
                                 {% endfor %}

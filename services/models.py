@@ -18,7 +18,13 @@ class Service(models.Model):
         db_index=True
     )
     
-    price = models.IntegerField(_("قیمت"))
+    price = models.IntegerField(_("قیمت به ریال"))
+    display_price = models.CharField(
+        _("قیمت برای نمایش: مثال: 5.3 "),
+        max_length=500, 
+        blank=False, 
+        null=False,
+        )
     duration_minutes = models.PositiveIntegerField(_("مدت زمان (دقیقه)"))
     is_active = models.BooleanField(_("فعال"), default=True)
 
