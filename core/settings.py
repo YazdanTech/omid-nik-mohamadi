@@ -8,6 +8,7 @@ ALLOWED_HOSTS = [
     "omidnikmohamadi.com",
     "www.omidnikmohamadi.com",
     "185.10.75.21",
+    "127.0.0.1",
 ]
 
 INSTALLED_APPS = [

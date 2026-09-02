@@ -582,6 +582,7 @@ button {
     justify-content: space-between;
     padding: 1.75rem 0.25rem;
     border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
     transition: padding var(--transition-default), border-color var(--transition-default);
 }
 
@@ -793,17 +794,27 @@ button:focus-visible {
 }
 
 body {
-  font-family: var(--font-body);
+    font-family: var(--font-body);
 }
 
-h1, h2, h3, h4, h5, h6, .display-text {
-  font-family: var(--font-display);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.display-text {
+    font-family: var(--font-display);
 }
 
-code, pre, kbd, .mono-text {
-  font-family: var(--font-mono);
+code,
+pre,
+kbd,
+.mono-text {
+    font-family: var(--font-mono);
 }
 
-blockquote, .poetic-text {
-  font-family: var(--font-calligraphic);
+blockquote,
+.poetic-text {
+    font-family: var(--font-calligraphic);
 }

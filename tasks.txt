@@ -1,0 +1,37 @@
+
+TODAY
+    - Nik Mohammadi
+        [X] Audit remaining website issues
+		[x] date into gregorian for birthday
+		[x] date into grogorain for booking
+		[x] date into gregorian on admin page
+		[x] remove the points in the price on booking services
+        [w] Remind client about ZarinPal requirements
+        [w] Update website typography
+        [x] Call client → Complete hosting
+        [x] Call client → Complete Kavenegar
+        [x] List styling bugs
+        [x] Create task list from audit
+			- fix remaning inconsistent fontographies
+			- logout modal clearification and smooth come and go
+			- real link for footer links
+			- proper showing list of services in checkout page
+			- option of choosing definite clock to block it as reserved
+			- remove the digit form the service price
+			- proper blocking time logic
+        [x] Fix styling bugs
+        
+        
+	[x] pointer hover on services in home
+	[x] cursor pointer on  services booking
+	[] seperate display price and actual price
+	[] show actual price
+	[] after closing booking modal, the divs must be display block
+	[] some dates be not choosable
+	[] dates before the current date be not choosable
+	[] dates that are fully bokoed be not hcoosable
+	[] options of chooosing the time to deny a slot
+	[] if the service is changed, the time must be reselected. 
+	[] reduce imagea size and stuff
+	[] شناسه پرداخت یافت نشد after entering code, instead of showing the time was booked succcessfully. 
+- 
