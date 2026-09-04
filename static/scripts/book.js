@@ -1,3 +1,7 @@
+import {
+  executeBookingSubmit
+} from './grid-slot.js';
+
 const TOTAL_STEPS = 3;
 const TIME_MIN = '09:00';
 const TIME_MAX = '23:00';
@@ -49,6 +53,11 @@ function openModal(serviceId) {
   document.body.classList.add('no-scroll');
 
 
+  console.log(`Opening.. Step: ${currentStep}`)
+  currentStep = 1;
+  console.log(`Step Statues after Redeclaration to 1.. Step: ${currentStep}`)
+
+
   // Explicitly set starting state for the first-time open
   overlay.style.opacity = '0';
   overlay.style.display = 'flex';
@@ -64,7 +73,11 @@ function openModal(serviceId) {
 }
 
 function closeModal() {
-  goToStep(1)
+  console.log(`Closing.. Step: ${currentStep}`)
+  currentStep = 1;
+  goToStep(1);
+
+  console.log(`Step Statues after Redeclaration to 1.. Step: ${currentStep}`)
   const overlay = document.getElementById('bookingModalOverlay');
   document.body.classList.remove('no-scroll');
   overlay.style.opacity = '0';
@@ -300,5 +313,6 @@ function populateSummary() {
 
 function submitBooking() {
   const overlay = document.getElementById('bookingModalOverlay');
+  executeBookingSubmit()
   overlay.dispatchEvent(new CustomEvent('booking:pay', { bubbles: true }));
 }
