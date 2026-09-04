@@ -205,11 +205,9 @@ function getCSRFToken() {
 
         wrapper.classList.add("is-collapsed");
         wrapper.style.pointerEvents = "none";
-        setTimeout(() => {
-            if (wrapper.classList.contains("is-collapsed")) {
-                wrapper.style.display = "none";
-            }
-        }, 1000);
+        if (wrapper.classList.contains("is-collapsed")) {
+            wrapper.style.display = "none";
+        }
 
         summaryTimeEl.textContent = time;
         summary.classList.add("is-visible");

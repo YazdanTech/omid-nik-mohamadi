@@ -25,14 +25,15 @@ TODAY
 	[x] pointer hover on services in home
 	[x] cursor pointer on  services booking
 	[x] seperate display price and actual price
-	[] footer link currection
-	[] general website text currection
-	[] after closing booking modal, the divs must be display block
+	[x] after closing booking modal, the divs must be display block
 	[] some dates be not choosable
+	[] delete slots when the guy click on pay but won't pay
 	[] dates before the current date be not choosable
 	[] dates that are fully bokoed be not hcoosable
 	[] options of chooosing the time to deny a slot
 	[] if the service is changed, the time must be reselected. 
 	[] reduce imagea size and stuff
 	[] شناسه پرداخت یافت نشد after entering code, instead of showing the time was booked succcessfully. 
+	[] footer link currection
+	[] general website text currection
 - 

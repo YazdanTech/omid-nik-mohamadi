@@ -231,6 +231,7 @@
 .service-item[data-category="grooming"] .service-info {
   display: flex;
   flex-direction: row;
+  cursor: pointer;
   align-items: center;
   justify-content: space-between;
   width: 100%;

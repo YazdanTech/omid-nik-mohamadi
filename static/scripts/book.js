@@ -48,28 +48,28 @@ function openModal(serviceId) {
   const overlay = document.getElementById('bookingModalOverlay');
   document.body.classList.add('no-scroll');
 
-  
+
   // Explicitly set starting state for the first-time open
   overlay.style.opacity = '0';
   overlay.style.display = 'flex';
-  
+
   overlay.offsetHeight; // Force reflow to register starting state
   overlay.style.transition = 'opacity 1s ease';
-  
+
   overlay.classList.add('is-open');
   overlay.style.opacity = '1';
-  
+
   if (serviceId) preselectService(serviceId);
   goToStep(1);
 }
+
 function closeModal() {
+  goToStep(1)
   const overlay = document.getElementById('bookingModalOverlay');
   document.body.classList.remove('no-scroll');
   overlay.style.opacity = '0';
-  setTimeout(() => {
-    overlay.classList.remove('is-open');
-    overlay.style.display = 'none';
-  }, 1000); // Wait for 1s fade-out animation to complete
+  overlay.classList.remove('is-open');
+  overlay.style.display = 'none';
 }
 
 function bindClose() {
@@ -99,21 +99,21 @@ function bindExclusivity() {
   const groomingList = document.getElementById('groomingServiceList');
   if (!normalList || !groomingList) return;
 
-// WITH THIS:
-[normalList, groomingList].forEach(list => {
-  list.addEventListener('click', function (e) {
-    // Ignore clicks directly on or inside label/input to prevent double-toggling
-    if (e.target.closest('label') || e.target.classList.contains('service-select')) return;
+  // WITH THIS:
+  [normalList, groomingList].forEach(list => {
+    list.addEventListener('click', function (e) {
+      // Ignore clicks directly on or inside label/input to prevent double-toggling
+      if (e.target.closest('label') || e.target.classList.contains('service-select')) return;
 
-    const item = e.target.closest('.service-item');
-    if (!item) return;
-    const checkbox = item.querySelector('.service-select');
-    if (checkbox) {
-      checkbox.checked = !checkbox.checked;
-      checkbox.dispatchEvent(new Event('change', { bubbles: true }));
-    }
+      const item = e.target.closest('.service-item');
+      if (!item) return;
+      const checkbox = item.querySelector('.service-select');
+      if (checkbox) {
+        checkbox.checked = !checkbox.checked;
+        checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
   });
-});
   // Normal services: allows multiple choices, clears grooming list
   normalList.addEventListener('change', function (e) {
     if (!e.target.classList.contains('service-select')) return;
@@ -137,7 +137,6 @@ function bindExclusivity() {
     updateContinueState();
   });
 }
-
 
 function clearCategory(listEl) {
   listEl.querySelectorAll('.service-select').forEach(function (input) {
@@ -172,52 +171,42 @@ function bindNavigation() {
 }
 
 function goToStep(step) {
-  const currentSection = document.querySelector('.modal-step.is-active');
   const targetSection = document.querySelector(`.modal-step[data-step="${step}"]`);
-  
+  const currentSection = document.querySelector('.modal-step.is-active');
+
   currentStep = step;
 
   document.querySelectorAll('.progress-step').forEach(function (el) {
     const idx = Number(el.getAttribute('data-step'));
     el.classList.toggle('is-active', idx === step);
     el.classList.toggle('is-complete', idx < step);
-    if (idx === step) {
-      el.setAttribute('aria-current', 'step');
-    } else {
-      el.removeAttribute('aria-current');
-    }
+    idx === step ? el.setAttribute('aria-current', 'step') : el.removeAttribute('aria-current');
   });
 
   document.getElementById('backBtn').disabled = step === 1;
   document.getElementById('continueBtn').textContent = step === TOTAL_STEPS ? 'پرداخت بیعانه' : 'ادامه';
 
-  if (currentSection && currentSection !== targetSection) {
-    currentSection.style.transition = 'opacity 1s ease';
-    currentSection.style.opacity = '0';
-    
-    setTimeout(() => {
+  if (targetSection && targetSection !== currentSection) {
+    if (currentSection) {
       currentSection.classList.remove('is-active');
       currentSection.setAttribute('aria-hidden', 'true');
-      
-      if (targetSection) {
-        targetSection.classList.add('is-active');
-        targetSection.setAttribute('aria-hidden', 'false');
-        targetSection.style.opacity = '0';
-        targetSection.style.transition = 'opacity 1s ease';
-        targetSection.offsetHeight; // Force reflow
-        targetSection.style.opacity = '1';
-      }
-      updateContinueState();
-    }, 500);
-  } else {
-    document.querySelectorAll('.modal-step').forEach(function (section) {
-      const isActive = Number(section.getAttribute('data-step')) === step;
-      section.classList.toggle('is-active', isActive);
-      section.setAttribute('aria-hidden', String(!isActive));
-      section.style.opacity = isActive ? '1' : '0';
-    });
-    updateContinueState();
+      currentSection.style.transition = 'opacity 1s ease';
+      currentSection.style.opacity = '0';
+      setTimeout(() => {
+        if (!currentSection.classList.contains('is-active')) currentSection.style.display = 'none';
+      }, 1000);
+    }
+
+    targetSection.style.display = 'block';
+    targetSection.style.opacity = '0';
+    targetSection.offsetHeight; // force reflow before transition
+    targetSection.classList.add('is-active');
+    targetSection.setAttribute('aria-hidden', 'false');
+    targetSection.style.transition = 'opacity 1s ease';
+    targetSection.style.opacity = '1';
   }
+
+  updateContinueState();
 }
 
 function isStepValid(step) {
@@ -244,10 +233,10 @@ function updateContinueState() {
   if (currentStep === 2) {
     const timeInput = document.getElementById('bookingTime');
     const timeError = document.getElementById('timeErrorMsg');
-    
+
     if (timeInput && timeInput.value) {
       const isInvalidTime = !isTimeInRange(timeInput.value);
-      
+
       timeInput.classList.toggle('is-invalid', isInvalidTime);
       if (timeError) {
         timeError.classList.toggle('is-visible', isInvalidTime);
@@ -266,7 +255,7 @@ function populateSummary() {
   const noteEl = document.getElementById('summaryNote');
 
   servicesList.innerHTML = '';
-  
+
   let totalPrice = 0; // Tracks sum of selected services
 
   document.querySelectorAll('.service-select:checked').forEach(function (input) {
@@ -308,6 +297,7 @@ function populateSummary() {
   timeEl.textContent = timeInput.value || '—';
   noteEl.textContent = noteInput.value.trim() || '—';
 }
+
 function submitBooking() {
   const overlay = document.getElementById('bookingModalOverlay');
   overlay.dispatchEvent(new CustomEvent('booking:pay', { bubbles: true }));
