@@ -14,6 +14,14 @@ class BookingSlot(models.Model):
     date = jmodels.jDateField(_("تاریخ"))
     start_time = models.TimeField(_("ساعت شروع"))  # Standard TimeField
     is_booked = models.BooleanField(_("رزرو شده"), default=False)
+    booking = models.ForeignKey(
+        "Booking",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="slots",
+        verbose_name=_("رزرو"),
+    )
 
     class Meta:
         verbose_name = _("اسلات زمانی")
@@ -50,9 +58,7 @@ class Booking(models.Model):
     services = models.ManyToManyField(
         Service, related_name="bookings", verbose_name=_("خدمات")
     )
-    slot = models.ForeignKey(
-        BookingSlot, on_delete=models.PROTECT, related_name="bookings", verbose_name=_("اسلات")
-    )
+
     deposit_paid = models.BooleanField(_("پیش‌پرداخت شده"), default=False)
     bypass_code_used = models.ForeignKey(
         BypassCode,
@@ -73,7 +79,7 @@ class Booking(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.user} - {self.slot}"
+        return f"{self.user} - {self.services}"
 
     def create_payment(self, amount):
         """Creates a pending payment ledger record linked to this booking."""

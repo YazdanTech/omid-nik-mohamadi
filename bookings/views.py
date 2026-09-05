@@ -223,19 +223,21 @@ class CreateBookingView(APIView):
                     slot.save(update_fields=["is_booked"])
 
                 slots.append(slot)
-
-            primary_slot = slots[0]
+                
             bypass_code_obj = data.get("bypass_code_obj")
 
             booking = Booking.objects.create(
                 user=request.user,
-                slot=primary_slot,
                 deposit_paid=bool(bypass_code_obj),
                 bypass_code_used=bypass_code_obj,
                 status=Booking.Status.CONFIRMED if bypass_code_obj else Booking.Status.PENDING,
             )
             booking.services.set(services)
 
+            for slot in slots:
+                slot.booking = booking
+                slot.save(update_fields=["booking"])
+                
             payment = None
 
             if not bypass_code_obj:

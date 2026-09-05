@@ -24,12 +24,12 @@ TODAY
 		[x] cursor pointer on  services booking
 		[x] seperate display price and actual price
 		[x] after closing booking modal, the divs must be display block
+		[x] some dates be not choosable
+		[x] dates before the current date be not choosable
+		[x] dates that are fully bokoed be not hcoosable
         
         
-	[] some dates be not choosable
 	[] delete slots when the guy click on pay but won't pay
-	[] dates before the current date be not choosable
-	[] dates that are fully bokoed be not hcoosable
 	[] options of chooosing the time to deny a slot
 	[] if the service is changed, the time must be reselected. 
 	[] reduce imagea size and stuff
