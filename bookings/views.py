@@ -1,23 +1,94 @@
 from datetime import datetime, time, timedelta
 
-import jdatetime
+from django.db.models import Count, Q
+from django.db.models import F
 from django.utils import timezone
-
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+import jdatetime
 
 from services.models import Service
 
 from .models import Booking, BookingSlot
 from .serializers import BookingSerializer, CreateBookingSerializer
 
+START_HOUR = 9
+END_HOUR = 23
+STEP_MINUTES = 30
 
 
+def possible_slots_for_date(target_date_greg):
+    slots = []
+    current = datetime.combine(target_date_greg, time(hour=START_HOUR))
+    end = datetime.combine(target_date_greg, time(hour=END_HOUR))
+    while current < end:
+        slots.append(current.time())
+        current += timedelta(minutes=STEP_MINUTES)
 
+    now = timezone.localtime(timezone.now())
+    if target_date_greg == now.date():
+        slots = [s for s in slots if s > now.time()]
+
+    return slots
+
+class FullyBookedDatesView(APIView):
+    permission_classes = [AllowAny]
+
+    FULLY_BOOKED_BUFFER = 3   # treat date as fully booked if <= this many free slots remain
+    DEFAULT_LOOKAHEAD_DAYS = 180  # how far ahead to check when no range is given
+
+    def get(self, request):
+        start_param = request.query_params.get("start_date")
+        end_param = request.query_params.get("end_date")
+
+        today = timezone.localtime(timezone.now()).date()
+
+        try:
+            start_date = (
+                datetime.strptime(start_param, "%Y-%m-%d").date()
+                if start_param else today
+            )
+            end_date = (
+                datetime.strptime(end_param, "%Y-%m-%d").date()
+                if end_param else today + timedelta(days=self.DEFAULT_LOOKAHEAD_DAYS)
+            )
+        except ValueError:
+            return Response(
+                {"detail": "پارامترها نامعتبر است"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        fully_booked = []
+        current_date = start_date
+
+        while current_date <= end_date:
+            jalali_date = jdatetime.date.fromgregorian(date=current_date)
+            slots = possible_slots_for_date(current_date)
+
+            if not slots:
+                fully_booked.append(jalali_date.strftime("%Y/%m/%d"))
+            else:
+                booked_count = BookingSlot.objects.filter(
+                    date=jalali_date,
+                    is_booked=True,
+                    start_time__in=slots,
+                ).count()
+                
+                free_count = len(slots) - booked_count
+                if free_count <= self.FULLY_BOOKED_BUFFER:
+                    fully_booked.append(jalali_date.strftime("%Y/%m/%d"))
+
+            current_date += timedelta(days=1)
+
+        return Response({"fully_booked_dates": fully_booked})
+    
+    
 class AvailableSlotsView(APIView):
     permission_classes = [AllowAny]
 

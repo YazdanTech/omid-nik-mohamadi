@@ -20,12 +20,12 @@ TODAY
 			- remove the digit form the service price
 			- proper blocking time logic
         [x] Fix styling bugs
+		[x] pointer hover on services in home
+		[x] cursor pointer on  services booking
+		[x] seperate display price and actual price
+		[x] after closing booking modal, the divs must be display block
         
         
-	[x] pointer hover on services in home
-	[x] cursor pointer on  services booking
-	[x] seperate display price and actual price
-	[x] after closing booking modal, the divs must be display block
 	[] some dates be not choosable
 	[] delete slots when the guy click on pay but won't pay
 	[] dates before the current date be not choosable

@@ -1,6 +1,8 @@
 /* Main Pop-up Container */
 jdp-container {
 z-index: 99999;
+box-shadow: none;
+border-radius: 0;
 }
 
 /* Header Sections (Years & Months) */

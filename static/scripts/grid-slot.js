@@ -219,8 +219,48 @@ changeBtn.addEventListener("click", () => {
     handleDateChange();
 });
 
-// Initialize jalalidatepicker
-jalaliDatepicker.startWatch();
+async function getFullyBookedDates() {
+
+    const res = await fetch("/api/booking/fully-booked-dates/");
+    if (!res.ok) {
+        console.error("Failed to fetch fully booked dates");
+        return new Set();
+    }
+    const data = await res.json();
+    return new Set(data.fully_booked_dates);
+}
+
+// usage
+let fullyBookedDates = new Set();
+
+(async function () {
+    fullyBookedDates = await getFullyBookedDates();
+
+    jalaliDatepicker.startWatch({
+
+        minDate: "today",
+        maxDate: (function () {
+            let d = new Date();
+            d.setMonth(d.getMonth() + 6);
+            let j = jalaali.toJalaali(d);
+            return j.jy + "/" + String(j.jm).padStart(2, "0") + "/" + String(j.jd).padStart(2, "0");
+        })(),
+        dayRendering: function (dayOptions, input) {
+            const dateStr = dayOptions.year + "/" + String(dayOptions.month).padStart(2, "0") + "/" + String(dayOptions.day).padStart(2, "0");
+
+            // convert this jalali day to gregorian to check weekday
+            const g = jalaali.toGregorian(dayOptions.year, dayOptions.month, dayOptions.day);
+            const weekday = new Date(g.gy, g.gm - 1, g.gd).getDay(); // 5 = Friday
+
+            const isFriday = weekday === 5;
+            const isBooked = fullyBookedDates.has(dateStr);
+
+            return {
+                isValid: !(isFriday || isBooked)
+            };
+        }
+    });
+})();
 
 // Listen for date selection (this library fires native "change" events)
 dateInput.addEventListener("change", function () {

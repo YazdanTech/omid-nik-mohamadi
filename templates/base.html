@@ -428,7 +428,7 @@
                         <!-- 3. Booking Date Input -->
                         <div class="field-row">
                             <label for="bookingDate">تاریخ</label>
-                            <input type="text" id="bookingDate" name="booking_date" data-jdp placeholder="1405/01/01"
+                            <input type="text" id="bookingDate" name="booking_date" data-jdp placeholder="برای انتخاب تاریخ کلیک کنید. "
                                 autocomplete="off" />
                         </div>
                         <div class="field-row field-row-full">
@@ -509,6 +509,7 @@
     {% block script %}{% endblock %}
 
     <script src="https://unpkg.com/jalali-moment/dist/jalali-moment.browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.min.js"></script>
 
     <script>
         window.isUserAuthenticated = {{ request.user.is_authenticated|yesno:"true,false" }};
