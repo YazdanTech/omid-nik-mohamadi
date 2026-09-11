@@ -6,8 +6,6 @@ function getCSRFToken() {
 
 "use strict";
 
-// --- State ---
-let currentStep = 1;
 // WITH THIS:
 let bookingData = {
     services: [], // Holds all selected service objects
@@ -19,10 +17,7 @@ let bookingData = {
     bypassCode: ""
 };
 // --- Elements ---
-const modalSteps = document.querySelectorAll(".modal-step");
-const progressSteps = document.querySelectorAll(".progress-step");
 const continueBtn = document.getElementById("continueBtn");
-const backBtn = document.getElementById("backBtn");
 
 // Step 1 Elements
 const serviceItems = document.querySelectorAll(".service-item");
@@ -68,6 +63,19 @@ function updateSelectedServices() {
             totalDuration += duration;
             totalPrice += price;
         }
+        bookingData.totalDuration = totalDuration;
+        bookingData.totalPrice = totalPrice;
+        continueBtn.disabled = bookingData.services.length === 0;
+
+        // Duration changed -> force full re-selection of date, time, slots
+        bookingData.date = "";
+        bookingData.time = "";
+        dateInput.value = "";
+        hiddenTimeInput.value = "";
+        summary.classList.remove("is-visible");
+        wrapper.style.display = "none";
+        wrapper.classList.add("is-disabled");
+        grid.innerHTML = "";
     });
 
     bookingData.totalDuration = totalDuration;
@@ -79,7 +87,6 @@ serviceItems.forEach(item => {
     const input = item.querySelector(".service-select");
     input.addEventListener("change", updateSelectedServices);
 });
-
 
 // --- Step 2: Slot Fetch & Grid Population ---
 async function fetchAvailableSlots(date, duration) {
@@ -268,17 +275,6 @@ dateInput.addEventListener("change", function () {
     handleDateChange();
 });
 
-
-// --- Step 3: Populate & Booking Execution ---
-function renderSummary() {
-    const serviceNames = bookingData.services.map(s => s.name).join(" + ");
-    summaryServicesList.textContent = `${serviceNames} (${bookingData.totalDuration} دقیقه)`;
-    summaryDate.textContent = bookingData.date;
-    summaryTime.textContent = bookingData.time;
-    summaryNote.textContent = noteInput.value || "—";
-    continueBtn.textContent = "ثبت نوبت و پرداخت";
-    continueBtn.disabled = false;
-}
 
 export async function executeBookingSubmit() {
     continueBtn.disabled = true;

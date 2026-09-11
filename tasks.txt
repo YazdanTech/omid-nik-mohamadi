@@ -27,11 +27,11 @@ TODAY
 		[x] some dates be not choosable
 		[x] dates before the current date be not choosable
 		[x] dates that are fully bokoed be not hcoosable
+		[x] if the service is changed, the time must be reselected. 
         
         
 	[] delete slots when the guy click on pay but won't pay
 	[] options of chooosing the time to deny a slot
-	[] if the service is changed, the time must be reselected. 
 	[] reduce imagea size and stuff
 	[] شناسه پرداخت یافت نشد after entering code, instead of showing the time was booked succcessfully. 
 	[] footer link currection
