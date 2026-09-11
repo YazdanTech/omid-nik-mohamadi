@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
+import jdatetime
 from .models import Booking, BookingSlot, BypassCode
 
 
@@ -33,7 +34,7 @@ class BypassCodeAdmin(admin.ModelAdmin):
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ["user", "get_services", "status", "deposit_paid", "created_at"]
+    list_display = ["user", "get_services", "status", "deposit_paid", "get_created_at_jalali"]
     list_filter = ["status", "deposit_paid", "services"]
     search_fields = ["user__phone_number", "user__full_name"]
     autocomplete_fields = ["user", "services"]
@@ -42,3 +43,7 @@ class BookingAdmin(admin.ModelAdmin):
     @admin.display(description=_("خدمات"))
     def get_services(self, obj):
         return ", ".join([str(s) for s in obj.services.all()])
+
+    @admin.display(description=_("زمان ایجاد"))
+    def get_created_at_jalali(self, obj):
+        return jdatetime.datetime.fromgregorian(datetime=obj.created_at).strftime("%Y/%m/%d %H:%M")
