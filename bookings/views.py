@@ -186,6 +186,7 @@ class AvailableSlotsView(APIView):
             status=status.HTTP_200_OK,
         )
 
+
 class CreateBookingView(APIView):
     permission_classes = [IsAuthenticated]
 
