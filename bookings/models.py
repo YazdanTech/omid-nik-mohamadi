@@ -58,7 +58,7 @@ class Booking(models.Model):
     services = models.ManyToManyField(
         Service, related_name="bookings", verbose_name=_("خدمات")
     )
-d
+
     deposit_paid = models.BooleanField(_("پیش‌پرداخت شده"), default=False)
     bypass_code_used = models.ForeignKey(
         BypassCode,

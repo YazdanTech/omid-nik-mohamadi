@@ -1,0 +1,12 @@
+{% extends "admin/base_site.html" %}
+{% block extrahead %}
+  {{ block.super }}
+  {{ form.media }}
+{% endblock %}
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <table>{{ form.as_table }}</table>
+  <input type="submit" value="مسدود کن">
+</form>
+{% endblock %}
