@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/omidnikmohamadic/repositories/omid-nik-mohamadi/
+    - /bin/cp -R * $DEPLOYPATH
+    - source /home/omidnikmohamadic/virtualenv/repositories/omid-nik-mohamadi/3.10/bin/activate && cd $DEPLOYPATH && pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py collectstatic --noinput
+    - touch $DEPLOYPATH/tmp/restart.txt
