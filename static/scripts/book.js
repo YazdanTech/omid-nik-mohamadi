@@ -266,18 +266,18 @@ function populateSummary() {
   const dateEl = document.getElementById('summaryDate');
   const timeEl = document.getElementById('summaryTime');
   const noteEl = document.getElementById('summaryNote');
+  const totalPriceEl = document.getElementById('summaryTotalPrice');
 
   servicesList.innerHTML = '';
 
-  let totalPrice = 0; // Tracks sum of selected services
+  let totalPrice = 0;
 
   document.querySelectorAll('.service-select:checked').forEach(function (input) {
     const item = input.closest('.service-item');
     const name = item.querySelector('.service-name').textContent;
     const priceText = item.querySelector('.service-price').textContent;
 
-    // Parse numeric value from price text for calculation if needed
-    const rawPrice = parseInt(priceText.replace(/[^\d]/g, ''), 10) || 0;
+    const rawPrice = parseFloat(priceText.replace(/[^\d.]/g, '')) || 0;
     totalPrice += rawPrice;
 
     const row = document.createElement('div');
@@ -296,11 +296,13 @@ function populateSummary() {
     servicesList.appendChild(row);
   });
 
-  // Optional: Update total price element if you have one in HTML (e.g., id="summaryTotalPrice")
-  const totalPriceEl = document.getElementById('summaryTotalPrice');
-  if (totalPriceEl) {
-    totalPriceEl.textContent = `${totalPrice.toLocaleString()} تومان`;
+  if (servicesList.children.length === 0) {
+    servicesList.innerHTML = '<span class="summary-value">—</span>';
   }
+
+if (totalPriceEl) {
+  totalPriceEl.textContent = `${totalPrice.toLocaleString('en-US', { maximumFractionDigits: 2 })} میلیون تومان`;
+}
 
   const dateInput = document.getElementById('bookingDate');
   const timeInput = document.getElementById('bookingTime');

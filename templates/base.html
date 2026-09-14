@@ -31,11 +31,11 @@
     <link rel="stylesheet" href="{% static 'styles/auth-overlay.css' %}">
     <link rel="stylesheet" href="{% static 'styles/book.css' %}">
     <link rel="stylesheet" href="{% static 'styles/main.css' %}">
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
     <script src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
-    
+
     <link rel="stylesheet" href="{% static 'styles/jdp-container.css' %}">
 
     <script>
@@ -428,8 +428,8 @@
                         <!-- 3. Booking Date Input -->
                         <div class="field-row">
                             <label for="bookingDate">تاریخ</label>
-                            <input type="text" id="bookingDate" name="booking_date" data-jdp placeholder="برای انتخاب تاریخ کلیک کنید. "
-                                autocomplete="off" />
+                            <input type="text" id="bookingDate" name="booking_date" data-jdp
+                                placeholder="برای انتخاب تاریخ کلیک کنید. " autocomplete="off" />
                         </div>
                         <div class="field-row field-row-full">
                             <label for="bookingNote">توضیحات تکمیلی</label>
@@ -457,9 +457,9 @@
                 <section class="modal-step" data-step="3">
                     <div class="booking-summary-wrapper">
                         <div class="summary-details">
-                            <div class="summary-row">
+                            <div class="summary-row summary-services-row">
                                 <span class="summary-label">خدمات انتخابی</span>
-                                <div class="summary-value" id="summaryServicesList"></div>
+                                <div class="summary-services-list" id="summaryServicesList"></div>
                             </div>
                             <div class="summary-row">
                                 <span class="summary-label">تاریخ</span>
@@ -469,9 +469,13 @@
                                 <span class="summary-label">ساعت</span>
                                 <span class="summary-value" id="summaryTime">—</span>
                             </div>
-                            <div class="summary-row" style="border-bottom: none;">
+                            <div class="summary-row">
                                 <span class="summary-label">توضیحات</span>
                                 <span class="summary-value" id="summaryNote">—</span>
+                            </div>
+                            <div class="summary-row summary-total-row" style="border-bottom: none;">
+                                <span class="summary-label">جمع کل</span>
+                                <span class="summary-value" id="summaryTotalPrice">۰ تومان</span>
                             </div>
                         </div>
 

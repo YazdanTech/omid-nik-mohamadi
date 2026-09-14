@@ -430,9 +430,7 @@
   border-bottom: none;
 }
 
-
 [data-theme="light"] .summary-details {
-
   background: rgba(0, 0, 0, 0.1);
   border: 1px solid var(--border-color);
   animation: SummaryBreathWhite 3s ease infinite alternate;
@@ -453,7 +451,6 @@
     border: 1px solid var(--accent-transparent);
   }
 }
-
 
 .summary-row {
   display: flex;
@@ -479,16 +476,47 @@
   text-align: left;
 }
 
-#summaryServicesList {
-  display: flex;
-  border-right: 1px solid var(--accent);
-  padding: 1rem;
+/* Services block: header on top, list stacked below */
+.summary-services-row {
   flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+.summary-services-list {
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
+.summary-service-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.4rem 0.6rem;
+  border-right: 2px solid var(--accent);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.summary-service-item .name {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.summary-service-item .price {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.summary-total-row .summary-value {
+  font-weight: 700;
+  color: var(--accent);
+}
 .summary-service-item {
   display: flex;
   width: 100%;
@@ -579,12 +607,12 @@
   color: var(--text-main);
   border: 1px solid var(--accent);
   font-weight: 600;
-  box-shadow: 0px 0px 20px var(--accent-transparent);
+  background-color: var(--accent-transparent);
 }
 
 .btn-continue:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0px 14px 36px var(--accent-transparent);
+  box-shadow: 0px 0px 10px var(--accent-transparent);
+  background-color: var(--accent);
 }
 
 .btn-continue:disabled {

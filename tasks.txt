@@ -29,11 +29,17 @@ TODAY
 		[x] dates that are fully bokoed be not hcoosable
 		[x] if the service is changed, the time must be reselected. 
 		[x] options of chooosing the time to deny a slot
-        
+		[x] شناسه پرداخت یافت نشد after entering code, instead of showing the time was booked succcessfully. 
+		[x] either show date adn service and user in booking, or in booking slot, for better clarity for omid
+		[x] sum of money at the end
+		[x] picture border color fix
+		[x] btn style change at buying
         
 	[w] delete slots when the guy click on pay but won't pay
-	[] reduce imagea size and stuff
-	[] شناسه پرداخت یافت نشد after entering code, instead of showing the time was booked succcessfully. 
+
 	[] footer link currection
+	[] no scroll if modal is open
 	[] general website text currection
+	[] design audit
+	[] reduce imagea size and stuff
 - 

@@ -63,13 +63,23 @@ class BlockTimeRangeForm(forms.Form):
 
 @admin.register(BookingSlot)
 class BookingSlotAdmin(admin.ModelAdmin):
-    list_display = ["date", "start_time", "is_booked"]
+    list_display = ["date", "start_time", "is_booked", "get_user", "get_services"]
     list_filter = ["date", "is_booked"]
     date_hierarchy = "date"
     list_editable = ["is_booked"]
     ordering = ["date", "start_time"]
     actions = [mark_booked, mark_available]
     change_list_template = "admin/booking/bookingslot/change_list.html"
+    
+    @admin.display(description=_("کاربر"))
+    def get_user(self, obj):
+        return obj.booking.user if obj.booking else "-"
+
+    @admin.display(description=_("خدمات"))
+    def get_services(self, obj):
+        if not obj.booking:
+            return "-"
+        return ", ".join(str(s) for s in obj.booking.services.all())
 
     def get_urls(self):
         urls = super().get_urls()
@@ -126,11 +136,23 @@ class BypassCodeAdmin(admin.ModelAdmin):
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ["user", "get_services", "status", "deposit_paid", "get_created_at_jalali"]
+    list_display = ["user", "get_services", "get_booking_date", "get_booking_time", "status", "deposit_paid", "get_created_at_jalali"]
     list_filter = ["status", "deposit_paid", "services"]
     search_fields = ["user__phone_number", "user__full_name"]
     autocomplete_fields = ["user", "services"]
     date_hierarchy = "created_at"
+        
+    @admin.display(description=_("تاریخ رزرو"))
+    def get_booking_date(self, obj):
+        slot = obj.slots.order_by("start_time").first()
+        return slot.date if slot else "-"
+
+    @admin.display(description=_("ساعت رزرو"))
+    def get_booking_time(self, obj):
+        slots = obj.slots.order_by("start_time")
+        if not slots.exists():
+            return "-"
+        return f"{slots.first().start_time.strftime('%H:%M')} - {slots.last().start_time.strftime('%H:%M')}"
 
     @admin.display(description=_("خدمات"))
     def get_services(self, obj):

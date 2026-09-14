@@ -307,8 +307,8 @@ export async function executeBookingSubmit() {
         const booking = await response.json();
 
         // 2. If bypassed, go straight to success page
-        if (booking.status === "CONFIRMED") {
-            window.location.href = "/booking/success/";
+        if (booking.status === "Confirmed") {
+            window.location.href = "/api/payment/success/";
             return;
         }
 

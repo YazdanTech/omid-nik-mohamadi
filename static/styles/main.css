@@ -381,8 +381,8 @@ button {
     overflow: hidden;
     position: relative;
     box-shadow: 0 0 80px var(--black), 0 0 40px var(--black), 0 0 10px var(--black);
-    border-top: 1px solid var(--accent);
-    border-bottom: 1px solid var(--accent);
+    border-top: 1px solid var(--accent-transparent);
+    border-bottom: 1px solid var(--accent-transparent);
 }
 
 
